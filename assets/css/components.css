@@ -230,52 +230,60 @@
 }
 
 /* ============ FOOTER ============ */
-.ic-ftr {
-  position: relative;
-  z-index: 2;
+.ic-ftr-root { position: relative; z-index: 2; }
+.ic-ftr-block {
   background: var(--ic-bg);
   border-top: 1px solid var(--ic-rule);
-  padding: 48px 24px 32px;
+  padding: 56px 28px 36px;
   text-align: center;
 }
-.ic-ftr-inner { max-width: 600px; margin: 0 auto; }
-.ic-ftr-social {
+.ic-ftr-block-inner { max-width: 600px; margin: 0 auto; }
+.ic-ftr-block-social {
   display: flex;
   justify-content: center;
   gap: 18px;
-  margin-bottom: 24px;
+  margin: 0 0 24px;
 }
-.ic-ftr-social a {
-  width: 28px;
-  height: 28px;
+.ic-ftr-block-social a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.55;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-.ic-ftr-social a:hover { opacity: 1; transform: translateY(-2px); }
-.ic-ftr-social svg { width: 22px; height: 22px; fill: currentColor; color: var(--ic-text); }
-.ic-ftr-brand {
-  font-size: 13px;
-  text-transform: uppercase;
+  width: 36px;
+  height: 36px;
   color: var(--ic-muted);
-  letter-spacing: 0.16em;
-  margin-bottom: 8px;
-  font-weight: 700;
+  opacity: 0.55;
+  transition: opacity 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
-.ic-ftr-desc, .ic-ftr-addr {
+.ic-ftr-block-social a:hover {
+  opacity: 1;
+  color: var(--ic-text);
+  transform: translateY(-2px);
+}
+.ic-ftr-block-social svg { width: 20px; height: 20px; display: block; }
+.ic-ftr-block-brand {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--ic-muted);
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+.ic-ftr-block-tagline,
+.ic-ftr-block-address {
   font-size: 11px;
   color: var(--ic-muted);
-  letter-spacing: 0.08em;
-  line-height: 1.6;
-  margin: 0 0 6px;
+  margin: 0 0 4px;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+  line-height: 1.5;
 }
-.ic-ftr-copy {
+.ic-ftr-block-copyright {
   font-size: 10px;
   color: var(--ic-muted);
+  margin: 14px 0 0;
   letter-spacing: 0.08em;
-  margin: 16px 0 0;
+  opacity: 0.55;
+  text-transform: uppercase;
 }
 
 /* ============ BUTTONS ============ */
