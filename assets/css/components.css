@@ -80,13 +80,30 @@
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-}
-.ic-hdr-services-menu a.featured {
-  background: rgba(0,255,136,0.06);
-  color: var(--ic-green);
+  color: var(--ic-text);
+  transition: color 0.25s ease, text-shadow 0.25s ease;
 }
 @media (hover: hover) {
-  .ic-hdr-services-menu a:hover { background: rgba(255,255,255,0.05); }
+  .ic-hdr-services-menu a.featured:hover {
+    color: var(--ic-green);
+    text-shadow: 0 0 14px rgba(0, 255, 136, 0.6);
+  }
+  .ic-hdr-services-menu a[href*="spotify"]:hover {
+    color: var(--plat-spotify);
+    text-shadow: 0 0 14px rgba(29, 185, 84, 0.6);
+  }
+  .ic-hdr-services-menu a[href*="youtube"]:hover {
+    color: var(--plat-youtube);
+    text-shadow: 0 0 14px rgba(255, 59, 48, 0.6);
+  }
+  .ic-hdr-services-menu a[href*="instagram"]:hover {
+    color: var(--plat-instagram);
+    text-shadow: 0 0 14px rgba(0, 178, 255, 0.6);
+  }
+  .ic-hdr-services-menu a[href*="tiktok"]:hover {
+    color: #FFFFFF;
+    text-shadow: 0 0 14px rgba(255, 0, 80, 0.5), 0 0 14px rgba(0, 230, 255, 0.5);
+  }
 }
 .ic-hdr-cta {
   background: var(--ic-green);
@@ -142,7 +159,6 @@
   margin: 16px 0 4px;
 }
 .ic-hdr-mobile a {
-  position: relative;
   padding: 14px 18px;
   font-size: 14px;
   font-weight: 700;
@@ -151,24 +167,45 @@
   border: 1px solid var(--ic-rule);
   border-radius: 6px;
   background: var(--ic-bg-soft);
+  color: var(--ic-text);
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
 }
-.ic-hdr-mobile a::before {
-  content: '';
-  position: absolute;
-  left: -1px; top: 50%;
-  transform: translateY(-50%);
-  width: 3px;
-  height: 18px;
-  border-radius: 0 2px 2px 0;
-  background: var(--ic-green);
+.ic-hdr-mobile a.featured:hover,
+.ic-hdr-mobile a.featured:active,
+.ic-hdr-mobile a.featured.is-active {
+  color: var(--ic-green);
+  text-shadow: 0 0 14px rgba(0, 255, 136, 0.6);
 }
-.ic-hdr-mobile a[href*="spotify"]::before    { background: var(--plat-spotify); }
-.ic-hdr-mobile a[href*="youtube"]::before    { background: var(--plat-youtube); }
-.ic-hdr-mobile a[href*="instagram"]::before  { background: var(--plat-instagram); }
-.ic-hdr-mobile a[href*="tiktok"]::before     { background: var(--plat-tiktok-pink); }
+.ic-hdr-mobile a[href*="spotify"]:hover,
+.ic-hdr-mobile a[href*="spotify"]:active,
+.ic-hdr-mobile a[href*="spotify"].is-active {
+  color: var(--plat-spotify);
+  text-shadow: 0 0 14px rgba(29, 185, 84, 0.6);
+}
+.ic-hdr-mobile a[href*="youtube"]:hover,
+.ic-hdr-mobile a[href*="youtube"]:active,
+.ic-hdr-mobile a[href*="youtube"].is-active {
+  color: var(--plat-youtube);
+  text-shadow: 0 0 14px rgba(255, 59, 48, 0.6);
+}
+.ic-hdr-mobile a[href*="instagram"]:hover,
+.ic-hdr-mobile a[href*="instagram"]:active,
+.ic-hdr-mobile a[href*="instagram"].is-active {
+  color: var(--plat-instagram);
+  text-shadow: 0 0 14px rgba(0, 178, 255, 0.6);
+}
+.ic-hdr-mobile a[href*="tiktok"]:hover,
+.ic-hdr-mobile a[href*="tiktok"]:active,
+.ic-hdr-mobile a[href*="tiktok"].is-active {
+  color: #FFFFFF;
+  text-shadow: 0 0 14px rgba(255, 0, 80, 0.5), 0 0 14px rgba(0, 230, 255, 0.5);
+}
 .ic-hdr-mobile .ic-hdr-cta {
   text-align: center;
   border-color: transparent;
+  color: var(--ic-bg) !important;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.25) !important;
 }
 
 @media (max-width: 900px) {

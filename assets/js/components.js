@@ -6,7 +6,7 @@
         <div class="ic-hdr-services">
           <a href="/services-project-management.html" data-path="/services-project-management">Services</a>
           <div class="ic-hdr-services-menu" role="menu">
-            <a class="featured" href="/services-project-management.html" data-path="/services-project-management" role="menuitem">▸ Project Management</a>
+            <a class="featured" href="/services-project-management.html" data-path="/services-project-management" role="menuitem">Project Management</a>
             <a href="/services-spotify.html"    data-path="/services-spotify"    role="menuitem">Spotify Promotion</a>
             <a href="/services-youtube.html"    data-path="/services-youtube"    role="menuitem">YouTube Promotion</a>
             <a href="/services-instagram.html"  data-path="/services-instagram"  role="menuitem">Instagram Promotion</a>
@@ -19,7 +19,7 @@
       <button class="ic-hdr-burger" type="button" aria-label="Open menu" aria-expanded="false"></button>
       <div class="ic-hdr-mobile" role="menu">
         <p class="ic-hdr-mobile-label">Services</p>
-        <a href="/services-project-management.html" data-path="/services-project-management">Project Management</a>
+        <a class="featured" href="/services-project-management.html" data-path="/services-project-management">Project Management</a>
         <a href="/services-spotify.html"    data-path="/services-spotify">Spotify</a>
         <a href="/services-youtube.html"    data-path="/services-youtube">YouTube</a>
         <a href="/services-instagram.html"  data-path="/services-instagram">Instagram</a>
