@@ -58,15 +58,30 @@
 
   let focusHandler = null;
 
+  function findInlineWidgetOnPage() {
+    // Look for a .calendly-inline-widget NOT inside #ic-modal
+    const widgets = document.querySelectorAll('.calendly-inline-widget');
+    for (const w of widgets) {
+      if (!w.closest('#ic-modal')) return w;
+    }
+    return null;
+  }
+
   window.icOpenCalendly = async function () {
+    // If page already has an inline Calendly widget (e.g. contact page),
+    // scroll to it instead of opening a duplicate in the modal.
+    const inline = findInlineWidgetOnPage();
+    if (inline) {
+      inline.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
     const modal = getModal();
     lastFocused = document.activeElement;
     modal.classList.add('open');
     document.body.classList.add('no-scroll');
     try {
       await loadScript();
-      // Calendly's widget.js auto-initializes elements with .calendly-inline-widget[data-url]
-      // Trigger initialization if widget exists (idempotent)
       if (window.Calendly && window.Calendly.initInlineWidgets) {
         window.Calendly.initInlineWidgets();
       }
@@ -92,6 +107,10 @@
 
   // Wire up close button + overlay click + ESC after DOM ready
   function wire() {
+    // If page already has an inline Calendly widget, don't inject a modal —
+    // having two .calendly-inline-widget elements causes the second to render empty.
+    if (findInlineWidgetOnPage()) return;
+
     const modal = getModal();
     modal.addEventListener('click', (e) => {
       if (e.target === modal) window.icCloseCalendly(e);
