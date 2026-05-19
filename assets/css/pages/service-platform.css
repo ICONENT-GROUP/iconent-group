@@ -33,9 +33,43 @@ body[data-platform="tiktok"] .hero-compact::after {
     radial-gradient(circle at 60% 50%, rgba(0,230,255,0.45) 0%, transparent 60%);
 }
 
-/* Chromatic glitch on platform H1 */
+/* Brusque entry + minimal continuous RGB drift on platform H1 */
 .platform-page .hero-compact h1 {
-  animation: ic-glitch 7s infinite linear;
+  animation:
+    ic-h1-entry 0.7s steps(6, end) both,
+    ic-matrix-rgb 6s 0.8s infinite ease-in-out;
+}
+/* TikTok H1: brand pink+cyan instead of white --plat-glow fallback */
+body[data-platform="tiktok"] .hero-compact h1 {
+  animation:
+    ic-h1-entry-tiktok 0.7s steps(6, end) both,
+    ic-matrix-tiktok 6s 0.8s infinite ease-in-out;
+}
+@keyframes ic-h1-entry-tiktok {
+  0% {
+    opacity: 0;
+    transform: translate(-10px, -4px);
+    text-shadow:
+      6px 0 0 rgba(255, 0, 80, 0.9),
+      -6px 0 0 rgba(0, 230, 255, 0.75);
+    filter: blur(2px);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(8px, 2px);
+    text-shadow:
+      -7px 0 0 rgba(255, 0, 80, 0.85),
+      7px 0 0 rgba(0, 230, 255, 0.55);
+    filter: blur(0);
+  }
+  30% { transform: translate(-4px, 0); text-shadow: 4px 0 0 rgba(255,0,80,0.7), -4px 0 0 rgba(0,230,255,0.5); }
+  45% { transform: translate(3px, -1px); text-shadow: -3px 0 0 rgba(255,0,80,0.55), 3px 0 0 rgba(0,230,255,0.4); }
+  60% { transform: translate(-1px, 0); text-shadow: 2px 0 0 rgba(255,0,80,0.4), -2px 0 0 rgba(0,230,255,0.3); }
+  100% { opacity: 1; transform: translate(0, 0); text-shadow: 1px 0 0 rgba(255,0,80,0.32), -1px 0 0 rgba(0,230,255,0.25); }
+}
+@keyframes ic-matrix-tiktok {
+  0%, 100% { text-shadow: 1px 0 0 rgba(255,0,80,0.32), -1px 0 0 rgba(0,230,255,0.25); }
+  50%      { text-shadow: 1.5px 0 0 rgba(255,0,80,0.42), -1.5px 0 0 rgba(0,230,255,0.32); }
 }
 
 /* Platform-tinted accents on this page only */
@@ -120,6 +154,37 @@ body[data-platform="tiktok"] .platform-proof .proof-card::before {
   border-color: rgba(var(--plat-glow), 0.5);
 }
 .platform-proof .proof-card-value { color: var(--plat-accent); }
+
+/* Platform-colored primary CTA (only on this page — header CTA stays green) */
+.platform-page .btn-primary {
+  background: var(--plat-accent);
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 0 1px rgba(0,0,0,0.5);
+  box-shadow:
+    0 0 0 1px rgba(var(--plat-glow), 0.3),
+    0 0 40px -10px rgba(var(--plat-glow), 0.5);
+}
+@media (hover: hover) {
+  .platform-page .btn-primary:hover {
+    box-shadow:
+      0 0 0 1px rgba(var(--plat-glow), 0.5),
+      0 0 60px -10px rgba(var(--plat-glow), 0.7);
+  }
+}
+/* TikTok: --plat-accent is white, use brand gradient instead */
+body[data-platform="tiktok"] .btn-primary {
+  background: linear-gradient(135deg, var(--plat-tiktok-pink) 0%, var(--plat-tiktok-cyan) 100%);
+  box-shadow:
+    0 0 0 1px rgba(255,0,80,0.35),
+    0 0 40px -10px rgba(0,230,255,0.5);
+}
+@media (hover: hover) {
+  body[data-platform="tiktok"] .btn-primary:hover {
+    box-shadow:
+      0 0 0 1px rgba(255,0,80,0.55),
+      0 0 60px -10px rgba(0,230,255,0.7);
+  }
+}
 
 /* TODO placeholder for missing screenshots */
 .proof-todo {

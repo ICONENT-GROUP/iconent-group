@@ -13,6 +13,23 @@ body {
 }
 body.no-scroll { overflow: hidden; }
 
+/* Prevent FOUC before web components are upgraded. Holds the layout space
+   for the fixed header (so content doesn't jump) and hides the empty
+   custom-element tags until components.js registers them. */
+ic-header:not(:defined) {
+  display: block;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: rgba(10,10,10,0.92);
+  z-index: var(--z-header);
+}
+ic-footer:not(:defined) {
+  display: block;
+  min-height: 200px;
+  background: var(--ic-bg);
+}
+
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 button {
