@@ -16,8 +16,26 @@ body[data-platform="tiktok"] .hero-compact h1 .accent {
 }
 
 /* Platform-tinted hero glow */
-.hero-compact::before {
+.platform-page .hero-compact::before {
   background: radial-gradient(circle, rgba(var(--plat-glow), 0.10) 0%, transparent 60%);
+}
+
+/* Animated flicker top-right — recolored per platform */
+.platform-page .hero-compact::after {
+  background: radial-gradient(circle,
+    rgba(var(--plat-glow), 0.65) 0%,
+    rgba(var(--plat-glow), 0.22) 30%,
+    transparent 70%);
+}
+body[data-platform="tiktok"] .hero-compact::after {
+  background:
+    radial-gradient(circle at 40% 50%, rgba(255,0,80,0.55) 0%, transparent 60%),
+    radial-gradient(circle at 60% 50%, rgba(0,230,255,0.45) 0%, transparent 60%);
+}
+
+/* Chromatic glitch on platform H1 */
+.platform-page .hero-compact h1 {
+  animation: ic-glitch 7s infinite linear;
 }
 
 /* Platform-tinted accents on this page only */
