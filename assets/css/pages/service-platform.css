@@ -1,0 +1,89 @@
+/* Variables set per-page via body[data-platform] selector */
+body[data-platform="spotify"]   { --plat-accent: var(--plat-spotify);  --plat-glow: 29,185,84; }
+body[data-platform="youtube"]   { --plat-accent: var(--plat-youtube);  --plat-glow: 255,59,48; }
+body[data-platform="instagram"] { --plat-accent: var(--plat-instagram);--plat-glow: 0,178,255; }
+body[data-platform="tiktok"]    { --plat-accent: #FFFFFF;              --plat-glow: 255,255,255; }
+
+/* TikTok needs dual-color glow */
+body[data-platform="tiktok"] .hero-compact::before {
+  background: radial-gradient(circle, rgba(255,0,80,0.10) 0%, transparent 50%),
+              radial-gradient(circle, rgba(0,230,255,0.06) 0%, transparent 60%);
+}
+body[data-platform="tiktok"] .hero-compact h1 .accent {
+  text-shadow:
+    0 0 16px rgba(255,0,80,0.45),
+    0 0 24px rgba(0,230,255,0.35);
+}
+
+/* Platform-tinted hero glow */
+.hero-compact::before {
+  background: radial-gradient(circle, rgba(var(--plat-glow), 0.10) 0%, transparent 60%);
+}
+
+/* Platform-tinted accents on this page only */
+.platform-page .section-label { color: var(--plat-accent); }
+.platform-page .section-label::before {
+  background: var(--plat-accent);
+  box-shadow: 0 0 16px var(--plat-accent);
+}
+.platform-page .section h2 .accent { color: var(--plat-accent); }
+.platform-page .accent { color: var(--plat-accent); }
+
+/* Compact method (1-liner per step) */
+.platform-method-compact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 40px 0 0;
+}
+.platform-method-compact .method-step::before { background: var(--plat-accent); }
+.platform-method-compact .method-step-num { color: var(--plat-accent); }
+
+/* Deliverables list */
+.platform-deliverables {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+  margin: 40px 0 0;
+}
+.platform-deliverables li {
+  padding: 14px 0 14px 24px;
+  border-bottom: 1px solid var(--ic-rule);
+  font-size: 14px;
+  line-height: 1.5;
+  position: relative;
+}
+.platform-deliverables li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--plat-accent);
+  font-weight: 700;
+}
+
+/* Proof grid (variable count: 1, 2, or 3 cards) */
+.platform-proof {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin: 40px 0 0;
+}
+.platform-proof .proof-card-value { color: var(--plat-accent); }
+
+/* TODO placeholder for missing screenshots */
+.proof-todo {
+  background: var(--ic-bg-soft);
+  border: 1px dashed var(--ic-rule);
+  border-radius: 6px;
+  padding: 48px 24px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ic-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* CTA accent override (keep green primary, but section labels use platform color) */
+@media (max-width: 900px) {
+  .platform-method-compact, .platform-deliverables { grid-template-columns: 1fr; }
+}
