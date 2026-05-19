@@ -70,6 +70,7 @@
       burger.addEventListener('click', () => {
         const open = hdr.classList.toggle('is-open');
         burger.setAttribute('aria-expanded', String(open));
+        burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         document.body.classList.toggle('no-scroll', open);
       });
       // Close mobile on link click
@@ -77,6 +78,7 @@
         a.addEventListener('click', () => {
           hdr.classList.remove('is-open');
           burger.setAttribute('aria-expanded', 'false');
+          burger.setAttribute('aria-label', 'Open menu');
           document.body.classList.remove('no-scroll');
         });
       });
@@ -100,6 +102,7 @@
         if (e.key === 'Escape' && hdr.classList.contains('is-open')) {
           hdr.classList.remove('is-open');
           burger.setAttribute('aria-expanded', 'false');
+          burger.setAttribute('aria-label', 'Open menu');
           document.body.classList.remove('no-scroll');
         }
       });
