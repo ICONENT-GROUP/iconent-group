@@ -1,8 +1,133 @@
-/* Continuous matrix glitch on PM H1 (green via --plat-glow fallback) */
-.hero-compact h1 {
-  animation:
-    ic-matrix-rgb 4.2s infinite ease-in-out,
-    ic-matrix-jitter 7s infinite linear;
+/* Desktop-only dotted fade-in dissolve on PM H1 — minimal modern entry */
+@media (min-width: 901px) {
+  body.pm-page .hero-compact h1 {
+    animation: ic-h1-dissolve 1.1s 0.05s cubic-bezier(.2, .9, .25, 1) both;
+  }
+}
+
+/* ============================================================
+   PM PAGE — ORANGE FLUO THEME
+   Header stays ICONENT green; the page body switches to orange.
+   ============================================================ */
+body.pm-page {
+  /* Page-local accent values */
+  --pm-orange: #FF6A00;
+  --pm-orange-rgb: 255, 106, 0;
+}
+/* Section labels + accents */
+body.pm-page .section-label { color: var(--pm-orange); }
+body.pm-page .section-label::before {
+  background: var(--pm-orange);
+  box-shadow: 0 0 16px var(--pm-orange);
+}
+body.pm-page .section h2 .accent,
+body.pm-page .hero-compact h1 .accent,
+body.pm-page .cta-block h2 .accent,
+body.pm-page .accent { color: var(--pm-orange); }
+body.pm-page .text-highlight { color: var(--pm-orange); }
+/* Hero glows */
+body.pm-page .hero-compact::before {
+  background: radial-gradient(circle, rgba(var(--pm-orange-rgb), 0.10) 0%, transparent 60%);
+}
+body.pm-page .hero-compact::after {
+  background: radial-gradient(circle,
+    rgba(var(--pm-orange-rgb), 0.55) 0%,
+    rgba(var(--pm-orange-rgb), 0.18) 30%,
+    transparent 70%);
+}
+body.pm-page .hero-compact h1 {
+  text-shadow: 0 0 80px rgba(var(--pm-orange-rgb), 0.25);
+}
+/* CTA block background glow */
+body.pm-page .cta-block::before {
+  background: radial-gradient(circle, rgba(var(--pm-orange-rgb), 0.08) 0%, transparent 60%);
+}
+/* Primary button → orange */
+body.pm-page .btn-primary {
+  background: var(--pm-orange);
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 0 1px rgba(0,0,0,0.5);
+  box-shadow:
+    0 0 0 1px rgba(var(--pm-orange-rgb), 0.3),
+    0 0 40px -10px rgba(var(--pm-orange-rgb), 0.5);
+}
+@media (hover: hover) {
+  body.pm-page .btn-primary:hover {
+    box-shadow:
+      0 0 0 1px rgba(var(--pm-orange-rgb), 0.5),
+      0 0 60px -10px rgba(var(--pm-orange-rgb), 0.7);
+  }
+}
+/* Method cards on PM (detailed) — orange tint */
+body.pm-page .pm-method-card {
+  background: linear-gradient(180deg, rgba(var(--pm-orange-rgb), 0.04), rgba(var(--pm-orange-rgb), 0.01));
+  border-color: rgba(var(--pm-orange-rgb), 0.25);
+}
+body.pm-page .pm-method-card .method-step-num { color: var(--pm-orange); }
+body.pm-page .pm-method-card .sublist li::before { color: var(--pm-orange); }
+body.pm-page .pm-deliverables li::before { color: var(--pm-orange); }
+/* Method-step::before progressive lines on PM (shared component) */
+body.pm-page .method-step::before { background: var(--pm-orange); }
+body.pm-page .method-step:nth-child(2)::before {
+  box-shadow: 0 -5px 0 var(--pm-orange);
+}
+body.pm-page .method-step:nth-child(3)::before {
+  box-shadow: 0 -5px 0 var(--pm-orange), 0 -10px 0 var(--pm-orange);
+}
+body.pm-page .method-step-num { color: var(--pm-orange); }
+/* Case study IICY on PM (re-used from home.css) — recolor flares + glow */
+body.pm-page .case-iicy::before {
+  background: radial-gradient(circle, rgba(var(--pm-orange-rgb), 0.2) 0%, transparent 60%);
+}
+body.pm-page .case-iicy::after {
+  background: radial-gradient(circle, rgba(var(--pm-orange-rgb), 0.14) 0%, transparent 60%);
+}
+body.pm-page .case-iicy-photo::before {
+  background: radial-gradient(circle, rgba(var(--pm-orange-rgb), 0.35) 0%, transparent 50%);
+}
+body.pm-page .case-iicy-photo img {
+  border-color: rgba(var(--pm-orange-rgb), 0.3);
+  box-shadow: 0 0 40px rgba(var(--pm-orange-rgb), 0.2);
+}
+body.pm-page .case-iicy-label { color: var(--pm-orange); }
+body.pm-page .case-metric-value {
+  color: var(--pm-orange);
+  text-shadow: 0 0 24px rgba(var(--pm-orange-rgb), 0.3);
+}
+/* EXXIA case study — orange theme */
+body.pm-page .case-exxia::before {
+  background: radial-gradient(circle, rgba(var(--pm-orange-rgb), 0.22) 0%, transparent 60%);
+}
+body.pm-page .case-exxia::after {
+  background: radial-gradient(circle, rgba(var(--pm-orange-rgb), 0.16) 0%, transparent 60%);
+}
+body.pm-page .case-exxia-ba--after .ba-label {
+  background: var(--pm-orange);
+  color: #FFFFFF;
+  box-shadow: 0 0 22px rgba(var(--pm-orange-rgb), 0.5);
+}
+body.pm-page .case-exxia-ba--after::before {
+  background: linear-gradient(180deg, transparent 40%, rgba(var(--pm-orange-rgb), 0.10) 100%);
+}
+body.pm-page .case-exxia-arrow {
+  border-color: var(--pm-orange);
+  color: var(--pm-orange);
+  box-shadow: 0 0 36px rgba(var(--pm-orange-rgb), 0.55);
+}
+body.pm-page .case-exxia-label { color: var(--pm-orange); }
+body.pm-page .case-exxia-metric-value {
+  color: var(--pm-orange);
+  text-shadow: 0 0 24px rgba(var(--pm-orange-rgb), 0.3);
+}
+/* FAQ open state */
+body.pm-page .faq-item.open .faq-q::after { color: var(--pm-orange); }
+/* Mobile EXXIA fragments — keep orange on arrow gradient */
+body.pm-page .case-exxia { border-color: rgba(var(--pm-orange-rgb), 0.18); }
+/* Discover Services dropdown on PM page — featured = orange (not green) */
+body.pm-page .service-card.featured {
+  background: rgba(var(--pm-orange-rgb), 0.06);
+  border-color: rgba(var(--pm-orange-rgb), 0.3);
+  color: var(--pm-orange);
 }
 
 .pm-what {
@@ -239,22 +364,36 @@
 
 @media (max-width: 900px) {
   .pm-method-detailed { grid-template-columns: 1fr; }
-  .pm-deliverables { grid-template-columns: 1fr; }
+  .pm-deliverables {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  /* Halve list line-spacing on mobile — tighter scan */
+  .pm-deliverables li { padding: 8px 0 8px 22px; font-size: 13px; }
+  .pm-method-card .sublist li { padding: 4px 0 4px 18px; font-size: 12px; }
+  .pm-method-card .sublist li::before { top: 9px; }
+
+  /* EXXIA before/after stacks vertically on mobile so numbers are readable */
   .case-exxia { gap: 36px; padding: 32px; }
   .case-exxia::before, .case-exxia::after { display: none; }
-  .case-exxia-photos { gap: 16px; }
+  .case-exxia-photos {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .case-exxia-ba { aspect-ratio: 16 / 9; }
+  .case-exxia-arrow {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+    border-width: 2px;
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
   .case-exxia-name { font-size: 36px; }
   .case-exxia-metric-value { font-size: 24px; }
-  .case-exxia-arrow { width: 42px; height: 42px; font-size: 18px; border-width: 2px; }
 }
 @media (max-width: 480px) {
   .case-exxia { padding: 24px; gap: 28px; }
-  .case-exxia-photos { grid-template-columns: 1fr; gap: 14px; }
-  .case-exxia-arrow {
-    width: 36px; height: 36px;
-    font-size: 16px;
-    transform: translate(-50%, -50%) rotate(90deg);
-  }
   .case-exxia-metrics { grid-template-columns: 1fr; }
   .case-exxia-name { font-size: 30px; }
+  .pm-deliverables li { padding: 7px 0 7px 22px; }
 }

@@ -33,43 +33,37 @@ body[data-platform="tiktok"] .hero-compact::after {
     radial-gradient(circle at 60% 50%, rgba(0,230,255,0.45) 0%, transparent 60%);
 }
 
-/* Brusque entry + minimal continuous RGB drift on platform H1 */
-.platform-page .hero-compact h1 {
-  animation:
-    ic-h1-entry 0.7s steps(6, end) both,
-    ic-matrix-rgb 6s 0.8s infinite ease-in-out;
-}
-/* TikTok H1: brand pink+cyan instead of white --plat-glow fallback */
-body[data-platform="tiktok"] .hero-compact h1 {
-  animation:
-    ic-h1-entry-tiktok 0.7s steps(6, end) both,
-    ic-matrix-tiktok 6s 0.8s infinite ease-in-out;
-}
-@keyframes ic-h1-entry-tiktok {
-  0% {
-    opacity: 0;
-    transform: translate(-10px, -4px);
-    text-shadow:
-      6px 0 0 rgba(255, 0, 80, 0.9),
-      -6px 0 0 rgba(0, 230, 255, 0.75);
-    filter: blur(2px);
+/* Desktop-only dotted fade-in dissolve on platform H1 — minimal modern entry */
+@media (min-width: 901px) {
+  .platform-page .hero-compact h1 {
+    animation: ic-h1-dissolve 1.1s 0.05s cubic-bezier(.2, .9, .25, 1) both;
   }
-  15% {
-    opacity: 1;
-    transform: translate(8px, 2px);
-    text-shadow:
-      -7px 0 0 rgba(255, 0, 80, 0.85),
-      7px 0 0 rgba(0, 230, 255, 0.55);
-    filter: blur(0);
+  /* TikTok H1 dissolve picks up brand pink as its dot halo */
+  body[data-platform="tiktok"] .hero-compact h1 {
+    animation: ic-h1-dissolve-tiktok 1.1s 0.05s cubic-bezier(.2, .9, .25, 1) both;
   }
-  30% { transform: translate(-4px, 0); text-shadow: 4px 0 0 rgba(255,0,80,0.7), -4px 0 0 rgba(0,230,255,0.5); }
-  45% { transform: translate(3px, -1px); text-shadow: -3px 0 0 rgba(255,0,80,0.55), 3px 0 0 rgba(0,230,255,0.4); }
-  60% { transform: translate(-1px, 0); text-shadow: 2px 0 0 rgba(255,0,80,0.4), -2px 0 0 rgba(0,230,255,0.3); }
-  100% { opacity: 1; transform: translate(0, 0); text-shadow: 1px 0 0 rgba(255,0,80,0.32), -1px 0 0 rgba(0,230,255,0.25); }
-}
-@keyframes ic-matrix-tiktok {
-  0%, 100% { text-shadow: 1px 0 0 rgba(255,0,80,0.32), -1px 0 0 rgba(0,230,255,0.25); }
-  50%      { text-shadow: 1.5px 0 0 rgba(255,0,80,0.42), -1.5px 0 0 rgba(0,230,255,0.32); }
+  @keyframes ic-h1-dissolve-tiktok {
+    0% {
+      opacity: 0;
+      letter-spacing: 0.5em;
+      filter: blur(10px);
+      text-shadow:
+        0 0 6px rgba(255, 0, 80, 0.55),
+        0 0 14px rgba(0, 230, 255, 0.4);
+    }
+    55% {
+      opacity: 1;
+      letter-spacing: 0.04em;
+      filter: blur(2px);
+      text-shadow: 0 0 3px rgba(255, 0, 80, 0.3);
+    }
+    100% {
+      opacity: 1;
+      letter-spacing: -0.04em;
+      filter: blur(0);
+      text-shadow: none;
+    }
+  }
 }
 
 /* Platform-tinted accents on this page only */
@@ -89,6 +83,12 @@ body[data-platform="tiktok"] .hero-compact h1 {
   margin: 40px 0 0;
 }
 .platform-method-compact .method-step::before { background: var(--plat-accent); }
+.platform-method-compact .method-step:nth-child(2)::before {
+  box-shadow: 0 -5px 0 var(--plat-accent);
+}
+.platform-method-compact .method-step:nth-child(3)::before {
+  box-shadow: 0 -5px 0 var(--plat-accent), 0 -10px 0 var(--plat-accent);
+}
 .platform-method-compact .method-step-num { color: var(--plat-accent); }
 
 /* Deliverables list */
@@ -201,6 +201,9 @@ body[data-platform="tiktok"] .btn-primary {
 
 @media (max-width: 900px) {
   .platform-method-compact, .platform-deliverables { grid-template-columns: 1fr; }
+  /* Halve list line-spacing on mobile */
+  .platform-deliverables { gap: 0; }
+  .platform-deliverables li { padding: 8px 0 8px 22px; font-size: 13px; }
   .platform-proof { gap: 28px; padding: 12px 0; }
   .platform-proof .proof-card::before {
     inset: -16px;
