@@ -45,17 +45,9 @@ body[data-platform="tiktok"] .hero-compact::after {
   @keyframes ic-h1-dissolve-tiktok {
     0% {
       opacity: 0;
-      letter-spacing: 0.5em;
-      filter: blur(10px);
-      text-shadow:
-        0 0 6px rgba(255, 0, 80, 0.55),
-        0 0 14px rgba(0, 230, 255, 0.4);
-    }
-    55% {
-      opacity: 1;
-      letter-spacing: 0.04em;
-      filter: blur(2px);
-      text-shadow: 0 0 3px rgba(255, 0, 80, 0.3);
+      letter-spacing: 0.12em;
+      filter: blur(3px);
+      text-shadow: 0 0 4px rgba(255, 0, 80, 0.35);
     }
     100% {
       opacity: 1;
@@ -84,10 +76,22 @@ body[data-platform="tiktok"] .hero-compact::after {
 }
 .platform-method-compact .method-step::before { background: var(--plat-accent); }
 .platform-method-compact .method-step:nth-child(2)::before {
-  box-shadow: 0 -5px 0 var(--plat-accent);
+  background: linear-gradient(
+    to right,
+    var(--plat-accent) 0 32px,
+    transparent  32px 38px,
+    var(--plat-accent) 38px 70px
+  );
 }
 .platform-method-compact .method-step:nth-child(3)::before {
-  box-shadow: 0 -5px 0 var(--plat-accent), 0 -10px 0 var(--plat-accent);
+  background: linear-gradient(
+    to right,
+    var(--plat-accent) 0 32px,
+    transparent  32px 38px,
+    var(--plat-accent) 38px 70px,
+    transparent  70px 76px,
+    var(--plat-accent) 76px 108px
+  );
 }
 .platform-method-compact .method-step-num { color: var(--plat-accent); }
 

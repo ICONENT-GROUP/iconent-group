@@ -93,7 +93,8 @@
   height: 28px;
 }
 .ic-hdr-services:hover .ic-hdr-services-menu,
-.ic-hdr-services:focus-within .ic-hdr-services-menu {
+.ic-hdr-services:focus-within .ic-hdr-services-menu,
+.ic-hdr-services.is-open .ic-hdr-services-menu {
   opacity: 1;
   visibility: visible;
   transform: translateX(-50%) translateY(12px);
@@ -491,23 +492,13 @@
   86% { opacity: 0.78; transform: translate(-2px, 1px); }
 }
 /* Hero H1 dotted fade-in dissolve — desktop only, one-shot on load.
-   Letters start spread out + blurred + cyan halo, condense into clean text.
-   Recalls the dotted waveform aesthetic of the homepage canvas. */
+   Single gentle phase: light spread + soft blur + cyan halo dissolve into clean text. */
 @keyframes ic-h1-dissolve {
   0% {
     opacity: 0;
-    letter-spacing: 0.5em;
-    filter: blur(10px);
-    text-shadow:
-      0 0 6px rgba(100, 220, 255, 0.65),
-      0 0 14px rgba(var(--plat-glow, 0,255,136), 0.4);
-  }
-  55% {
-    opacity: 1;
-    letter-spacing: 0.04em;
-    filter: blur(2px);
-    text-shadow:
-      0 0 3px rgba(100, 220, 255, 0.35);
+    letter-spacing: 0.12em;
+    filter: blur(3px);
+    text-shadow: 0 0 4px rgba(100, 220, 255, 0.4);
   }
   100% {
     opacity: 1;
@@ -645,12 +636,27 @@
   height: 1px;
   background: var(--ic-green);
 }
-/* Progressive tick: step 02 = 2 lines, step 03 = 3 lines (stacked above the border) */
+/* Progressive tick: step 02 = 2 segments side-by-side, step 03 = 3 segments.
+   Lines on the same horizontal axis with gaps between them. */
 .method-step:nth-child(2)::before {
-  box-shadow: 0 -5px 0 var(--ic-green);
+  width: 70px;
+  background: linear-gradient(
+    to right,
+    var(--ic-green) 0 32px,
+    transparent  32px 38px,
+    var(--ic-green) 38px 70px
+  );
 }
 .method-step:nth-child(3)::before {
-  box-shadow: 0 -5px 0 var(--ic-green), 0 -10px 0 var(--ic-green);
+  width: 108px;
+  background: linear-gradient(
+    to right,
+    var(--ic-green) 0 32px,
+    transparent  32px 38px,
+    var(--ic-green) 38px 70px,
+    transparent  70px 76px,
+    var(--ic-green) 76px 108px
+  );
 }
 .method-step-num {
   font-size: 11px;

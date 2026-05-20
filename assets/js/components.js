@@ -114,6 +114,33 @@
           document.body.classList.remove('no-scroll');
         }
       });
+
+      // Desktop services dropdown: click on trigger toggles open state
+      // (in addition to CSS :hover). Without this, click on the arrow
+      // navigates away or causes a flicker — annoying UX.
+      const services = this.querySelector('.ic-hdr-services');
+      const servicesLink = services && services.querySelector(':scope > a');
+      if (services && servicesLink) {
+        servicesLink.addEventListener('click', (e) => {
+          // On desktop (no burger visible), intercept the click and toggle
+          // dropdown instead of navigating immediately. On mobile this code
+          // path is unreachable (the desktop nav is hidden).
+          if (window.matchMedia('(min-width: 901px)').matches) {
+            e.preventDefault();
+            services.classList.toggle('is-open');
+          }
+        });
+        // Close on click outside the services wrapper
+        document.addEventListener('click', (e) => {
+          if (!services.contains(e.target)) {
+            services.classList.remove('is-open');
+          }
+        });
+        // ESC closes
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') services.classList.remove('is-open');
+        });
+      }
     }
   }
 

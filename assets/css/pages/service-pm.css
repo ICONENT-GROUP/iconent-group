@@ -69,10 +69,22 @@ body.pm-page .pm-deliverables li::before { color: var(--pm-orange); }
 /* Method-step::before progressive lines on PM (shared component) */
 body.pm-page .method-step::before { background: var(--pm-orange); }
 body.pm-page .method-step:nth-child(2)::before {
-  box-shadow: 0 -5px 0 var(--pm-orange);
+  background: linear-gradient(
+    to right,
+    var(--pm-orange) 0 32px,
+    transparent  32px 38px,
+    var(--pm-orange) 38px 70px
+  );
 }
 body.pm-page .method-step:nth-child(3)::before {
-  box-shadow: 0 -5px 0 var(--pm-orange), 0 -10px 0 var(--pm-orange);
+  background: linear-gradient(
+    to right,
+    var(--pm-orange) 0 32px,
+    transparent  32px 38px,
+    var(--pm-orange) 38px 70px,
+    transparent  70px 76px,
+    var(--pm-orange) 76px 108px
+  );
 }
 body.pm-page .method-step-num { color: var(--pm-orange); }
 /* Case study IICY on PM (re-used from home.css) — recolor flares + glow */
