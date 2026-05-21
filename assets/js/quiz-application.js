@@ -75,8 +75,9 @@
           'input:not([type="hidden"]):not([type="radio"]), textarea, .quiz-option, [data-quiz-continue]'
         );
         if (focusTarget) {
-          // small delay so animation doesn't fight focus
-          setTimeout(() => focusTarget.focus({ preventScroll: false }), 50);
+          // small delay so animation doesn't fight focus; preventScroll keeps
+          // the view stable (we handle scroll-into-view ourselves below).
+          setTimeout(() => focusTarget.focus({ preventScroll: true }), 50);
         }
       }
 
@@ -245,6 +246,10 @@
         if (!raw) return;
         const data = JSON.parse(raw);
         Object.entries(data).forEach(([name, value]) => {
+          // Never restore `source` — it's bound to the URL (team vs distribution).
+          // Restoring would bleed source across the two quiz pages if the user
+          // started on one URL and continued on the other.
+          if (name === 'source') return;
           const el = root.querySelector(`[name="${name}"]`);
           if (!el) return;
           if (el.type === 'radio') {

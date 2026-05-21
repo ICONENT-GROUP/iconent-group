@@ -23,15 +23,14 @@
          containing block — a fixed-positioned child would be clipped to
          the header's 52px box. Keeping the menu as a sibling avoids that. -->
     <div class="ic-hdr-mobile" role="menu">
+      <a href="/" data-path="/" class="ic-hdr-mobile-home">Home</a>
       <p class="ic-hdr-mobile-label">Services</p>
       <a class="featured" href="/services-project-management.html" data-path="/services-project-management">Project Management</a>
       <a href="/services-spotify.html"    data-path="/services-spotify">Spotify</a>
       <a href="/services-youtube.html"    data-path="/services-youtube">YouTube</a>
       <a href="/services-instagram.html"  data-path="/services-instagram">Instagram</a>
       <a href="/services-tiktok.html"     data-path="/services-tiktok">TikTok</a>
-      <p class="ic-hdr-mobile-label">Menu</p>
-      <a href="/" data-path="/">Home</a>
-      <a class="ic-hdr-cta" href="/contact-us.html" data-path="/contact-us">Contact Us</a>
+      <a class="ic-hdr-cta ic-hdr-mobile-contact" href="/contact-us.html" data-path="/contact-us">Contact Us</a>
     </div>`;
 
   const FOOTER_HTML = `
@@ -104,6 +103,25 @@
       };
       this.querySelectorAll('.ic-hdr-mobile a').forEach((a) => {
         a.addEventListener('click', closeMenu);
+      });
+
+      // Click on the mobile menu background (anywhere that's not a link or
+      // label) closes the menu — gives users an intuitive "tap outside" exit
+      // beyond just tapping the burger again.
+      const mobileMenu = this.querySelector('.ic-hdr-mobile');
+      if (mobileMenu) {
+        mobileMenu.addEventListener('click', (e) => {
+          if (e.target === mobileMenu) closeMenu();
+        });
+      }
+      // Click anywhere outside <ic-header> closes the menu too (defensive —
+      // covers cases where users tap on visible page content under a
+      // partially-transparent menu, or on the body if menu doesn't fully
+      // cover the viewport on some devices).
+      document.addEventListener('click', (e) => {
+        if (!this.classList.contains('is-open')) return;
+        if (this.contains(e.target)) return;
+        closeMenu();
       });
       // Scroll → .scrolled
       let ticking = false;
@@ -268,25 +286,45 @@
   }
 
   function initFxGlitch() {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const reduceMotionMq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reduceMotionMq.matches) return;
     const chroma = document.getElementById('ic-fx-chroma');
     const bars   = document.getElementById('ic-fx-glitch-bars');
     const tear   = document.getElementById('ic-fx-tear');
     if (!chroma || !bars || !tear) return;
 
-    let active = !document.hidden;
-    document.addEventListener('visibilitychange', () => { active = !document.hidden; });
+    // Track active state from BOTH tab visibility and runtime reduce-motion
+    // preference (a user can toggle reduce-motion mid-session).
+    let tabVisible = !document.hidden;
+    let reduceMotion = reduceMotionMq.matches;
+    const active = () => tabVisible && !reduceMotion;
+
+    // Track scheduled timeouts so we can fully stop the animation chains
+    // when the tab is hidden (avoids burning battery in background).
+    const timers = new Set();
+    const schedule = (fn, ms) => {
+      const id = setTimeout(() => {
+        timers.delete(id);
+        fn();
+      }, ms);
+      timers.add(id);
+      return id;
+    };
+    const stopAll = () => {
+      timers.forEach(id => clearTimeout(id));
+      timers.clear();
+    };
 
     function triggerChroma() {
-      if (active) {
+      if (active()) {
         chroma.classList.remove('glitching');
         void chroma.offsetWidth;
         chroma.classList.add('glitching');
       }
-      setTimeout(triggerChroma, 2500 + Math.random() * 5000);
+      if (tabVisible) schedule(triggerChroma, 2500 + Math.random() * 5000);
     }
     function spawnBars() {
-      if (active) {
+      if (active()) {
         bars.innerHTML = '';
         const count = 1 + Math.floor(Math.random() * 3);
         for (let i = 0; i < count; i++) {
@@ -298,22 +336,39 @@
           bars.appendChild(bar);
         }
         bars.style.opacity = '1';
-        setTimeout(() => { bars.style.opacity = '0'; }, 90 + Math.random() * 120);
+        schedule(() => { bars.style.opacity = '0'; }, 90 + Math.random() * 120);
       }
-      setTimeout(spawnBars, 3500 + Math.random() * 6500);
+      if (tabVisible) schedule(spawnBars, 3500 + Math.random() * 6500);
     }
     function tearFlash() {
-      if (active) {
+      if (active()) {
         tear.style.top = (10 + Math.random() * 80) + '%';
         tear.style.height = (10 + Math.random() * 45) + 'px';
         tear.style.opacity = String(0.55 + Math.random() * 0.4);
-        setTimeout(() => { tear.style.opacity = '0'; }, 70);
+        schedule(() => { tear.style.opacity = '0'; }, 70);
       }
-      setTimeout(tearFlash, 5500 + Math.random() * 9000);
+      if (tabVisible) schedule(tearFlash, 5500 + Math.random() * 9000);
     }
-    setTimeout(triggerChroma, 1800);
-    setTimeout(spawnBars,     3200);
-    setTimeout(tearFlash,     6000);
+
+    document.addEventListener('visibilitychange', () => {
+      tabVisible = !document.hidden;
+      if (!tabVisible) {
+        stopAll();
+      } else {
+        // Restart chains
+        schedule(triggerChroma, 1800);
+        schedule(spawnBars,     3200);
+        schedule(tearFlash,     6000);
+      }
+    });
+    reduceMotionMq.addEventListener('change', e => {
+      reduceMotion = e.matches;
+      if (reduceMotion) stopAll();
+    });
+
+    schedule(triggerChroma, 1800);
+    schedule(spawnBars,     3200);
+    schedule(tearFlash,     6000);
   }
 
   if (document.readyState === 'loading') {

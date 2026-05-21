@@ -194,6 +194,21 @@
    .scrolled header's backdrop-filter from clipping the fixed menu to the
    header box. Toggle is-open on the <ic-header> host element. */
 ic-header.is-open .ic-hdr-mobile { display: flex; }
+
+/* Home — centered at top, distinct from the services list below */
+.ic-hdr-mobile-home {
+  align-self: center;
+  text-align: center;
+  min-width: 200px;
+  margin-bottom: 12px;
+  font-size: 16px !important;
+  color: var(--ic-text);
+  letter-spacing: 0.12em !important;
+}
+/* Contact CTA — always last, slightly emphasized */
+.ic-hdr-mobile-contact {
+  margin-top: 12px;
+}
 .ic-hdr-mobile-label {
   font-size: 10px;
   color: var(--ic-muted);

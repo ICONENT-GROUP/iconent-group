@@ -175,11 +175,15 @@
 .quiz-input,
 .quiz-textarea {
   width: 100%;
-  background: var(--ic-bg);
+  /* Slightly lighter than page bg so the input is visually distinct from the
+     card (which is --ic-bg-soft). Keeps dark theme without making the field
+     look like a flat empty area. */
+  background: rgba(255, 255, 255, 0.035);
   border: 1px solid var(--ic-rule);
   border-radius: 8px;
   padding: 14px 16px;
-  font-size: 15px;
+  /* 16px minimum prevents iOS Safari auto-zoom on focus. */
+  font-size: 16px;
   color: var(--ic-text);
   font-family: var(--font-sans);
   transition: border-color 0.18s ease, background 0.18s ease;
@@ -265,16 +269,27 @@
 /* ---- Inline error ---- */
 .quiz-error {
   display: none;
+  align-items: center;
+  gap: 6px;
   color: #FF5050;
   font-size: 13px;
   margin-top: 6px;
+  line-height: 1.4;
+}
+.quiz-error::before {
+  /* Multi-modal error indicator (not color-only) — readable by daltonics
+     and conveys severity to screen readers via the role="alert" on the el. */
+  content: '⚠';
+  font-size: 14px;
+  flex-shrink: 0;
 }
 .quiz-field.has-error .quiz-input,
 .quiz-field.has-error .quiz-textarea {
   border-color: #FF5050;
+  background: rgba(255, 80, 80, 0.05);
 }
 .quiz-field.has-error .quiz-error {
-  display: block;
+  display: inline-flex;
 }
 
 /* ---- Narrative intermezzo / case study ---- */
@@ -523,6 +538,10 @@
   color: #000;
   margin-left: auto;
 }
+.quiz-btn-continue {
+  margin: 24px 0 0;
+  align-self: flex-start;
+}
 .quiz-btn-next:hover:not(:disabled) {
   background: #00E07A;
   transform: translateY(-1px);
@@ -579,7 +598,10 @@
   .quiz-footer { padding: 16px 20px 20px; }
   .quiz-question { font-size: 20px; }
   .quiz-narrative h2 { font-size: 22px; }
-  .quiz-btn { padding: 11px 16px; font-size: 12px; }
+  /* min-height 44px hits the Apple HIG touch target requirement. */
+  .quiz-btn { padding: 13px 18px; font-size: 13px; min-height: 44px; }
+  /* Bump progress bar visibility on small screens. */
+  .quiz-progress-track { height: 4px; }
 }
 
 /* ---- Reduce motion ---- */

@@ -24,6 +24,7 @@
   flex-direction: column;
   gap: 32px;
 }
+.contact-info-block h2,
 .contact-info-block h3 {
   font-size: 14px;
   color: var(--ic-green);
