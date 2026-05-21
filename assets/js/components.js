@@ -172,13 +172,26 @@
   customElements.define('ic-footer', IcFooter);
 
   /* ============================================================
-     GLOBAL HOLOGRAPHIC BACKGROUND
-     Injected once at the start of <body>, sits behind every page.
-     Three JS-driven glitch effects (chromatic split, bars, tear)
-     fire on irregular intervals. Honors prefers-reduced-motion.
+     HOLOGRAPHIC HERO BACKGROUND (container-scoped)
+     Injected only into:
+       - .hero (homepage), replacing the old matrix canvas
+       - .hero-compact (service pages only — platform + PM)
+     Other pages (about, contact, privacy, terms) do NOT get the fx.
+     Three JS-driven glitch effects honor prefers-reduced-motion.
      ============================================================ */
   function injectFxScene() {
     if (document.querySelector('.ic-fx-scene')) return;
+
+    let target = document.querySelector('.hero');
+    if (!target) {
+      const isServicePage = document.body.classList.contains('platform-page')
+                         || document.body.classList.contains('pm-page');
+      if (isServicePage) {
+        target = document.querySelector('.hero-compact');
+      }
+    }
+    if (!target) return;
+
     const scene = document.createElement('div');
     scene.className = 'ic-fx-scene';
     scene.setAttribute('aria-hidden', 'true');
@@ -199,7 +212,7 @@
         <rect width="100%" height="100%" filter="url(#ic-fx-film-noise)"/>
       </svg>
       <div class="ic-fx-vignette"></div>`;
-    document.body.insertBefore(scene, document.body.firstChild);
+    target.insertBefore(scene, target.firstChild);
     initFxGlitch();
   }
 
