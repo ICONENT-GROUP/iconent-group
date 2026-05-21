@@ -1181,6 +1181,19 @@
   overflow: hidden;
   background: radial-gradient(ellipse at center, #050a0e 0%, #000000 70%);
 }
+/* Global mode (home page only): fixed so it stays visible during scroll */
+.ic-fx-scene--global {
+  position: fixed;
+}
+/* Scroll-driven darkening overlay (home page only) */
+.ic-fx-darken {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
 /* Ensure hero-compact text content sits above the fx scene */
 .hero-compact > :not(.ic-fx-scene) {
   position: relative;

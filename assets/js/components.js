@@ -172,28 +172,36 @@
   customElements.define('ic-footer', IcFooter);
 
   /* ============================================================
-     HOLOGRAPHIC HERO BACKGROUND (container-scoped)
-     Injected only into:
-       - .hero (homepage), replacing the old matrix canvas
-       - .hero-compact (service pages only — platform + PM)
-     Other pages (about, contact, privacy, terms) do NOT get the fx.
-     Three JS-driven glitch effects honor prefers-reduced-motion.
+     HOLOGRAPHIC FX BACKGROUND
+     Two modes:
+       - HOME (.hero present): scene attached at <body> level with
+         position: fixed so it stays visible during scroll. A
+         scroll-driven dark overlay (.ic-fx-darken) progressively
+         dims the fx as the user scrolls down.
+       - SERVICE PAGES (.platform-page or .pm-page): scene injected
+         inside .hero-compact only, scoped to the title area.
+       - OTHER PAGES: no fx.
+     Glitch effects honor prefers-reduced-motion.
      ============================================================ */
   function injectFxScene() {
     if (document.querySelector('.ic-fx-scene')) return;
 
-    let target = document.querySelector('.hero');
-    if (!target) {
-      const isServicePage = document.body.classList.contains('platform-page')
-                         || document.body.classList.contains('pm-page');
-      if (isServicePage) {
-        target = document.querySelector('.hero-compact');
-      }
+    const hero = document.querySelector('.hero');
+    const isServicePage = document.body.classList.contains('platform-page')
+                       || document.body.classList.contains('pm-page');
+
+    let target = null;
+    let globalMode = false;
+    if (hero) {
+      target = document.body;
+      globalMode = true;
+    } else if (isServicePage) {
+      target = document.querySelector('.hero-compact');
     }
     if (!target) return;
 
     const scene = document.createElement('div');
-    scene.className = 'ic-fx-scene';
+    scene.className = 'ic-fx-scene' + (globalMode ? ' ic-fx-scene--global' : '');
     scene.setAttribute('aria-hidden', 'true');
     scene.innerHTML = `
       <div class="ic-fx-glow"></div>
@@ -213,7 +221,37 @@
       </svg>
       <div class="ic-fx-vignette"></div>`;
     target.insertBefore(scene, target.firstChild);
+
+    if (globalMode) {
+      const darken = document.createElement('div');
+      darken.className = 'ic-fx-darken';
+      darken.setAttribute('aria-hidden', 'true');
+      target.insertBefore(darken, scene.nextSibling);
+      setupScrollDarken(darken);
+    }
+
     initFxGlitch();
+  }
+
+  function setupScrollDarken(darken) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      darken.style.opacity = '0';
+      return;
+    }
+    // Reach maximum darkness after ~1800px of scroll (~2 viewports on desktop).
+    const maxScroll = 1800;
+    let ticking = false;
+    const update = () => {
+      const opacity = Math.min(0.92, window.scrollY / maxScroll);
+      darken.style.opacity = opacity.toFixed(3);
+      ticking = false;
+    };
+    update();
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }, { passive: true });
   }
 
   function initFxGlitch() {
