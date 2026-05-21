@@ -6,12 +6,20 @@
   <meta name="theme-color" content="#0A0A0A" />
   <title>Project Management — ICONENT GROUP</title>
   <meta name="description" content="The full execution layer for urban artist careers. Foundation, Sound & Brand, Launch — managed end-to-end by ICONENT GROUP." />
-  <link rel="canonical" href="https://iconent-group.com/services-project-management" />
+  <link rel="canonical" href="https://iconent-group.com/services-project-management.html" />
   <meta property="og:title" content="Project Management — ICONENT GROUP" />
   <meta property="og:description" content="The full execution layer for urban artist careers." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://iconent-group.com/services-project-management" />
+  <meta property="og:url" content="https://iconent-group.com/services-project-management.html" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="ICONENT GROUP" />
+  <meta property="og:image" content="https://iconent-group.com/assets/img/banner-map.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://iconent-group.com/assets/img/banner-map.jpg" />
+  <meta name="geo.region" content="US-NY" />
+  <meta name="geo.placename" content="New York" />
+  <meta name="geo.position" content="40.7058;-74.0080" />
+  <meta name="ICBM" content="40.7058, -74.0080" />
   <link rel="stylesheet" href="/assets/css/tokens.css" />
   <link rel="stylesheet" href="/assets/css/base.css" />
   <link rel="stylesheet" href="/assets/css/components.css" />
@@ -19,13 +27,14 @@
   <link rel="stylesheet" href="/assets/css/pages/service-pm.css" />
 </head>
 <body data-page="pm" class="pm-page">
+  <a class="skip-link" href="#main">Skip to content</a>
   <ic-header></ic-header>
   <div class="blur-overlay"></div>
 
-  <main>
+  <main id="main">
     <section class="hero-compact">
       <h1>Project <span class="accent">management</span></h1>
-      <p class="hero-sub">The full execution layer for your career — calendar, content, distribution, rollout, all run together.</p>
+      <p class="hero-sub">The full execution layer for your career.<br />Calendar, content, distribution, rollout, all run together.</p>
     </section>
 
     <section class="section pm-what">
@@ -87,6 +96,7 @@
         <li>Editorial and playlist pitching for every drop</li>
         <li>Catalog management and rights tracking</li>
         <li>A&amp;R direction on track selection and sequencing</li>
+        <li>Dedicated artist website + EPK setup when needed</li>
         <li>Monthly reporting on listeners, streams, saves, and adds</li>
       </ul>
     </section>
@@ -131,6 +141,11 @@
       <h2>Before <span class="accent">/ After</span></h2>
       <p class="lead">EXXIA — 12 months of structured release sequencing, paid amplification, influencer activation, organic TikTok positioning, and editorial targeting. Measurable growth, no temporary spikes.</p>
       <div class="case-exxia">
+        <div class="case-exxia-header">
+          <p class="case-exxia-label">Case Study</p>
+          <h3 class="case-exxia-name">EXXIA</h3>
+          <p class="case-exxia-period">Spotify Results · 12 Months</p>
+        </div>
         <div class="case-exxia-photos">
           <figure class="case-exxia-ba">
             <span class="ba-label">Before</span>
@@ -143,9 +158,6 @@
           </figure>
         </div>
         <div class="case-exxia-content">
-          <p class="case-exxia-label">Case Study</p>
-          <h3 class="case-exxia-name">EXXIA</h3>
-          <p class="case-exxia-period">Spotify Results · 12 Months</p>
           <div class="case-exxia-metrics">
             <div class="case-exxia-metric">
               <div class="case-exxia-metric-value">50,244</div>
@@ -179,7 +191,7 @@
         </div>
         <div class="faq-item">
           <p class="faq-q">How long does a program last?</p>
-          <p class="faq-a">Programs run in 3-month cycles minimum. That's the window where compounding starts to show on the data — anything shorter is essentially a launch sprint, not management. Most artists we work with renew for at least two cycles back-to-back because the second quarter is where catalog growth really kicks in.</p>
+          <p class="faq-a">Standard 90-day program. That's the window where compounding starts to show on the data — anything shorter is essentially a launch sprint, not management. Most artists renew into a continued engagement at the end of the term.</p>
         </div>
         <div class="faq-item">
           <p class="faq-q">Do you replace my existing team?</p>
@@ -214,11 +226,59 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Project Management",
-    "provider": { "@type": "Organization", "name": "ICONENT GROUP" },
-    "description": "Full execution layer for urban artist careers: foundation, sound & brand, launch.",
-    "areaServed": "US"
+    "@graph": [
+      {
+        "@type": "Service",
+        "@id": "https://iconent-group.com/services-project-management#service",
+        "name": "Artist Project Management",
+        "alternateName": "Music Project Management",
+        "serviceType": "Artist Management",
+        "provider": {
+          "@type": ["Organization", "LocalBusiness"],
+          "name": "ICONENT GROUP",
+          "url": "https://iconent-group.com/",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "99 Wall Street",
+            "addressLocality": "New York",
+            "addressRegion": "NY",
+            "postalCode": "10005",
+            "addressCountry": "US"
+          }
+        },
+        "description": "Full execution layer for urban artist careers: release calendar, content strategy, ads, distribution coordination, editorial pitching, partnership outreach, catalog growth. Three-step framework: Foundation, Sound & Brand, Launch.",
+        "areaServed": { "@type": "Country", "name": "United States" },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Urban music artists with existing catalog"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://iconent-group.com/contact-us",
+          "availability": "https://schema.org/InStock",
+          "priceCurrency": "USD",
+          "priceSpecification": {
+            "@type": "PriceSpecification",
+            "description": "Custom pricing, set after free review call. Standard 90-day program, renewable."
+          }
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Who is Project Management for?", "acceptedAnswer": { "@type": "Answer", "text": "Urban artists with a real catalog who are committed to building a long-term career and need structured execution instead of ad-hoc effort." } },
+          { "@type": "Question", "name": "How long does a program last?", "acceptedAnswer": { "@type": "Answer", "text": "Standard 90-day program — the window where compounding starts to show on the data. Most artists renew into a continued engagement at the end of the term." } },
+          { "@type": "Question", "name": "Do you replace my existing team?", "acceptedAnswer": { "@type": "Answer", "text": "No. We integrate. If you have an audio engineer, a producer, a videographer — they stay. We coordinate them inside the release plan." } }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://iconent-group.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Project Management", "item": "https://iconent-group.com/services-project-management.html" }
+        ]
+      }
+    ]
   }
   </script>
 

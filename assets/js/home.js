@@ -235,44 +235,9 @@
     }
   }
 
-  /* ============ COUNT-UP METRICS ============ */
-  function initCountUps() {
-    const els = document.querySelectorAll('[data-count]');
-    if (!els.length || !('IntersectionObserver' in window)) {
-      els.forEach((el) => {
-        const target = parseInt(el.dataset.count, 10);
-        el.textContent = target.toLocaleString('en-US');
-      });
-      return;
-    }
-    const easeOutQuad = (t) => t * (2 - t);
-    const animate = (el) => {
-      const target = parseInt(el.dataset.count, 10);
-      if (isNaN(target)) return;
-      const duration = 1600;
-      const start = performance.now();
-      const step = (now) => {
-        const t = Math.min(1, (now - start) / duration);
-        const value = Math.floor(easeOutQuad(t) * target);
-        el.textContent = value.toLocaleString('en-US');
-        if (t < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animate(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    els.forEach((el) => observer.observe(el));
-  }
-
   function init() {
     initHeroCanvas();
-    initCountUps();
+    /* Count-up metrics (data-count) are handled by shared.js — no need to duplicate here. */
   }
 
   if (document.readyState === 'loading') {

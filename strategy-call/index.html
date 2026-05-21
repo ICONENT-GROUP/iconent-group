@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0A0A0A" />
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <title>ICONENT — Strategy Call</title>
+  <meta name="description" content="Private strategy call booking." />
+  <meta property="og:title" content="ICONENT — Strategy Call" />
+  <meta property="og:description" content="Private strategy call booking." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://iconent-group.com/assets/img/banner-map.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="/assets/css/tokens.css" />
+  <link rel="stylesheet" href="/assets/css/base.css" />
+  <link rel="stylesheet" href="/assets/css/components.css" />
+  <link rel="stylesheet" href="/assets/css/pages/strategy-call.css" />
+
+  <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
+</head>
+<body class="strategy-call-page">
+
+  <main>
+    <!-- ==========================================================
+         SECTION 1 — VSL HERO (with copertina background)
+         ========================================================== -->
+    <section class="sc-vsl-hero">
+      <div class="sc-vsl-hero-bg" aria-hidden="true"></div>
+      <div class="section">
+        <p class="section-label sc-hero-label">Iconent Group</p>
+        <h1>How Major-Label Distribution<br />Actually Works</h1>
+        <p class="lead">Watch this before making any decision about your music career.</p>
+
+        <div class="sc-video-wrapper">
+          <iframe
+            src="https://player.vimeo.com/video/1150082063?title=0&amp;byline=0&amp;portrait=0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+            title="ICONENT — Major Label Distribution"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SECTION 2 — STATS BAND (animated counters)
+         ========================================================== -->
+    <div class="sc-stats-band">
+      <div class="sc-stats-grid">
+        <div>
+          <div class="sc-stat-value">+<span data-count="730">0</span></div>
+          <div class="sc-stat-label">Artists Moved Forward</div>
+        </div>
+        <div>
+          <div class="sc-stat-value">+<span data-count="647">0</span></div>
+          <div class="sc-stat-label">Contracts Signed</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================================
+         PARTNERS MARQUEE — divider between stats and the booking section
+         ========================================================== -->
+    <div class="partners">
+      <p class="partners-label">Distribution Partners &amp; Connections</p>
+      <div class="partners-track">
+        <img src="/assets/img/partner-sony.png" class="partner-logo" alt="Sony Music" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <span class="partner-text">TuneCore</span>
+        <span class="partner-divider">◆</span>
+        <img src="/assets/img/partner-warner.png" class="partner-logo partner-logo--warner" alt="Warner Music" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <span class="partner-text">DistroKid</span>
+        <span class="partner-divider">◆</span>
+        <img src="/assets/img/partner-universal.png" class="partner-logo" alt="Universal Music" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <img src="/assets/img/ada.png" class="partner-logo" alt="ADA Music" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <img src="/assets/img/partner-believe.png" class="partner-logo" alt="Believe Music" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <img src="/assets/img/partner-ingrooves.png" class="partner-logo partner-logo--ingrooves" alt="Ingrooves" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <!-- duplicate for seamless loop -->
+        <img src="/assets/img/partner-sony.png" class="partner-logo" alt="" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <span class="partner-text">TuneCore</span>
+        <span class="partner-divider">◆</span>
+        <img src="/assets/img/partner-warner.png" class="partner-logo partner-logo--warner" alt="" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <span class="partner-text">DistroKid</span>
+        <span class="partner-divider">◆</span>
+        <img src="/assets/img/partner-universal.png" class="partner-logo" alt="" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <img src="/assets/img/ada.png" class="partner-logo" alt="" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <img src="/assets/img/partner-believe.png" class="partner-logo" alt="" loading="lazy" />
+        <span class="partner-divider">◆</span>
+        <img src="/assets/img/partner-ingrooves.png" class="partner-logo partner-logo--ingrooves" alt="" loading="lazy" />
+        <span class="partner-divider">◆</span>
+      </div>
+    </div>
+
+    <!-- ==========================================================
+         SECTION 3 — BOOKING (Calendly + lock overlay)
+         ========================================================== -->
+    <section class="sc-booking" id="booking">
+      <p class="section-label">Book Your Call</p>
+      <h2>Book a Free <span class="accent">Strategy Call</span></h2>
+      <p class="lead">Please watch the full video before booking the call.</p>
+
+      <div class="sc-calendar-wrap">
+        <div
+          class="calendly-inline-widget"
+          data-url="https://calendly.com/d/cxy6-2pj-4zj/iconent-artist-discovery-call?hide_landing_page_details=1&amp;hide_gdpr_banner=1&amp;background_color=141414&amp;text_color=f5f5f5&amp;primary_color=00ff88"
+          style="min-width:320px;height:880px;"></div>
+
+        <div class="sc-calendar-lock" id="sc-calendar-lock" aria-live="polite">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3.5" y="11" width="17" height="11" rx="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            <circle cx="12" cy="16.5" r="1.4" fill="currentColor" stroke="none" />
+          </svg>
+          <h3>Booking is currently locked</h3>
+          <p>You can book your call in <span class="sc-countdown" id="sc-countdown">30</span> seconds</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SECTION 4a — TALENT (text + photo side-by-side)
+         ========================================================== -->
+    <section class="sc-copy-row">
+      <div class="sc-copy-text">
+        <h2>Most artists don't fail because of <span class="accent">talent</span></h2>
+        <p>They fail because they don't understand how the music industry actually works.</p>
+        <p>Streaming algorithms, label sequencing, release timing, royalty splits, sync placements, A&amp;R cycles — these are the levers that move careers forward. Most artists never learn them, and pay the price in years of stalled releases and missed opportunities.</p>
+        <p class="sc-copy-muted">Talent without structure gets stuck. Every time.</p>
+      </div>
+      <div class="sc-vsl-photo">
+        <img src="/assets/img/vsl%201.png" alt="" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SECTION 4b — SUCCESS NOT RANDOM (photo left, text right)
+         ========================================================== -->
+    <section class="sc-copy-row sc-copy-row--reverse">
+      <div class="sc-copy-text">
+        <h2>Success in music is <span class="accent">not random</span></h2>
+        <p>Luck exists. But relying on it is why most careers never move forward.</p>
+        <p>Every artist with sustained success ran a process — even when they tell the story as a happy accident. Behind every overnight breakthrough sits two years of positioning, relationships built off-stage, and dozens of small decisions made at exactly the right time.</p>
+        <p class="sc-copy-muted">The artists who break out aren't the lucky ones. They're the ones who stopped leaving it to chance.</p>
+      </div>
+      <div class="sc-vsl-photo">
+        <img src="/assets/img/vsl4.jpeg" alt="" loading="lazy" style="transform: scale(1.25) translateY(-8%); transform-origin: center;" />
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SECTION 4c — DROPPING MUSIC ISN'T A STRATEGY
+         ========================================================== -->
+    <section class="sc-copy-row">
+      <div class="sc-copy-text">
+        <h2>Dropping music isn't a <span class="accent">strategy</span></h2>
+        <p>Uploading songs, chasing streams, and hoping for visibility is not how careers are built.</p>
+        <p>The default playbook — release, post, repeat — burns through your most valuable resources: time, audience attention, and label patience. Without a release plan tied to actual industry rhythms, every drop becomes a coin flip.</p>
+        <p>Without direction, artists waste:</p>
+        <ul class="sc-bullets">
+          <li>Years of releases that never compound</li>
+          <li>Money on the wrong moves at the wrong moment</li>
+          <li>Opportunities they don't even see coming</li>
+        </ul>
+      </div>
+      <div class="sc-vsl-photo">
+        <img src="/assets/img/vsl3.png" alt="" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SECTION 4d — DON'T MOVE ALONE
+         ========================================================== -->
+    <section class="sc-copy-row sc-copy-row--reverse">
+      <div class="sc-copy-text">
+        <h2>This is why serious artists <span class="accent">don't move alone</span></h2>
+        <p>Navigating labels, marketing, positioning, and deals without guidance is the fastest way to stay stuck — even with great music.</p>
+        <p>Labels read positioning before they read streams. Marketing partners watch for signals you didn't know you were sending. Sync supervisors, distributors, editorial curators — they all run on context most artists never get exposed to.</p>
+        <p class="sc-copy-muted">At a certain level, talent needs direction. The artists who break through aren't the most talented — they're the ones with someone in the room who knows what a yes looks like before it arrives.</p>
+      </div>
+      <div class="sc-vsl-photo">
+        <img src="/assets/img/vsl2.png" alt="" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SECTION 5 — COMPARE BLOCK (who this is for)
+         ========================================================== -->
+    <section class="section">
+      <p class="section-label">Who This Is For</p>
+      <h2>This path is <span class="accent">not for everyone</span></h2>
+      <p class="lead">We only work with artists who understand that music is part of a business, growth requires structure, and progress requires real commitment — not occasional effort.</p>
+
+      <div class="sc-compare">
+        <div class="sc-compare-card sc-compare-card--bad">
+          <p class="sc-compare-label">Not a fit if you're</p>
+          <h3>Looking for shortcuts</h3>
+          <ul class="sc-compare-list">
+            <li>Hoping for a viral hit to fix everything</li>
+            <li>Expecting growth without commitment</li>
+            <li>Treating music as a hobby or side project</li>
+            <li>Unwilling to invest in the project</li>
+          </ul>
+        </div>
+        <div class="sc-compare-card sc-compare-card--good">
+          <p class="sc-compare-label">A fit if you</p>
+          <h3>Treat music as a business</h3>
+          <ul class="sc-compare-list">
+            <li>Want structure around your career</li>
+            <li>Are committed to long-term growth</li>
+            <li>Have a project ready to scale</li>
+            <li>Are open to direction and honest feedback</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         SECTION 6 — HOW WE HELP
+         ========================================================== -->
+    <section class="section">
+      <p class="section-label">How We Work</p>
+      <h2>How we help artists <span class="accent">move forward</span></h2>
+      <p class="lead">Iconent works as a strategic partner, guiding artists through every step of their growth — from catalog positioning to direct label conversations.</p>
+
+      <ul class="sc-bullets sc-bullets--lg">
+        <li>A&amp;R guidance and project positioning</li>
+        <li>Marketing and release strategy built around real industry rhythms</li>
+        <li>Direct relationships with major-label ecosystems (Sony, Warner, Universal, ADA, and partners)</li>
+        <li>Catalog audit, sequencing, and rollout planning</li>
+      </ul>
+
+      <p class="sc-copy-muted sc-mt-lg">The goal is simple: turn a music project into a structured, scalable career — and stop leaving the next move to chance.</p>
+    </section>
+
+    <!-- ==========================================================
+         SECTION 8 — CTA → scroll to booking
+         ========================================================== -->
+    <section class="sc-cta-block">
+      <h2>Ready to <span class="accent">move forward</span>?</h2>
+      <a href="#booking" class="sc-btn sc-btn-primary" data-scroll-to="booking">
+        Book a Free Call With Us
+      </a>
+    </section>
+
+    <!-- ==========================================================
+         SECTION 9 — CLOSING COPY
+         ========================================================== -->
+    <section class="sc-copy">
+      <h2>This is <span class="accent">not</span> a course or a coaching program</h2>
+      <p>It's direct work on your project, with ongoing involvement and responsibility.</p>
+      <p>Coaching teaches you to think about your project. We work on it directly — inside decisions about releases, deals, content, and timing as they happen, not in a Zoom recap a week later.</p>
+      <p class="sc-copy-muted">We don't follow a fixed framework or pre-built system. We step into your project and work on what actually matters, based on where it is right now.</p>
+    </section>
+
+    <section class="section">
+      <p class="section-label">What's Included</p>
+      <h2>What the dedicated <span class="accent">project work</span> actually covers</h2>
+      <p class="lead">During the process, we focus on what actually moves a project forward — the unglamorous structural work that compounds over months instead of one-off bursts that fade in days.</p>
+
+      <div class="sc-features">
+        <div class="sc-feature">Structuring your project to be taken seriously by labels, partners, and industry players</div>
+        <div class="sc-feature">Preparing each release so opportunities aren't wasted too early</div>
+        <div class="sc-feature">Defining what to prioritize — and eliminating what's slowing you down</div>
+        <div class="sc-feature">Aligning sound, image, and communication into one clear direction</div>
+        <div class="sc-feature">Supporting you day-to-day on key decisions across releases, content, and marketing</div>
+        <div class="sc-feature">Coordinating execution across production, visuals, and promotion</div>
+        <div class="sc-feature">Setting up the right structure around publishing and royalties</div>
+        <div class="sc-feature">Building direct relationships with A&amp;R, sync, and editorial contacts before you need them</div>
+      </div>
+
+      <p class="sc-copy-muted sc-mt-xl">
+        What gets executed depends on the project. What stays constant is this: your project stops drifting and starts moving with direction.
+      </p>
+      <p class="sc-emphasis">
+        You're no longer guessing the next move. You're making decisions with context, timing, and structure.
+      </p>
+    </section>
+
+    <!-- ==========================================================
+         SECTION 10 — FINAL CTA
+         ========================================================== -->
+    <section class="sc-cta-block">
+      <h2>Let's <span class="accent">talk</span>.</h2>
+      <a href="#booking" class="sc-btn sc-btn-primary" data-scroll-to="booking">
+        Book Your Call
+      </a>
+    </section>
+  </main>
+
+  <!-- ==========================================================
+       AD COMPLIANCE DISCLAIMER (only on this private landing)
+       Required for Meta/Google ads — explicit non-affiliation
+       + results disclaimer.
+       ========================================================== -->
+  <section class="sc-disclaimer">
+    <p class="sc-disclaimer-label">Disclaimer</p>
+    <p>This site is not affiliated with, endorsed by, or sponsored by Facebook (Meta Platforms, Inc.), Instagram, Google, YouTube, TikTok, or any other third-party platform. All trademarks, logos, and brand names mentioned are property of their respective owners.</p>
+    <p>Results are not guaranteed. Stream counts, label deals, monthly listener growth, and revenue figures shown in case studies reflect specific artists' outcomes and do not represent typical results. Individual outcomes depend on commitment, catalog quality, market conditions, and execution.</p>
+  </section>
+
+  <ic-footer></ic-footer>
+
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script src="/assets/js/components.js" defer></script>
+  <script src="/assets/js/strategy-call.js" defer></script>
+</body>
+</html>

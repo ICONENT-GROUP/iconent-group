@@ -107,6 +107,16 @@
 
   // Wire up close button + overlay click + ESC after DOM ready
   function wire() {
+    // Global delegation: any [data-action="open-calendly"] on the page opens.
+    // Header buttons are also covered here, so a second listener in the header
+    // component is harmless but redundant.
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('[data-action="open-calendly"]');
+      if (!trigger) return;
+      e.preventDefault();
+      window.icOpenCalendly();
+    });
+
     // If page already has an inline Calendly widget, don't inject a modal —
     // having two .calendly-inline-widget elements causes the second to render empty.
     if (findInlineWidgetOnPage()) return;

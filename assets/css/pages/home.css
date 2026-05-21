@@ -47,14 +47,14 @@
 
 /* Case Study IICY */
 .case-iicy {
-  margin: 48px 0 0;
+  margin: 43px 0 0;
   display: grid;
   grid-template-columns: 280px 1fr;
-  gap: 56px;
+  gap: 50px;
   align-items: center;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
   border: 1px solid var(--ic-rule);
-  padding: 48px;
+  padding: 43px;
   border-radius: 6px;
   position: relative;
   overflow: hidden;
@@ -246,8 +246,8 @@
 .team-brief {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  margin: 56px 0 0;
+  gap: 36px;
+  margin: 50px 0 0;
 }
 .team-card { text-align: center; position: relative; }
 .team-photo {
@@ -291,3 +291,4 @@
 @media (max-width: 900px) {
   .team-brief { grid-template-columns: 1fr; }
 }
+

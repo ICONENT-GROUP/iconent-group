@@ -6,8 +6,12 @@
   --ic-muted: #8A8A8A;
   --ic-rule: #2A2A2A;
   --ic-green: #00FF88;
+  --ic-green-cta: #00CC6E;
+  --ic-green-cta-rgb: 0, 204, 110;
   --ic-blue: #3D8BFF;
   --ic-grey: #6B7280;
+  --ic-orange: #FF6A00;
+  --ic-orange-rgb: 255, 106, 0;
 
   /* Platform brand colors */
   --plat-spotify: #1DB954;

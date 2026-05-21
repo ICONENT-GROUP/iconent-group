@@ -64,7 +64,7 @@ main { position: relative; z-index: 1; }
 .section {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 110px 28px;
+  padding: 99px 28px;
   position: relative;
   z-index: 2;
 }
@@ -103,17 +103,78 @@ main { position: relative; z-index: 1; }
 }
 .text-highlight { color: var(--ic-green); font-weight: 600; }
 
+/* Desktop only: halve vertical breathing room across the layout.
+   Sections + non-section flow containers (cta-block, partners marquee,
+   strategy-call bands) all get tightened by ~50% to remove the dead air
+   that was showing up between blocks. */
+@media (min-width: 901px) {
+  /* --- Adjacent .section blocks --- */
+  .section + .section { padding-top: 45px; }
+  .section:has(+ .section) { padding-bottom: 45px; }
+
+  /* --- .section bordering a non-section flow container (banner image,
+       partners marquee, cta-block, sc-bands) --- */
+  .partners + .section,
+  .banner-image + .section,
+  .marquee + .section,
+  .cta-block + .section,
+  .sc-stats-band + .section,
+  .sc-booking + .section { padding-top: 45px; }
+  .section:has(+ .partners),
+  .section:has(+ .banner-image),
+  .section:has(+ .marquee),
+  .section:has(+ .cta-block),
+  .section:has(+ .sc-stats-band),
+  .section:has(+ .sc-booking) { padding-bottom: 45px; }
+
+  /* --- Non-section flow containers themselves --- */
+  /* Final CTA strip — was 90px, now 45px */
+  .cta-block { padding-top: 45px; padding-bottom: 45px; }
+  .cta-block > p { margin-bottom: 32px; }
+  /* Partners marquee strip — was 72px, now 36px */
+  .partners { padding: 36px 0; }
+  .partners-label { margin-bottom: 18px; }
+  /* Strategy-call booking section — was 56px, now 32px */
+  .sc-booking { padding-top: 32px; padding-bottom: 32px; }
+}
+
 /* Responsive */
 @media (max-width: 900px) {
-  .section { padding: 72px 20px; }
+  .section { padding: 65px 20px; }
   .section h2 { font-size: clamp(32px, 8vw, 48px); }
   .section-label { font-size: 12px; margin-bottom: 14px; gap: 8px; }
   .section-label::before { width: 7px; height: 7px; }
 }
 @media (max-width: 480px) {
-  .section { padding: 56px 16px; }
+  .section { padding: 50px 16px; }
   .section h2 { font-size: clamp(28px, 9vw, 42px); }
 }
+
+/* A11y — skip link (WCAG 2.4.1 Bypass Blocks) */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 8px;
+  z-index: 10000;
+  background: var(--ic-green);
+  color: #000;
+  padding: 12px 18px;
+  border-radius: 4px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 12px;
+  transition: top 0.18s ease;
+}
+.skip-link:focus { top: 8px; outline: none; }
+
+/* A11y — high-contrast focus ring on dark theme (WCAG 2.4.7) */
+*:focus-visible {
+  outline: 2px solid var(--ic-green);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.btn:focus-visible { outline-offset: 4px; }
 
 /* Reduce motion preference */
 @media (prefers-reduced-motion: reduce) {

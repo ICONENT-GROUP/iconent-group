@@ -6,47 +6,28 @@
       const dropdown = block.querySelector('.btn-dropdown');
       const trigger = block.querySelector('.btn-dropdown .btn-secondary');
       const services = block.querySelector('.services-inline');
-      const overlay = document.querySelector('.blur-overlay');
       if (!trigger || !services) return;
 
-      let closeTimer = null;
-
+      const closeBlock = (b) => {
+        b.querySelector('.btn-dropdown')?.classList.remove('open');
+        b.querySelector('.services-inline')?.classList.remove('open');
+        b.classList.remove('has-open-dropdown');
+      };
       const open = () => {
-        clearTimeout(closeTimer);
-        // Close any other open dropdowns first
         document.querySelectorAll('.cta-block.has-open-dropdown').forEach((b) => {
           if (b !== block) closeBlock(b);
         });
         dropdown.classList.add('open');
         services.classList.add('open');
         block.classList.add('has-open-dropdown');
-        overlay && overlay.classList.add('active');
       };
-      const closeBlock = (b) => {
-        b.querySelector('.btn-dropdown')?.classList.remove('open');
-        b.querySelector('.services-inline')?.classList.remove('open');
-        b.classList.remove('has-open-dropdown');
-      };
-      const close = () => {
-        closeBlock(block);
-        // Hide overlay only if no other dropdown is open
-        if (!document.querySelector('.cta-block.has-open-dropdown')) {
-          overlay && overlay.classList.remove('active');
-        }
-      };
+      const close = () => closeBlock(block);
 
       trigger.addEventListener('click', (e) => {
         e.preventDefault();
+        e.stopPropagation();
         if (dropdown.classList.contains('open')) close(); else open();
       });
-
-      // Auto-close on mouse leave (with grace)
-      block.addEventListener('mouseleave', () => {
-        if (!dropdown.classList.contains('open')) return;
-        clearTimeout(closeTimer);
-        closeTimer = setTimeout(close, 200);
-      });
-      block.addEventListener('mouseenter', () => clearTimeout(closeTimer));
 
       // Click outside closes
       document.addEventListener('click', (e) => {
@@ -84,14 +65,53 @@
     });
   }
 
+  /* Count-up metrics — animates any [data-count] number into view.
+     Shared across home + service pages. */
+  function initCountUps() {
+    const els = document.querySelectorAll('[data-count]');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach((el) => {
+        const target = parseInt(el.dataset.count, 10);
+        if (!isNaN(target)) el.textContent = target.toLocaleString('en-US');
+      });
+      return;
+    }
+    const easeOutQuad = (t) => t * (2 - t);
+    const animate = (el) => {
+      const target = parseInt(el.dataset.count, 10);
+      if (isNaN(target)) return;
+      const duration = 1600;
+      const start = performance.now();
+      const step = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const value = Math.floor(easeOutQuad(t) * target);
+        el.textContent = value.toLocaleString('en-US');
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animate(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    els.forEach((el) => observer.observe(el));
+  }
+
   // Run after DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       setupCtaDropdowns();
       setupFaq();
+      initCountUps();
     });
   } else {
     setupCtaDropdowns();
     setupFaq();
+    initCountUps();
   }
 })();

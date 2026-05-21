@@ -57,26 +57,74 @@
   margin-top: 4px;
 }
 .contact-socials a {
-  width: 36px;
-  height: 36px;
-  border: 1px solid var(--ic-rule);
-  border-radius: 50%;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-  border-bottom: 1px solid var(--ic-rule);
+  width: 36px;
+  height: 36px;
+  color: var(--ic-text);
+  opacity: 0.7;
+  border: 0;
+  transition: opacity 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 .contact-socials a:hover {
-  border-color: var(--ic-green);
+  opacity: 1;
   color: var(--ic-green);
   transform: translateY(-2px);
 }
 .contact-socials svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
+  width: 22px;
+  height: 22px;
+  display: block;
 }
+/* About Us CTA inside contact-info column */
+.contact-info-cta {
+  border-bottom: 1px solid var(--ic-rule);
+  padding-bottom: 24px;
+}
+.contact-about-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 22px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: 1px solid var(--ic-rule);
+  border-radius: 4px;
+  color: var(--ic-text);
+  background: rgba(255,255,255,0.04);
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+.contact-about-btn:hover {
+  border-color: var(--ic-green);
+  color: var(--ic-green);
+  background: rgba(0,255,136,0.04);
+}
+.contact-about-sub {
+  font-size: 12px;
+  color: var(--ic-muted);
+  margin: 10px 0 0;
+  letter-spacing: 0.04em;
+}
+/* Smaller variant when the About Us CTA is the last block (under Social) */
+.contact-info-cta--small {
+  border-bottom: none;
+  padding-bottom: 0;
+  padding-top: 4px;
+}
+.contact-info-cta--small .contact-about-btn {
+  padding: 10px 16px;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+}
+.contact-info-cta--small .contact-about-sub {
+  font-size: 11px;
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
 @media (max-width: 900px) {
   .contact-main { grid-template-columns: 1fr; gap: 32px; }
 }

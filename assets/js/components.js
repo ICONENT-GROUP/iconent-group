@@ -1,7 +1,7 @@
 (function () {
   const HEADER_HTML = `
     <header class="ic-hdr" role="banner">
-      <a class="ic-hdr-logo" href="/">ICONENT</a>
+      <a class="ic-hdr-logo" href="/">ICONENT GROUP</a>
       <nav class="ic-hdr-nav" aria-label="Primary">
         <div class="ic-hdr-services">
           <a href="/services-project-management.html" data-path="/services-project-management">Services</a>
@@ -13,8 +13,8 @@
             <a href="/services-tiktok.html"     data-path="/services-tiktok"     role="menuitem">TikTok Promotion</a>
           </div>
         </div>
-        <a href="/contact-us.html" data-path="/contact-us">Contact</a>
-        <button class="ic-hdr-cta" data-action="open-calendly" type="button">Book a Call</button>
+        <a href="/" data-path="/">Home</a>
+        <a class="ic-hdr-cta" href="/contact-us.html" data-path="/contact-us">Contact Us</a>
       </nav>
       <button class="ic-hdr-burger" type="button" aria-label="Open menu" aria-expanded="false"></button>
       <div class="ic-hdr-mobile" role="menu">
@@ -25,8 +25,8 @@
         <a href="/services-instagram.html"  data-path="/services-instagram">Instagram</a>
         <a href="/services-tiktok.html"     data-path="/services-tiktok">TikTok</a>
         <p class="ic-hdr-mobile-label">Menu</p>
-        <a href="/contact-us.html" data-path="/contact-us">Contact</a>
-        <button class="ic-hdr-cta" data-action="open-calendly" type="button">Book a Call</button>
+        <a href="/" data-path="/">Home</a>
+        <a class="ic-hdr-cta" href="/contact-us.html" data-path="/contact-us">Contact Us</a>
       </div>
     </header>`;
 
@@ -49,9 +49,9 @@
             </a>
           </div>
           <p class="ic-ftr-block-brand">ICONENT GROUP</p>
-          <p class="ic-ftr-block-tagline">Digital Marketing and Promotional Services</p>
+          <p class="ic-ftr-block-tagline">Next-Generation Music Industry System</p>
           <p class="ic-ftr-block-address">99 Wall Street, New York, NY, United States, 10005</p>
-          <p class="ic-ftr-block-copyright">© 2026 Iconent-Group. All rights reserved.</p>
+          <p class="ic-ftr-block-copyright">© 2026 ICONENT GROUP. All rights reserved.</p>
         </div>
       </footer>
     </div>`;
@@ -101,10 +101,7 @@
         });
       };
       window.addEventListener('scroll', onScroll, { passive: true });
-      // Book-a-Call buttons
-      this.querySelectorAll('[data-action="open-calendly"]').forEach((b) => {
-        b.addEventListener('click', () => window.icOpenCalendly && window.icOpenCalendly());
-      });
+      // Book-a-Call buttons: handled by global delegation in calendly.js
       // ESC closes mobile
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && hdr.classList.contains('is-open')) {
@@ -115,30 +112,46 @@
         }
       });
 
-      // Desktop services dropdown: click on trigger toggles open state
-      // (in addition to CSS :hover). Without this, click on the arrow
-      // navigates away or causes a flicker — annoying UX.
+      // Desktop services dropdown: click toggles open/closed state.
+      // The CSS opens the menu on :hover too, so to "close on second click"
+      // we need an is-closed class that overrides hover. is-closed clears
+      // automatically when the cursor leaves the wrapper, so the next hover
+      // gets a fresh state.
       const services = this.querySelector('.ic-hdr-services');
       const servicesLink = services && services.querySelector(':scope > a');
       if (services && servicesLink) {
         servicesLink.addEventListener('click', (e) => {
-          // On desktop (no burger visible), intercept the click and toggle
-          // dropdown instead of navigating immediately. On mobile this code
-          // path is unreachable (the desktop nav is hidden).
-          if (window.matchMedia('(min-width: 901px)').matches) {
-            e.preventDefault();
-            services.classList.toggle('is-open');
+          if (!window.matchMedia('(min-width: 901px)').matches) return;
+          e.preventDefault();
+          const visuallyOpen = services.classList.contains('is-open') ||
+            (services.matches(':hover') && !services.classList.contains('is-closed'));
+          if (visuallyOpen) {
+            services.classList.remove('is-open');
+            services.classList.add('is-closed');
+          } else {
+            services.classList.add('is-open');
+            services.classList.remove('is-closed');
           }
         });
-        // Close on click outside the services wrapper
+        // When the cursor leaves the services wrapper, clear the force-closed
+        // flag so the next :hover opens normally.
+        services.addEventListener('mouseleave', () => {
+          services.classList.remove('is-closed');
+          services.classList.remove('is-open');
+        });
+        // Click outside closes
         document.addEventListener('click', (e) => {
           if (!services.contains(e.target)) {
             services.classList.remove('is-open');
+            services.classList.remove('is-closed');
           }
         });
         // ESC closes
         document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape') services.classList.remove('is-open');
+          if (e.key === 'Escape') {
+            services.classList.remove('is-open');
+            services.classList.remove('is-closed');
+          }
         });
       }
     }

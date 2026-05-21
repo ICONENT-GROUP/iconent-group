@@ -1,0 +1,608 @@
+/* =================================================================
+   STRATEGY CALL — hidden landing page
+   Loaded after tokens.css + base.css + components.css.
+   Reuses .section / .section-label / .lead / .accent / .partners /
+   .partners-track / .partner-logo from the shared CSS.
+   ================================================================= */
+
+/* No fixed header on this page → remove the header offset from base.css */
+body.strategy-call-page { padding-top: 0; }
+
+/* Page-wide accent: base.css only colors .section h2 .accent — extend it
+   so .sc-booking h2 and .sc-cta-block h2 inherit the same treatment. */
+.strategy-call-page .accent { color: var(--ic-green); }
+
+/* Tighten vertical rhythm on desktop (less empty space between sections) */
+.strategy-call-page .section { padding: 56px 28px; }
+
+/* =================================================================
+   SECTION 1 — VSL HERO (with cover background image)
+   ================================================================= */
+.sc-vsl-hero {
+  position: relative;
+  padding-top: 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Three soft glows behind the cover image — left edge cyan,
+   right edge magenta, top center warm. Sits below the cover (z:0). */
+.sc-vsl-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 700px 580px at 0% 10%,
+      rgba(0, 200, 255, 0.65) 0%, rgba(0, 200, 255, 0.25) 35%, transparent 68%),
+    radial-gradient(ellipse 700px 580px at 100% 10%,
+      rgba(255, 0, 120, 0.65) 0%, rgba(255, 0, 120, 0.25) 35%, transparent 68%),
+    radial-gradient(ellipse 900px 460px at 50% -10%,
+      rgba(255, 235, 200, 0.55) 0%, rgba(255, 235, 200, 0.20) 40%, transparent 70%);
+  filter: blur(14px);
+}
+.sc-vsl-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/img/copertina%20vsl.png');
+  background-size: cover;
+  background-position: center -10%;
+  background-repeat: no-repeat;
+  opacity: 0.35;
+  z-index: 1;
+  pointer-events: none;
+}
+.sc-vsl-hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.18) 0%,
+    rgba(10, 10, 10, 0.65) 55%,
+    var(--ic-bg) 100%
+  );
+}
+.sc-vsl-hero .section {
+  position: relative;
+  z-index: 2;
+  padding-top: 24px;
+  padding-bottom: 32px;
+  text-align: center;
+}
+.sc-vsl-hero .section-label {
+  justify-content: center;
+  margin-bottom: 14px;
+}
+.sc-vsl-hero .sc-hero-label::before { display: none; }
+.sc-vsl-hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin: 0 auto 16px;
+  text-transform: uppercase;
+  color: var(--ic-text);
+  max-width: 900px;
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.7),
+    0 8px 32px rgba(0, 0, 0, 0.55),
+    0 16px 48px rgba(0, 0, 0, 0.4);
+}
+.sc-vsl-hero .lead {
+  margin: 0 auto 32px;
+  max-width: 640px;
+  color: var(--ic-muted);
+  font-size: clamp(15px, 1.5vw, 17px);
+}
+.sc-video-wrapper {
+  position: relative;
+  max-width: 960px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--ic-rule);
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 136, 0.1),
+    0 30px 80px -20px rgba(0, 255, 136, 0.18),
+    0 30px 80px -30px rgba(0, 0, 0, 0.6);
+  background: #000;
+}
+.sc-video-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* =================================================================
+   SECTION 2 — STATS BAND (animated counters)
+   ================================================================= */
+.sc-stats-band {
+  border-top: 1px solid var(--ic-rule);
+  border-bottom: 1px solid var(--ic-rule);
+  background: var(--ic-bg);
+  position: relative;
+  z-index: 2;
+  padding: 40px 28px;
+}
+.sc-stats-grid {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  text-align: center;
+}
+.sc-stat-value {
+  font-size: clamp(56px, 9vw, 96px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ic-text);
+  margin: 0 0 12px;
+  text-shadow: 0 0 40px rgba(0, 255, 136, 0.15);
+  font-variant-numeric: tabular-nums;
+}
+.sc-stat-label {
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ic-muted);
+}
+
+/* =================================================================
+   SECTION 3 — BOOKING + CALENDAR LOCK
+   ================================================================= */
+.sc-booking {
+  text-align: center;
+  padding: 56px 28px;
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.sc-booking::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0, 255, 136, 0.06) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+.sc-booking > * { position: relative; z-index: 1; }
+.sc-booking .section-label { justify-content: center; }
+.sc-booking h2 {
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  margin: 0 0 16px;
+  text-transform: uppercase;
+}
+.sc-booking .lead {
+  color: var(--ic-muted);
+  max-width: 540px;
+  margin: 0 auto 28px;
+  font-size: 15px;
+}
+.sc-calendar-wrap {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 880px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--ic-rule);
+  background: var(--ic-bg-soft);
+}
+.sc-calendar-wrap .calendly-inline-widget {
+  width: 100%;
+  min-height: 880px;
+}
+/* VSL page: taller privacy-footer mask to fully cover Calendly's
+   "Cookie Settings / Privacy Policy" strip (the global 44px isn't enough
+   inside this larger embed). Sits above the iframe, below the lock overlay. */
+.sc-calendar-wrap .calendly-inline-widget::after {
+  height: 64px;
+  background: var(--ic-bg-soft);
+  z-index: 5;
+  border-radius: 0 0 8px 8px;
+}
+.sc-calendar-lock {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 40px 20px;
+  background: rgba(10, 10, 10, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.sc-calendar-lock.is-unlocked {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.sc-calendar-lock svg {
+  width: 64px;
+  height: 64px;
+  color: var(--ic-green);
+  filter: drop-shadow(0 0 24px rgba(0, 255, 136, 0.4));
+}
+.sc-calendar-lock h3 {
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ic-text);
+  text-align: center;
+}
+.sc-calendar-lock p {
+  font-size: 15px;
+  color: var(--ic-muted);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+.sc-countdown {
+  color: var(--ic-green);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* =================================================================
+   SECTION 4 / 9 — COPY BLOCKS (alternating heading + paragraphs)
+   ================================================================= */
+.sc-copy {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 28px;
+  position: relative;
+  z-index: 2;
+}
+.sc-copy h2 {
+  font-size: clamp(28px, 4.5vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0 0 20px;
+  color: var(--ic-text);
+}
+.sc-copy h2 .accent { color: var(--ic-green); }
+.sc-copy p {
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.65;
+  color: var(--ic-text);
+  margin: 0 0 16px;
+}
+.sc-copy-muted { color: var(--ic-muted); }
+.sc-emphasis {
+  color: var(--ic-text);
+  font-weight: 600;
+}
+
+/* =================================================================
+   BULLET LISTS
+   ================================================================= */
+.sc-bullets {
+  margin: 8px 0 24px;
+  padding: 0;
+  list-style: none;
+}
+.sc-bullets li {
+  padding: 8px 0 8px 24px;
+  position: relative;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ic-text);
+}
+.sc-bullets li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--ic-green);
+  font-weight: 700;
+}
+.sc-bullets--lg li { font-size: 17px; padding-top: 10px; padding-bottom: 10px; }
+
+.sc-mt-lg { margin-top: 24px; }
+.sc-mt-xl { margin-top: 36px; }
+
+/* =================================================================
+   COPY ROW — text + square back-lit photo side-by-side
+   Replaces the old full-width .sc-vsl-img blocks (saves vertical space)
+   ================================================================= */
+.sc-copy-row {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 28px;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 48px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+.sc-copy-row--reverse { grid-template-columns: 320px 1fr; }
+.sc-copy-row--reverse .sc-copy-text { order: 2; }
+.sc-copy-row--reverse .sc-vsl-photo { order: 1; }
+
+.sc-copy-text h2 {
+  font-size: clamp(28px, 4.5vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0 0 18px;
+  color: var(--ic-text);
+}
+.sc-copy-text h2 .accent { color: var(--ic-green); }
+.sc-copy-text p {
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.65;
+  color: var(--ic-text);
+  margin: 0 0 14px;
+}
+.sc-copy-text .sc-copy-muted { color: var(--ic-muted); }
+.sc-copy-text .sc-bullets { margin-top: 6px; }
+
+/* Square back-lit frame — magenta + cyan duotone glow,
+   picks up the urban/neon palette of the VSL photos. */
+.sc-vsl-photo {
+  width: 320px;
+  height: 320px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 0, 200, 0.28);
+  background: var(--ic-bg-soft);
+  box-shadow:
+    0 0 0 1px rgba(255, 0, 200, 0.10),
+    0 0 60px rgba(255, 0, 200, 0.28),
+    0 0 120px rgba(0, 200, 255, 0.18),
+    0 30px 60px -20px rgba(0, 0, 0, 0.6);
+  position: relative;
+  flex-shrink: 0;
+}
+.sc-vsl-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.25);
+  transform-origin: center center;
+  display: block;
+}
+.sc-vsl-photo--standalone {
+  margin: 12px auto;
+}
+
+/* =================================================================
+   SECTION 5 — COMPARE CARDS
+   ================================================================= */
+.sc-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 24px 0 0;
+}
+.sc-compare-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005));
+  border: 1px solid var(--ic-rule);
+  padding: 36px;
+  border-radius: 6px;
+}
+.sc-compare-card--good {
+  border-color: rgba(0, 255, 136, 0.3);
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 136, 0.1),
+    0 0 60px -20px rgba(0, 255, 136, 0.25);
+}
+.sc-compare-label {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+.sc-compare-card--bad .sc-compare-label { color: var(--ic-grey); }
+.sc-compare-card--good .sc-compare-label { color: var(--ic-green); }
+.sc-compare-card h3 {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 20px;
+  color: var(--ic-text);
+  letter-spacing: -0.02em;
+}
+.sc-compare-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sc-compare-list li {
+  padding: 12px 0 12px 24px;
+  border-bottom: 1px solid var(--ic-rule);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ic-text);
+  position: relative;
+}
+.sc-compare-list li:last-child { border-bottom: none; }
+.sc-compare-card--bad .sc-compare-list li::before {
+  content: '✕';
+  position: absolute;
+  left: 0;
+  color: var(--ic-grey);
+  font-weight: 700;
+}
+.sc-compare-card--good .sc-compare-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--ic-green);
+  font-weight: 700;
+}
+
+/* =================================================================
+   FEATURE GRID
+   ================================================================= */
+.sc-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 32px 0 0;
+}
+.sc-feature {
+  padding: 24px 24px 24px 48px;
+  border: 1px solid var(--ic-rule);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.015);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ic-text);
+  position: relative;
+}
+.sc-feature::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 30px;
+  width: 8px;
+  height: 8px;
+  background: var(--ic-green);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--ic-green);
+}
+
+/* =================================================================
+   CTA BLOCK + BUTTON
+   ================================================================= */
+.sc-cta-block {
+  text-align: center;
+  padding: 96px 28px;
+  position: relative;
+  z-index: 2;
+  /* Radial atmosphere as background → naturally fades to transparent at box
+     edges. No ::before clipping = no hard horizontal line at section bounds. */
+  background: radial-gradient(ellipse 70% 80% at center,
+    rgba(0, 255, 136, 0.10) 0%,
+    rgba(0, 255, 136, 0.04) 35%,
+    rgba(0, 255, 136, 0.01) 60%,
+    transparent 85%);
+}
+.sc-cta-block > * { position: relative; z-index: 1; }
+.sc-cta-block h2 {
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  margin: 0 0 24px;
+  text-transform: uppercase;
+}
+.sc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 36px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid transparent;
+}
+.sc-btn-primary {
+  background: var(--ic-green);
+  color: #FFFFFF;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 136, 0.3),
+    0 0 40px -10px rgba(0, 255, 136, 0.5);
+}
+@media (hover: hover) {
+  .sc-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 0 0 1px rgba(0, 255, 136, 0.5),
+      0 0 60px -10px rgba(0, 255, 136, 0.7);
+  }
+}
+
+/* =================================================================
+   AD COMPLIANCE DISCLAIMER (Meta / Google ads required text)
+   ================================================================= */
+.sc-disclaimer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 28px 24px;
+  border-top: 1px solid var(--ic-rule);
+  position: relative;
+  z-index: 2;
+}
+.sc-disclaimer-label {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ic-muted);
+  margin: 0 0 14px;
+}
+.sc-disclaimer p {
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--ic-muted);
+  margin: 0 0 10px;
+  letter-spacing: 0.02em;
+}
+.sc-disclaimer p:last-child { margin-bottom: 0; }
+
+/* =================================================================
+   RESPONSIVE
+   ================================================================= */
+@media (max-width: 900px) {
+  .strategy-call-page .section { padding: 56px 20px; }
+  .sc-vsl-hero { padding-top: 0; }
+  .sc-vsl-hero .section { padding: 18px 20px 24px; }
+  .sc-vsl-hero h1 { font-size: clamp(28px, 8vw, 44px); }
+  .sc-vsl-hero h1 br { display: none; } /* let it wrap naturally on mobile */
+  .sc-stats-band { padding: 44px 20px; }
+  .sc-stats-grid { grid-template-columns: 1fr; gap: 32px; }
+  .sc-stat-value { font-size: clamp(48px, 14vw, 72px); }
+  .sc-booking { padding: 56px 20px; }
+  .sc-calendar-wrap { min-height: 720px; }
+  .sc-calendar-wrap .calendly-inline-widget { min-height: 720px; }
+  .sc-copy { padding: 40px 20px; }
+  .sc-copy h2 { font-size: clamp(24px, 6vw, 36px); }
+  .sc-copy-row {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 32px 20px;
+  }
+  .sc-copy-row--reverse { grid-template-columns: 1fr; }
+  .sc-copy-row--reverse .sc-copy-text,
+  .sc-copy-row--reverse .sc-vsl-photo { order: 0; }
+  .sc-copy-text h2 { font-size: clamp(24px, 6vw, 32px); }
+  .sc-vsl-photo {
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+  .sc-vsl-photo--standalone { margin: 16px auto; }
+  .sc-compare { grid-template-columns: 1fr; gap: 16px; }
+  .sc-features { grid-template-columns: 1fr; }
+  .sc-cta-block { padding: 56px 20px; }
+  .sc-cta-block h2 { font-size: clamp(28px, 7vw, 40px); }
+}
+@media (max-width: 900px) {
+  .sc-disclaimer { padding: 32px 20px 20px; }
+}
+@media (max-width: 480px) {
+  .sc-stat-value { font-size: clamp(40px, 16vw, 64px); }
+  .sc-calendar-lock h3 { font-size: 20px; }
+  .sc-calendar-lock p { font-size: 13px; }
+}

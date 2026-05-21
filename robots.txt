@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /strategy-call/
 
 Sitemap: https://iconent-group.com/sitemap.xml

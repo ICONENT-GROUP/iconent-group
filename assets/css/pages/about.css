@@ -1,3 +1,40 @@
+/* Discrete internal link to the hidden Strategy Call landing.
+   Subtle text, low opacity, only on about-us — not in shared footer. */
+.about-internal-link {
+  text-align: center;
+  padding: 24px 28px 12px;
+  position: relative;
+  z-index: 2;
+}
+.about-internal-link a {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--ic-muted);
+  padding: 6px 14px;
+  border: 1px solid var(--ic-rule);
+  border-radius: 4px;
+  opacity: 0.55;
+  transition: opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.about-internal-link a:hover {
+  opacity: 1;
+  color: var(--ic-green);
+  border-color: rgba(0,255,136,0.3);
+}
+
+/* Two-line hero subtitle: bolder lead + muted detail */
+.hero-sub--lead {
+  color: var(--ic-text) !important;
+  font-weight: 600;
+  margin-bottom: 14px !important;
+}
+.hero-sub--detail {
+  color: var(--ic-muted);
+}
+
 .about-mission {
   border-top: 1px solid var(--ic-rule);
   max-width: 1100px;
@@ -8,8 +45,8 @@
 .about-team-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-  margin: 56px 0 0;
+  gap: 36px;
+  margin: 50px 0 0;
 }
 .about-team-card {
   text-align: center;
@@ -91,7 +128,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
-  margin: 48px 0 0;
+  margin: 43px 0 0;
 }
 .expand-card {
   background: var(--ic-bg-soft);
@@ -116,4 +153,163 @@
   .about-team-grid, .expand-grid { grid-template-columns: 1fr; }
   .where-cities span::after { display: none; }
   .where-cities { gap: 12px; }
+}
+
+/* =================================================================
+   PILLARS — three-legged stool block
+   ================================================================= */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 36px 0 22px;
+}
+.pillar-card {
+  border-top: 1px solid var(--ic-green);
+  padding-top: 20px;
+}
+.pillar-num {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ic-green);
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.pillar-card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+  color: var(--ic-text);
+}
+.pillar-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ic-muted);
+}
+.pillars-note {
+  margin-top: 32px;
+  padding: 24px;
+  background: var(--ic-bg-soft);
+  border: 1px solid var(--ic-rule);
+  border-radius: 6px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ic-text);
+}
+
+/* =================================================================
+   CASE EXXIA MINI — for about page, smaller than PM page version
+   ================================================================= */
+.case-exxia-mini {
+  background: linear-gradient(180deg, rgba(0,255,136,0.04), rgba(0,255,136,0.01));
+  border: 1px solid rgba(0,255,136,0.2);
+  border-radius: 8px;
+  padding: 36px 32px;
+  margin-top: 32px;
+}
+.case-exxia-mini-header { margin-bottom: 28px; }
+.case-exxia-mini-header .case-exxia-label {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ic-green);
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.case-exxia-mini-header .case-exxia-name {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+  color: var(--ic-text);
+}
+.case-exxia-mini-header .case-exxia-period {
+  font-size: 13px;
+  color: var(--ic-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0;
+}
+.case-exxia-mini .case-exxia-metrics {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.case-exxia-mini .case-exxia-metric {
+  border-top: 1px solid var(--ic-rule);
+  padding-top: 14px;
+}
+.case-exxia-mini .case-exxia-metric-value {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--ic-green);
+  letter-spacing: -0.02em;
+  margin: 0 0 6px;
+  text-shadow: 0 0 24px rgba(0,255,136,0.3);
+}
+.case-exxia-mini .case-exxia-metric-label {
+  font-size: 10px;
+  color: var(--ic-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* =================================================================
+   TESTIMONIALS — review blocks with left accent bar
+   ================================================================= */
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin: 36px 0 0;
+}
+.testimonial {
+  border-left: 2px solid var(--ic-green);
+  padding: 6px 0 6px 22px;
+}
+.testimonial .t-name {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ic-text);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+.testimonial .t-challenge {
+  font-size: 11px;
+  color: var(--ic-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 6px 0 14px;
+}
+.testimonial .t-challenge strong {
+  color: var(--ic-text);
+  font-weight: 700;
+}
+.testimonial p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ic-text);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .pillars-grid { grid-template-columns: 1fr; gap: 16px; }
+  .case-exxia-mini { padding: 28px 22px; }
+  .case-exxia-mini-header .case-exxia-name { font-size: 28px; }
+  .case-exxia-mini .case-exxia-metrics { grid-template-columns: 1fr 1fr; }
+  .case-exxia-mini .case-exxia-metric-value { font-size: 22px; }
+  .testimonials { grid-template-columns: 1fr; gap: 20px; }
+  .testimonial { padding-left: 18px; }
+}
+@media (max-width: 480px) {
+  .case-exxia-mini .case-exxia-metrics { grid-template-columns: 1fr; }
+  .pillars-note { padding: 20px; font-size: 14px; }
 }

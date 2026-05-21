@@ -4,24 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#0A0A0A" />
-  <title>Contact — ICONENT GROUP</title>
+  <title>Contact ICONENT GROUP | Book a Free Artist Review Call</title>
   <meta name="description" content="Get in touch with ICONENT GROUP. Book a free review call or reach us at info@iconent-group.com." />
-  <link rel="canonical" href="https://iconent-group.com/contact-us" />
-  <meta property="og:title" content="Contact — ICONENT GROUP" />
+  <link rel="canonical" href="https://iconent-group.com/contact-us.html" />
+  <meta property="og:title" content="Contact ICONENT GROUP | Book a Free Artist Review Call" />
   <meta property="og:description" content="Book a free review call with our Project Manager." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://iconent-group.com/contact-us" />
+  <meta property="og:url" content="https://iconent-group.com/contact-us.html" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="ICONENT GROUP" />
+  <meta property="og:image" content="https://iconent-group.com/assets/img/banner-map.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://iconent-group.com/assets/img/banner-map.jpg" />
+  <meta name="geo.region" content="US-NY" />
+  <meta name="geo.placename" content="New York" />
+  <meta name="geo.position" content="40.7058;-74.0080" />
+  <meta name="ICBM" content="40.7058, -74.0080" />
   <link rel="stylesheet" href="/assets/css/tokens.css" />
   <link rel="stylesheet" href="/assets/css/base.css" />
   <link rel="stylesheet" href="/assets/css/components.css" />
   <link rel="stylesheet" href="/assets/css/pages/contact.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <ic-header></ic-header>
   <div class="blur-overlay"></div>
 
-  <main>
+  <main id="main">
     <section class="hero-compact">
       <h1>Let's <span style="color: var(--ic-green);">talk</span></h1>
       <p class="hero-sub">Book a review call below, or reach us directly. We answer real artists with real catalogs.</p>
@@ -61,6 +70,10 @@
             </a>
           </div>
         </div>
+        <div class="contact-info-block contact-info-cta contact-info-cta--small">
+          <a href="/about-us.html" class="contact-about-btn">About Us</a>
+          <p class="contact-about-sub">Team, method, case studies, and reviews from real artists.</p>
+        </div>
       </div>
     </div>
   </main>
@@ -70,21 +83,43 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "url": "https://iconent-group.com/contact-us",
-    "mainEntity": {
-      "@type": "Organization",
-      "name": "ICONENT GROUP",
-      "email": "info@iconent-group.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "99 Wall Street",
-        "addressLocality": "New York",
-        "addressRegion": "NY",
-        "postalCode": "10005",
-        "addressCountry": "US"
+    "@graph": [
+      {
+        "@type": "ContactPage",
+        "url": "https://iconent-group.com/contact-us",
+        "mainEntity": {
+          "@type": ["Organization", "LocalBusiness"],
+          "name": "ICONENT GROUP",
+          "url": "https://iconent-group.com/",
+          "email": "info@iconent-group.com",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "99 Wall Street",
+            "addressLocality": "New York",
+            "addressRegion": "NY",
+            "postalCode": "10005",
+            "addressCountry": "US"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "40.7058",
+            "longitude": "-74.0080"
+          },
+          "areaServed": { "@type": "Country", "name": "United States" },
+          "sameAs": [
+            "https://www.instagram.com/iconent_group/",
+            "https://www.facebook.com/ICONENTGROUP"
+          ]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://iconent-group.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://iconent-group.com/contact-us.html" }
+        ]
       }
-    }
+    ]
   }
   </script>
 
