@@ -1,9 +1,10 @@
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+html { background: var(--ic-bg); }
 body {
   font-family: var(--font-sans);
-  background: var(--ic-bg);
+  background: transparent;
   color: var(--ic-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -44,18 +45,8 @@ ul, ol { list-style: none; padding: 0; margin: 0; }
 h1, h2, h3, h4, h5, h6 { margin: 0; color: inherit; font-weight: 900; }
 p { margin: 0; }
 
-/* Body grid pattern overlay (from original homepage) */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-}
+/* Old body grid removed — replaced by global holographic scene (.ic-fx-scene)
+   injected from components.js. Holographic CSS lives in components.css. */
 
 /* Main is the document content layer */
 main { position: relative; z-index: 1; }

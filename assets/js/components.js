@@ -170,4 +170,91 @@
 
   customElements.define('ic-header', IcHeader);
   customElements.define('ic-footer', IcFooter);
+
+  /* ============================================================
+     GLOBAL HOLOGRAPHIC BACKGROUND
+     Injected once at the start of <body>, sits behind every page.
+     Three JS-driven glitch effects (chromatic split, bars, tear)
+     fire on irregular intervals. Honors prefers-reduced-motion.
+     ============================================================ */
+  function injectFxScene() {
+    if (document.querySelector('.ic-fx-scene')) return;
+    const scene = document.createElement('div');
+    scene.className = 'ic-fx-scene';
+    scene.setAttribute('aria-hidden', 'true');
+    scene.innerHTML = `
+      <div class="ic-fx-glow"></div>
+      <div class="ic-fx-grid"></div>
+      <div class="ic-fx-edge-noise"></div>
+      <div class="ic-fx-scanlines"></div>
+      <div class="ic-fx-sweep"></div>
+      <div class="ic-fx-chroma" id="ic-fx-chroma"></div>
+      <div class="ic-fx-glitch-bars" id="ic-fx-glitch-bars"></div>
+      <div class="ic-fx-tear" id="ic-fx-tear"></div>
+      <svg class="ic-fx-noise" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <filter id="ic-fx-film-noise">
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+          <feColorMatrix values="0 0 0 0 0.65  0 0 0 0 0.85  0 0 0 0 0.88  0 0 0 0.55 0"/>
+        </filter>
+        <rect width="100%" height="100%" filter="url(#ic-fx-film-noise)"/>
+      </svg>
+      <div class="ic-fx-vignette"></div>`;
+    document.body.insertBefore(scene, document.body.firstChild);
+    initFxGlitch();
+  }
+
+  function initFxGlitch() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const chroma = document.getElementById('ic-fx-chroma');
+    const bars   = document.getElementById('ic-fx-glitch-bars');
+    const tear   = document.getElementById('ic-fx-tear');
+    if (!chroma || !bars || !tear) return;
+
+    let active = !document.hidden;
+    document.addEventListener('visibilitychange', () => { active = !document.hidden; });
+
+    function triggerChroma() {
+      if (active) {
+        chroma.classList.remove('glitching');
+        void chroma.offsetWidth;
+        chroma.classList.add('glitching');
+      }
+      setTimeout(triggerChroma, 2500 + Math.random() * 5000);
+    }
+    function spawnBars() {
+      if (active) {
+        bars.innerHTML = '';
+        const count = 1 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < count; i++) {
+          const bar = document.createElement('div');
+          bar.className = 'ic-fx-bar';
+          bar.style.top = (Math.random() * 100) + '%';
+          bar.style.height = (1 + Math.random() * 3) + 'px';
+          bar.style.opacity = String(0.4 + Math.random() * 0.5);
+          bars.appendChild(bar);
+        }
+        bars.style.opacity = '1';
+        setTimeout(() => { bars.style.opacity = '0'; }, 90 + Math.random() * 120);
+      }
+      setTimeout(spawnBars, 3500 + Math.random() * 6500);
+    }
+    function tearFlash() {
+      if (active) {
+        tear.style.top = (10 + Math.random() * 80) + '%';
+        tear.style.height = (10 + Math.random() * 45) + 'px';
+        tear.style.opacity = String(0.55 + Math.random() * 0.4);
+        setTimeout(() => { tear.style.opacity = '0'; }, 70);
+      }
+      setTimeout(tearFlash, 5500 + Math.random() * 9000);
+    }
+    setTimeout(triggerChroma, 1800);
+    setTimeout(spawnBars,     3200);
+    setTimeout(tearFlash,     6000);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', injectFxScene);
+  } else {
+    injectFxScene();
+  }
 })();
