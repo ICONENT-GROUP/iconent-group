@@ -51,6 +51,11 @@
           <p class="ic-ftr-block-brand">ICONENT GROUP</p>
           <p class="ic-ftr-block-tagline">Next-Generation Music Industry System</p>
           <p class="ic-ftr-block-address">99 Wall Street, New York, NY, United States, 10005</p>
+          <p class="ic-ftr-block-legal">
+            <a href="/privacy-policy.html">Privacy Policy</a>
+            <span class="ic-ftr-block-legal-sep">·</span>
+            <a href="/terms.html">Terms of Service</a>
+          </p>
           <p class="ic-ftr-block-copyright">© 2026 ICONENT GROUP. All rights reserved.</p>
         </div>
       </footer>
