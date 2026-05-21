@@ -334,6 +334,16 @@ body[data-platform="tiktok"] .platform-proof .proof-card::before {
 }
 /* TikTok primary CTA: solid cyan, matches the title accent (handled by --plat-accent). */
 
+/* TikTok proof screenshots: crop the top ~20% (system bar / search header)
+   by scaling the image 1.25 and shifting up 10% of its height. */
+body[data-platform="tiktok"] .platform-proof .proof-card-img {
+  overflow: hidden;
+}
+body[data-platform="tiktok"] .platform-proof .proof-card-img img {
+  transform: scale(1.25) translateY(-10%);
+  transform-origin: center center;
+}
+
 /* TODO placeholder for missing screenshots */
 .proof-todo {
   background: var(--ic-bg-soft);
