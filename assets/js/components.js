@@ -219,7 +219,8 @@
         </filter>
         <rect width="100%" height="100%" filter="url(#ic-fx-film-noise)"/>
       </svg>
-      <div class="ic-fx-vignette"></div>`;
+      <div class="ic-fx-vignette"></div>
+      ${globalMode ? '' : '<div class="ic-fx-fade-bottom"></div>'}`;
     target.insertBefore(scene, target.firstChild);
 
     if (globalMode) {
