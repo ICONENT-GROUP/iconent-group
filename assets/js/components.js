@@ -17,18 +17,22 @@
         <a class="ic-hdr-cta" href="/contact-us.html" data-path="/contact-us">Contact Us</a>
       </nav>
       <button class="ic-hdr-burger" type="button" aria-label="Open menu" aria-expanded="false"></button>
-      <div class="ic-hdr-mobile" role="menu">
-        <p class="ic-hdr-mobile-label">Services</p>
-        <a class="featured" href="/services-project-management.html" data-path="/services-project-management">Project Management</a>
-        <a href="/services-spotify.html"    data-path="/services-spotify">Spotify</a>
-        <a href="/services-youtube.html"    data-path="/services-youtube">YouTube</a>
-        <a href="/services-instagram.html"  data-path="/services-instagram">Instagram</a>
-        <a href="/services-tiktok.html"     data-path="/services-tiktok">TikTok</a>
-        <p class="ic-hdr-mobile-label">Menu</p>
-        <a href="/" data-path="/">Home</a>
-        <a class="ic-hdr-cta" href="/contact-us.html" data-path="/contact-us">Contact Us</a>
-      </div>
-    </header>`;
+    </header>
+    <!-- Mobile menu is a sibling of <header>, NOT a child.
+         Reason: .ic-hdr.scrolled has backdrop-filter which creates a
+         containing block — a fixed-positioned child would be clipped to
+         the header's 52px box. Keeping the menu as a sibling avoids that. -->
+    <div class="ic-hdr-mobile" role="menu">
+      <p class="ic-hdr-mobile-label">Services</p>
+      <a class="featured" href="/services-project-management.html" data-path="/services-project-management">Project Management</a>
+      <a href="/services-spotify.html"    data-path="/services-spotify">Spotify</a>
+      <a href="/services-youtube.html"    data-path="/services-youtube">YouTube</a>
+      <a href="/services-instagram.html"  data-path="/services-instagram">Instagram</a>
+      <a href="/services-tiktok.html"     data-path="/services-tiktok">TikTok</a>
+      <p class="ic-hdr-mobile-label">Menu</p>
+      <a href="/" data-path="/">Home</a>
+      <a class="ic-hdr-cta" href="/contact-us.html" data-path="/contact-us">Contact Us</a>
+    </div>`;
 
   const FOOTER_HTML = `
     <div class="ic-ftr-root">
@@ -78,22 +82,28 @@
       this.innerHTML = HEADER_HTML;
       const hdr = this.querySelector('.ic-hdr');
       markActive(this);
-      // Burger toggle
+      // Burger toggle — toggle is-open on the <ic-header> host (this), not on
+      // <header>. The mobile menu is now a sibling of <header> (see HEADER_HTML
+      // for why); the selector `ic-header.is-open .ic-hdr-mobile` opens it.
       const burger = this.querySelector('.ic-hdr-burger');
       burger.addEventListener('click', () => {
-        const open = hdr.classList.toggle('is-open');
+        const open = this.classList.toggle('is-open');
+        // Keep .ic-hdr in sync for any styling that still references it
+        hdr.classList.toggle('is-open', open);
         burger.setAttribute('aria-expanded', String(open));
         burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         document.body.classList.toggle('no-scroll', open);
       });
       // Close mobile on link click
+      const closeMenu = () => {
+        this.classList.remove('is-open');
+        hdr.classList.remove('is-open');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.setAttribute('aria-label', 'Open menu');
+        document.body.classList.remove('no-scroll');
+      };
       this.querySelectorAll('.ic-hdr-mobile a').forEach((a) => {
-        a.addEventListener('click', () => {
-          hdr.classList.remove('is-open');
-          burger.setAttribute('aria-expanded', 'false');
-          burger.setAttribute('aria-label', 'Open menu');
-          document.body.classList.remove('no-scroll');
-        });
+        a.addEventListener('click', closeMenu);
       });
       // Scroll → .scrolled
       let ticking = false;
@@ -109,11 +119,8 @@
       // Book-a-Call buttons: handled by global delegation in calendly.js
       // ESC closes mobile
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && hdr.classList.contains('is-open')) {
-          hdr.classList.remove('is-open');
-          burger.setAttribute('aria-expanded', 'false');
-          burger.setAttribute('aria-label', 'Open menu');
-          document.body.classList.remove('no-scroll');
+        if (e.key === 'Escape' && this.classList.contains('is-open')) {
+          closeMenu();
         }
       });
 

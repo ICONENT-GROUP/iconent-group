@@ -39,20 +39,16 @@
     { "source": "/application-progress",                 "destination": "/strategy-call/",                         "permanent": true },
     { "source": "/application/",                         "destination": "/strategy-call/",                         "permanent": true },
     { "source": "/application",                          "destination": "/strategy-call/",                         "permanent": true },
-    { "source": "/artist-management-application/",       "destination": "/strategy-call/?utm_source=ads&utm_campaign=team",         "permanent": true },
-    { "source": "/artist-management-application",        "destination": "/strategy-call/?utm_source=ads&utm_campaign=team",         "permanent": true },
-    { "source": "/major-label-application/",             "destination": "/strategy-call/?utm_source=ads&utm_campaign=distribution", "permanent": true },
-    { "source": "/major-label-application",              "destination": "/strategy-call/?utm_source=ads&utm_campaign=distribution", "permanent": true },
     {
       "source": "/",
       "has": [{ "type": "query", "key": "fluent-form", "value": "15" }],
-      "destination": "/strategy-call/?utm_source=ads&utm_campaign=team&form=15",
+      "destination": "/artist-management-application/",
       "permanent": true
     },
     {
       "source": "/",
       "has": [{ "type": "query", "key": "fluent-form", "value": "16" }],
-      "destination": "/strategy-call/?utm_source=ads&utm_campaign=distribution&form=16",
+      "destination": "/major-label-application/",
       "permanent": true
     },
     { "source": "/privacy-policy/",                      "destination": "/privacy-policy.html",                    "permanent": true },

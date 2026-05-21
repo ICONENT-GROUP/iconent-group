@@ -188,25 +188,12 @@
   overflow-y: auto;
   flex-direction: column;
   gap: 8px;
-}
-.ic-hdr.is-open .ic-hdr-mobile { display: flex; }
-
-/* When the mobile menu is open, drop the .scrolled backdrop-filter on the
-   header. backdrop-filter creates a containing block for fixed-positioned
-   descendants — without this override, .ic-hdr-mobile gets clipped inside
-   the header box (52px tall) when the user opens the menu mid-scroll.
-   !important + transition: none defeat the 0.25s backdrop transition that
-   would otherwise keep the containing block alive after click. */
-.ic-hdr.is-open,
-.ic-hdr.is-open.scrolled {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  background: var(--ic-bg);
-  transition: none !important;
-}
-.ic-hdr-mobile {
   z-index: calc(var(--z-header) + 1);
 }
+/* Mobile menu is now a sibling of <header>, not a child — this prevents the
+   .scrolled header's backdrop-filter from clipping the fixed menu to the
+   header box. Toggle is-open on the <ic-header> host element. */
+ic-header.is-open .ic-hdr-mobile { display: flex; }
 .ic-hdr-mobile-label {
   font-size: 10px;
   color: var(--ic-muted);
