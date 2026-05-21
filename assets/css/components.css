@@ -310,10 +310,9 @@
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.12em;
-  color: #F0FF00;
+  color: var(--ic-muted);
   margin: 0 0 6px;
   text-transform: uppercase;
-  text-shadow: 0 0 18px rgba(240, 255, 0, 0.45);
 }
 .ic-ftr-block-tagline,
 .ic-ftr-block-address {
