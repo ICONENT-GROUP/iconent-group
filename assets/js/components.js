@@ -187,12 +187,13 @@
     if (document.querySelector('.ic-fx-scene')) return;
 
     const hero = document.querySelector('.hero');
+    const isStrategyCall = document.body.classList.contains('strategy-call-page');
     const isServicePage = document.body.classList.contains('platform-page')
                        || document.body.classList.contains('pm-page');
 
     let target = null;
     let globalMode = false;
-    if (hero) {
+    if (hero || isStrategyCall) {
       target = document.body;
       globalMode = true;
     } else if (isServicePage) {
@@ -239,11 +240,15 @@
       darken.style.opacity = '0';
       return;
     }
-    // Reach maximum darkness after ~1800px of scroll (~2 viewports on desktop).
-    const maxScroll = 1800;
+    // Strategy-call gets a quick fade (~one viewport) so the fx behaves
+    // like the service-pages fade-bottom. Home gets a slower fade across
+    // ~two viewports for a more gradual reveal of the body content.
+    const isStrategyCall = document.body.classList.contains('strategy-call-page');
+    const maxScroll = isStrategyCall ? 650 : 1800;
+    const maxOpacity = isStrategyCall ? 0.98 : 0.92;
     let ticking = false;
     const update = () => {
-      const opacity = Math.min(0.92, window.scrollY / maxScroll);
+      const opacity = Math.min(maxOpacity, window.scrollY / maxScroll);
       darken.style.opacity = opacity.toFixed(3);
       ticking = false;
     };
