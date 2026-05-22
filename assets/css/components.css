@@ -476,58 +476,66 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   max-width: 1400px;
 }
 .hero h1 {
-  font-size: clamp(40px, 11vw, 180px);
+  font-size: clamp(36px, 14vw, 230px);
   line-height: 1;
   letter-spacing: -0.05em;
   text-transform: uppercase;
+  font-weight: 900;
   margin: 0 0 24px;
+  white-space: nowrap;
   text-shadow:
     0 0 40px rgba(0,0,0,0.55),
     0 4px 16px rgba(0,0,0,0.5),
     0 0 80px rgba(100,220,255,0.18);
-  /* Allow wrap on ultra-narrow viewports (≤320px) to prevent overflow.
-     Above that, clamp() keeps it on one line for most devices. */
-  white-space: normal;
+}
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: clamp(31px, 10vw, 58px);
+    letter-spacing: -0.04em;
+  }
 }
 .hero-tagline {
-  font-size: clamp(12px, 1.4vw, 16px);
+  font-size: clamp(14px, 1.4vw, 16px);
   color: #B8B8B8;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   font-weight: 700;
-  white-space: nowrap;
   text-shadow: 0 0 20px rgba(0,0,0,0.8);
   line-height: 1.6;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0 10px;
+  padding: 0 1rem;
+  text-align: center;
 }
+.hero-tagline .ht-sep,
 .hero-tagline .pipe {
+  margin: 0 10px;
   color: var(--ic-green);
   opacity: 0.8;
 }
-/* Mobile (≤700px): "Artist Development" on its own line; "Music Marketing — Distribution"
-   below, centered, with one dash between. Desktop keeps all three on one line. */
-@media (max-width: 700px) {
+/* Desktop ≥901px: all three items on one line, separated by · */
+@media (min-width: 901px) {
+  .hero-tagline { white-space: nowrap; }
+}
+/* Mobile ≤900px: item 1 on its own row, items 2+3 inline with one · between them */
+@media (max-width: 900px) {
   .hero-tagline {
-    white-space: normal;
-    gap: 4px 8px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
   }
-  /* Force the primary item to its own row */
-  .hero-tagline .tag-primary {
-    flex-basis: 100%;
-    text-align: center;
+  .hero-tagline .ht-item { white-space: nowrap; }
+  .hero-tagline .ht-item:first-of-type {
+    display: block;
+    margin-bottom: 4px;
   }
-  /* Hide the dash that came BEFORE Music Marketing — it'd dangle at the start of row 2 */
-  .hero-tagline .pipe-before {
-    display: none;
-  }
+  /* Hide the dot that came after item 1 — it'd dangle at the start of row 2 */
+  .hero-tagline .ht-sep:first-of-type { display: none; }
+  .hero-tagline .ht-item:nth-of-type(2),
+  .hero-tagline .ht-item:nth-of-type(3),
+  .hero-tagline .ht-sep:nth-of-type(2) { display: inline; }
 }
 .hero-scroll-hint {
   position: absolute;
-  bottom: 56px;
+  bottom: 72px;
   left: 50%;
   transform: translateX(-50%);
   color: var(--ic-muted);
@@ -546,6 +554,12 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   background: var(--ic-muted);
   margin: 12px auto 0;
   opacity: 0.4;
+}
+/* Mobile: hero content pulled up; scroll hint pushed up to clear the
+   shifted content while keeping it inside the visible viewport. */
+@media (max-width: 768px) {
+  .hero-content { transform: translateY(-15vh); }
+  .hero-scroll-hint { bottom: calc(72px + 20vh); }
 }
 @keyframes ic-scroll-pulse {
   0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
