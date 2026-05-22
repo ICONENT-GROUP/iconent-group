@@ -1,6 +1,7 @@
 /* ============================================================
    QUIZ APPLICATION — multi-step wizard logic
-   Shared by /artist-management-application/ and /major-label-application/
+   Used by /major-label-application/. The /artist-management-application/
+   URL still exists as a 301 redirect for legacy ad links.
 
    Submission is currently disabled while the custom CRM is being built.
    When the CRM endpoint is ready, set FORM_ENDPOINT below and the submit
@@ -14,7 +15,7 @@
   const FORM_ENDPOINT = ''; // set to '<crm-endpoint-url>' to enable submit
   const STORAGE_KEY = 'iconent_quiz_draft_v1';
   const POST_SUBMIT_REDIRECT = '/application-received/';
-  const AUTO_ADVANCE_DELAY_MS = 300; // visual feedback before next step (sweet spot 200-300ms)
+  const AUTO_ADVANCE_DELAY_MS = 450; // longer = more time to see selection / change mind before advance fires
 
   // ---------- BOOT ----------
   document.addEventListener('DOMContentLoaded', init);
@@ -62,22 +63,24 @@
       // back btn state
       if (backBtn) backBtn.disabled = i === 0;
 
-      // last step → swap next for submit
+      // last step → swap next for submit. Narrative/case-study steps carry an
+      // inline [data-quiz-continue] CTA, so the footer Next would be a duplicate.
       const isLast = i === totalSteps - 1;
+      const hasInlineContinue = !!steps[i].querySelector('[data-quiz-continue]');
       if (nextBtn && submitBtn) {
-        nextBtn.style.display = isLast ? 'none' : '';
+        nextBtn.style.display = (isLast || hasInlineContinue) ? 'none' : '';
         submitBtn.style.display = isLast ? '' : 'none';
         if (submitNote) submitNote.style.display = isLast ? '' : 'none';
       }
 
-      // focus first input/option for keyboard users
-      if (!opts.skipFocus) {
+      // Focus only real text inputs/textareas, and only on desktop. Auto-focusing
+      // radio labels on mobile caused the first option to look "pre-selected"
+      // (focus ring on first .quiz-option) and triggered iOS keyboard scrolls.
+      if (!opts.skipFocus && window.innerWidth >= 900) {
         const focusTarget = steps[i].querySelector(
-          'input:not([type="hidden"]):not([type="radio"]), textarea, .quiz-option, [data-quiz-continue]'
+          'input:not([type="hidden"]):not([type="radio"]), textarea'
         );
         if (focusTarget) {
-          // small delay so animation doesn't fight focus; preventScroll keeps
-          // the view stable (we handle scroll-into-view ourselves below).
           setTimeout(() => focusTarget.focus({ preventScroll: true }), 50);
         }
       }
@@ -265,18 +268,16 @@
         if (!raw) return;
         const data = JSON.parse(raw);
         Object.entries(data).forEach(([name, value]) => {
-          // Never restore `source` — it's bound to the URL (team vs distribution).
-          // Restoring would bleed source across the two quiz pages if the user
-          // started on one URL and continued on the other.
+          // Never restore `source` — bound to URL (team vs distribution).
           if (name === 'source') return;
           const el = root.querySelector(`[name="${name}"]`);
           if (!el) return;
-          if (el.type === 'radio') {
-            const radio = root.querySelector(`input[name="${name}"][value="${value}"]`);
-            if (radio) radio.checked = true;
-          } else {
-            el.value = value;
-          }
+          // Don't restore radio selections: restoring made the option look
+          // "pre-selected" on revisit (green ring on the first checked radio
+          // before the user actually picks). Text/textarea values are still
+          // restored so identity fields don't get lost on accidental refresh.
+          if (el.type === 'radio') return;
+          el.value = value;
         });
       } catch (_) { /* corrupt — ignore */ }
     }

@@ -1,3 +1,26 @@
+/* Hero → content transition: soften the seam between the dark hero and the
+   calendly box (which has its own slightly-lighter bg) so the color edge
+   doesn't read as a hard cut. Same approach as the service pages. */
+.hero-compact + .contact-main {
+  position: relative;
+}
+.hero-compact + .contact-main::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  left: 0;
+  right: 0;
+  height: 160px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 255, 136, 0.025) 50%,
+    var(--ic-bg) 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
 .contact-main {
   display: grid;
   grid-template-columns: 1fr 1fr;

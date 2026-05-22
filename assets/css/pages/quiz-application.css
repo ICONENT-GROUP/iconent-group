@@ -265,6 +265,10 @@
   font-size: 15px;
   color: var(--ic-text);
   user-select: none;
+  /* Skip the 300ms tap delay on iOS and prevent the double-tap-zoom gesture
+     stealing the click — both contributed to "I tapped the wrong row". */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .quiz-option:hover {
   border-color: #3D3D3D;
@@ -412,14 +416,16 @@
   display: block;
 }
 
-/* Split before/after layout (Exxia case study) */
+/* Split before/after layout (Exxia case study).
+   Stacked vertically (one row) so each screenshot is full-width — needed
+   for the dashboard numbers to be readable on phone screens. */
 .quiz-case-split {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  grid-template-columns: 1fr;
+  gap: 16px;
 }
 .quiz-case-split-item {
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: hidden;
   background: #0F0F0F;
   border: 1px solid var(--ic-rule);
@@ -432,15 +438,15 @@
 }
 .quiz-case-split-label {
   position: absolute;
-  top: 8px;
-  left: 8px;
-  background: rgba(0, 0, 0, 0.78);
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.82);
   color: var(--ic-text);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  padding: 4px 8px;
+  padding: 6px 12px;
   border-radius: 4px;
 }
 .quiz-case-split-label--after {
@@ -684,6 +690,9 @@
   .quiz-footer { padding: 16px 20px 20px; }
   .quiz-question { font-size: 20px; }
   .quiz-narrative h2 { font-size: 22px; }
+  /* More breathing room between options on mobile — reduces mistaps when
+     thumb is in motion right after auto-advance. */
+  .quiz-options { gap: 14px; }
   /* min-height 44px hits the Apple HIG touch target requirement. */
   .quiz-btn { padding: 13px 18px; font-size: 13px; min-height: 44px; }
   /* Bump progress bar visibility on small screens. */
