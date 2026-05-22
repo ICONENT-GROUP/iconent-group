@@ -46,6 +46,7 @@
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--ic-text);
+  white-space: nowrap;
 }
 .quiz-brand-accent {
   color: var(--ic-green);
@@ -56,6 +57,8 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ic-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .quiz-step-counter strong {
   color: var(--ic-text);
@@ -602,6 +605,10 @@
   .quiz-btn { padding: 13px 18px; font-size: 13px; min-height: 44px; }
   /* Bump progress bar visibility on small screens. */
   .quiz-progress-track { height: 4px; }
+  /* Tighten the header bar on narrow viewports so brand + step counter
+     stay on one line — they were wrapping to 2 lines on ~390px iPhones. */
+  .quiz-brand { font-size: 11px; letter-spacing: 0.12em; }
+  .quiz-step-counter { font-size: 11px; letter-spacing: 0.10em; }
 }
 
 /* ---- Reduce motion ---- */
