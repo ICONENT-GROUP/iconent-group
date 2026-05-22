@@ -1,6 +1,11 @@
 /* Reset */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+/* overflow-x: hidden on html (not just body) prevents wide flex children
+   (e.g., .partners-track at width:max-content for the marquee) from
+   expanding the LAYOUT VIEWPORT on iOS Safari. Without this, mobile pages
+   render at a wider zoom level than the device width. */
+html { overflow-x: hidden; }
 body {
   font-family: var(--font-sans);
   background: var(--ic-bg);

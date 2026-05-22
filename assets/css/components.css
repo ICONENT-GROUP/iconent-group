@@ -1006,6 +1006,9 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
 }
 .partner-logo--warner { height: 200px; max-width: 280px; }
 .partner-logo--ingrooves { height: 161px; max-width: 230px; }
+/* ADA is square (1:1) — larger height than the rectangular partners so its
+   visual area matches Warner/Ingrooves on the marquee. */
+.partner-logo--ada { height: 180px; max-width: 180px; }
 .partner-logo:hover { opacity: 1; }
 .partner-text {
   font-size: 36px;
@@ -1025,6 +1028,7 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   .partner-logo { height: 64px; max-width: 100px; }
   .partner-logo--warner { height: 100px; max-width: 140px; }
   .partner-logo--ingrooves { height: 74px; max-width: 115px; }
+  .partner-logo--ada { height: 90px; max-width: 90px; }
   .partner-text { font-size: 20px; }
   .partner-divider { font-size: 7px; }
 }
@@ -1032,6 +1036,7 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   .partner-logo { height: 50px; max-width: 80px; }
   .partner-logo--warner { height: 80px; max-width: 110px; }
   .partner-logo--ingrooves { height: 58px; max-width: 90px; }
+  .partner-logo--ada { height: 70px; max-width: 70px; }
   .partner-text { font-size: 18px; }
 }
 
