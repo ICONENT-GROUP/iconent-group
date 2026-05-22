@@ -15,81 +15,52 @@
   <link rel="stylesheet" href="/assets/css/tokens.css?v=20260522e" />
   <link rel="stylesheet" href="/assets/css/base.css?v=20260523c" />
   <link rel="stylesheet" href="/assets/css/components.css?v=20260523e" />
-  <link rel="stylesheet" href="/assets/css/pages/application-received.css?v=20260523b" />
+  <link rel="stylesheet" href="/assets/css/pages/application-received.css?v=20260523d" />
 </head>
-<body class="ar-page pm-page">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <ic-header></ic-header>
-  <div class="blur-overlay"></div>
+<body class="ar-page">
 
-  <main id="main">
+  <main id="main" class="ar-main">
 
-    <!-- HERO — site-standard .hero-compact with flicker halo + eyebrow chip -->
-    <section class="hero-compact ar-hero">
-      <p class="section-label ar-eyebrow">Application Status</p>
-      <h1>Application<br /><span class="accent">Under Review</span></h1>
-      <p class="hero-sub">You're one step away from being assigned a dedicated project manager for your music project.</p>
-    </section>
+    <h1 class="ar-title">Under <span class="accent">Review</span></h1>
+    <p class="ar-sub">Step 1 done — lock in your call.</p>
 
-    <!-- PROGRESS SECTION — 3-step indicator inside the standard .section grid -->
-    <section class="section ar-progress">
-      <p class="section-label">Progress</p>
-      <h2>Step 1 <span class="accent">complete</span></h2>
-      <p class="lead">Lock in your spot before it expires. Book your free strategy call now and keep your application moving forward.</p>
-
-      <ol class="ar-steps" aria-label="Application progress">
-        <li class="ar-step ar-step--done">
-          <span class="ar-step-num">Step 1</span>
-          <span class="ar-step-bubble" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="5 12 10 17 19 7"></polyline>
-            </svg>
-          </span>
-          <span class="ar-step-status">Completed</span>
-          <span class="ar-step-title">Application Submitted</span>
-          <span class="ar-step-detail">Your profile is in our system</span>
-        </li>
-        <li class="ar-step ar-step--active">
-          <span class="ar-step-num">Step 2</span>
-          <span class="ar-step-bubble" aria-hidden="true">2</span>
-          <span class="ar-step-status">Action required</span>
-          <span class="ar-step-title">Book Your Free Call</span>
-          <span class="ar-step-detail">Speak with our A&amp;R team</span>
-        </li>
-        <li class="ar-step ar-step--upcoming">
-          <span class="ar-step-num">Step 3</span>
-          <span class="ar-step-bubble" aria-hidden="true">3</span>
-          <span class="ar-step-status">Upcoming</span>
-          <span class="ar-step-title">Get Your Strategy Session</span>
-          <span class="ar-step-detail">Custom plan for your release</span>
-        </li>
-      </ol>
-    </section>
-
-    <!-- CTA BAND — mirrors the site's .cta-block treatment -->
-    <section class="ar-cta-band">
-      <div class="ar-cta-inner">
-        <p class="ar-cta-headline">Book your free strategy call now.</p>
-        <a class="ar-cta" href="/strategy-call/" id="ar-cta">
-          Book Your Free Call
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="13 6 19 12 13 18"></polyline>
+    <ol class="ar-steps" aria-label="Application progress">
+      <li class="ar-step ar-step--done">
+        <span class="ar-step-num">Step 1</span>
+        <span class="ar-step-bubble" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="5 12 10 17 19 7"></polyline>
           </svg>
-        </a>
-        <p class="ar-footnote">Limited availability</p>
-      </div>
-    </section>
+        </span>
+        <span class="ar-step-status">Done</span>
+        <span class="ar-step-title">Sent</span>
+      </li>
+      <li class="ar-step ar-step--active">
+        <span class="ar-step-num">Step 2</span>
+        <span class="ar-step-bubble" aria-hidden="true">2</span>
+        <span class="ar-step-status">Now</span>
+        <span class="ar-step-title">Book Call</span>
+      </li>
+      <li class="ar-step ar-step--upcoming">
+        <span class="ar-step-num">Step 3</span>
+        <span class="ar-step-bubble" aria-hidden="true">3</span>
+        <span class="ar-step-status">Next</span>
+        <span class="ar-step-title">Session</span>
+      </li>
+    </ol>
+
+    <a class="ar-cta" href="/strategy-call/" id="ar-cta">
+      Book Your Free Call
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="13 6 19 12 13 18"></polyline>
+      </svg>
+    </a>
+    <p class="ar-footnote">Limited availability</p>
 
   </main>
 
-  <ic-footer></ic-footer>
-
-  <script src="/assets/js/components.js?v=20260522e" defer></script>
-  <script src="/assets/js/shared.js?v=20260522e" defer></script>
-
   <script>
-    // Preserve source attribution from the quiz URL to /strategy-call/.
     (function () {
       const cta = document.getElementById('ar-cta');
       if (!cta) return;
