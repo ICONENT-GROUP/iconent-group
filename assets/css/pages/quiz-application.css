@@ -127,14 +127,21 @@
 .quiz-step {
   display: none;
   padding: 36px 32px 28px;
-  animation: quizFadeIn 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Slide-in-from-right + fade. Communicates "moving forward" on tap.
+     Faster than the previous fade-only (0.36s) — 0.28s feels snappier. */
+  animation: quizSlideIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .quiz-step.is-active {
   display: block;
 }
-@keyframes quizFadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes quizSlideIn {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+/* Honor user motion preferences — fall back to fade-only */
+@media (prefers-reduced-motion: reduce) {
+  .quiz-step { animation: quizFadeIn 0.18s ease both; }
+  @keyframes quizFadeIn { from { opacity: 0; } to { opacity: 1; } }
 }
 
 /* ---- Step content ---- */
@@ -175,6 +182,35 @@
   color: var(--ic-green);
   margin-left: 2px;
 }
+.quiz-label-optional {
+  color: var(--ic-muted);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  margin-left: 6px;
+  font-size: 11px;
+}
+
+/* Visual separator above the optional Identity fields — communicates "these
+   two are skippable" without making them less prominent. */
+.quiz-optional-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ic-muted);
+  margin: 8px 0 4px;
+}
+.quiz-optional-divider::before,
+.quiz-optional-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--ic-rule);
+}
 .quiz-input,
 .quiz-textarea {
   width: 100%;
@@ -211,13 +247,16 @@
 .quiz-options {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  /* 12px min between options prevents mistap on mobile */
+  gap: 12px;
 }
 .quiz-option {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 16px;
+  /* min-height 56px = Apple HIG comfort target for primary interactive elements */
+  min-height: 56px;
+  padding: 16px 16px;
   background: var(--ic-bg);
   border: 1px solid var(--ic-rule);
   border-radius: 8px;
@@ -461,7 +500,19 @@
   }
 }
 
-/* ---- Pricing reveal (Step 11) ---- */
+/* ---- Pricing anchor — softens the reveal by giving an upstream reference ---- */
+.quiz-pricing-anchor {
+  background: rgba(255, 255, 255, 0.025);
+  border-left: 3px solid var(--ic-green);
+  padding: 14px 18px;
+  margin: 0 0 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ic-text);
+  border-radius: 4px;
+}
+
+/* ---- Pricing reveal (Step 17) ---- */
 .quiz-pricing {
   margin-top: 22px;
   padding: 22px 22px;
@@ -469,6 +520,16 @@
   border: 1px solid rgba(0, 255, 136, 0.25);
   border-radius: 12px;
   text-align: center;
+}
+.quiz-pricing-with {
+  margin: 6px 0 14px;
+  font-size: 13px;
+  color: var(--ic-muted);
+  letter-spacing: 0.04em;
+}
+.quiz-pricing-with strong {
+  color: var(--ic-text);
+  font-weight: 800;
 }
 .quiz-pricing-tag {
   font-size: 11px;

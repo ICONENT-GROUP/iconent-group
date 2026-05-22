@@ -14,7 +14,7 @@
   const FORM_ENDPOINT = ''; // set to '<crm-endpoint-url>' to enable submit
   const STORAGE_KEY = 'iconent_quiz_draft_v1';
   const POST_SUBMIT_REDIRECT = '/application-received/';
-  const AUTO_ADVANCE_DELAY_MS = 450; // visual feedback before next step
+  const AUTO_ADVANCE_DELAY_MS = 300; // visual feedback before next step (sweet spot 200-300ms)
 
   // ---------- BOOT ----------
   document.addEventListener('DOMContentLoaded', init);

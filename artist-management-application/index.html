@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -13,10 +12,10 @@
   <title>ICONENT — Artist Management Application</title>
   <meta name="description" content="Apply for structured artist management with Iconent Group." />
 
-  <link rel="stylesheet" href="/assets/css/tokens.css?v=20260522d" />
-  <link rel="stylesheet" href="/assets/css/base.css?v=20260522d" />
-  <link rel="stylesheet" href="/assets/css/components.css?v=20260522d" />
-  <link rel="stylesheet" href="/assets/css/pages/quiz-application.css?v=20260522d" />
+  <link rel="stylesheet" href="/assets/css/tokens.css?v=20260522e" />
+  <link rel="stylesheet" href="/assets/css/base.css?v=20260522e" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=20260522e" />
+  <link rel="stylesheet" href="/assets/css/pages/quiz-application.css?v=20260522e" />
 </head>
 <body class="quiz-page">
 
@@ -79,12 +78,12 @@
             <h2 class="quiz-question" id="q-growth">What is your biggest growth challenge right now?<span class="req">*</span></h2>
             <div class="quiz-field" data-required="radio" data-auto-advance>
               <div class="quiz-options" role="radiogroup" aria-labelledby="q-growth">
-                <label class="quiz-option"><input type="radio" name="growth_challenge" value="Building a real fan base" /><span class="quiz-radio"></span><span>Building a real fan base</span></label>
-                <label class="quiz-option"><input type="radio" name="growth_challenge" value="Increasing streams consistently" /><span class="quiz-radio"></span><span>Increasing streams consistently</span></label>
-                <label class="quiz-option"><input type="radio" name="growth_challenge" value="Creating strong brand positioning" /><span class="quiz-radio"></span><span>Creating strong brand positioning</span></label>
-                <label class="quiz-option"><input type="radio" name="growth_challenge" value="Running marketing that converts" /><span class="quiz-radio"></span><span>Running marketing that converts</span></label>
-                <label class="quiz-option"><input type="radio" name="growth_challenge" value="Accessing industry opportunities" /><span class="quiz-radio"></span><span>Accessing industry opportunities</span></label>
-                <label class="quiz-option"><input type="radio" name="growth_challenge" value="No clear strategy yet" /><span class="quiz-radio"></span><span>I don't currently have a clear strategy</span></label>
+                <label class="quiz-option"><input type="radio" name="growth_challenge" value="Hitting a wall on fan growth" /><span class="quiz-radio"></span><span>Hitting a wall on fan growth</span></label>
+                <label class="quiz-option"><input type="radio" name="growth_challenge" value="Streams plateau between releases" /><span class="quiz-radio"></span><span>Streams plateau between releases</span></label>
+                <label class="quiz-option"><input type="radio" name="growth_challenge" value="Brand isn't landing yet" /><span class="quiz-radio"></span><span>Brand isn't landing yet</span></label>
+                <label class="quiz-option"><input type="radio" name="growth_challenge" value="Ads aren't converting" /><span class="quiz-radio"></span><span>Ads aren't converting</span></label>
+                <label class="quiz-option"><input type="radio" name="growth_challenge" value="No access to industry rooms" /><span class="quiz-radio"></span><span>No access to industry rooms</span></label>
+                <label class="quiz-option"><input type="radio" name="growth_challenge" value="Not sure where to focus next" /><span class="quiz-radio"></span><span>Not sure where to focus next</span></label>
               </div>
             </div>
           </section>
@@ -124,7 +123,7 @@
               <div class="quiz-options" role="radiogroup" aria-labelledby="q-invested">
                 <label class="quiz-option"><input type="radio" name="invested_before" value="Yes, consistently" /><span class="quiz-radio"></span><span>Yes, consistently</span></label>
                 <label class="quiz-option"><input type="radio" name="invested_before" value="Yes, occasionally" /><span class="quiz-radio"></span><span>Yes, occasionally</span></label>
-                <label class="quiz-option"><input type="radio" name="invested_before" value="Not yet" /><span class="quiz-radio"></span><span>Not yet</span></label>
+                <label class="quiz-option"><input type="radio" name="invested_before" value="Not yet — saving resources for the right strategy" /><span class="quiz-radio"></span><span>Not yet — saving resources for the right strategy</span></label>
               </div>
             </div>
           </section>
@@ -158,13 +157,22 @@
             </div>
           </section>
 
-          <!-- STEP 8 — VISION 12M -->
+          <!-- STEP 8 — VISION 12M (radio + optional text) -->
           <section class="quiz-step" data-step="8" aria-hidden="true">
             <p class="quiz-helper">Artists who reach a label-ready level operate with clarity long before they sign.</p>
             <h2 class="quiz-question" id="q-vision">Where do you see your music career 12 months from now?<span class="req">*</span></h2>
-            <div class="quiz-field" data-required="text">
-              <textarea class="quiz-textarea" name="vision_12m" placeholder="Be specific — this helps us understand your vision" required></textarea>
-              <p class="quiz-error" role="alert" aria-live="polite">Please share your 12-month vision.</p>
+            <div class="quiz-field" data-required="radio" data-auto-advance>
+              <div class="quiz-options" role="radiogroup" aria-labelledby="q-vision">
+                <label class="quiz-option"><input type="radio" name="vision_12m" value="Signed to a major label" /><span class="quiz-radio"></span><span>Signed to a major label</span></label>
+                <label class="quiz-option"><input type="radio" name="vision_12m" value="100K+ monthly listeners + touring" /><span class="quiz-radio"></span><span>100K+ monthly listeners + touring</span></label>
+                <label class="quiz-option"><input type="radio" name="vision_12m" value="Owning my own master label" /><span class="quiz-radio"></span><span>Owning my own master label</span></label>
+                <label class="quiz-option"><input type="radio" name="vision_12m" value="Sustainable career, off the day job" /><span class="quiz-radio"></span><span>Sustainable career, off the day job</span></label>
+                <label class="quiz-option"><input type="radio" name="vision_12m" value="Still exploring" /><span class="quiz-radio"></span><span>Still exploring</span></label>
+              </div>
+            </div>
+            <div class="quiz-field" style="margin-top:16px">
+              <label class="quiz-label" for="q-vision-detail">Tell us more <span class="quiz-label-optional">(optional)</span></label>
+              <textarea class="quiz-textarea" id="q-vision-detail" name="vision_12m_detail" placeholder="Stage size, streaming numbers, label deal, tour... be specific."></textarea>
             </div>
           </section>
 
@@ -224,13 +232,13 @@
 
           <!-- STEP 11 — SERIOUSNESS -->
           <section class="quiz-step" data-step="11" aria-hidden="true">
-            <p class="quiz-helper">Operating at a label-ready level requires commitment, structure, and accountability.</p>
+            <p class="quiz-helper">We only work with major label level projects. 9 out of 10 applications get rejected — no judgement on the answer.</p>
             <h2 class="quiz-question" id="q-serious">How serious are you about treating your music career as a business?<span class="req">*</span></h2>
             <div class="quiz-field" data-required="radio" data-auto-advance>
               <div class="quiz-options" role="radiogroup" aria-labelledby="q-serious">
-                <label class="quiz-option"><input type="radio" name="seriousness" value="Hobby" /><span class="quiz-radio"></span><span>It's a hobby</span></label>
-                <label class="quiz-option"><input type="radio" name="seriousness" value="Side focus" /><span class="quiz-radio"></span><span>It's a side focus</span></label>
-                <label class="quiz-option"><input type="radio" name="seriousness" value="Fully committed" /><span class="quiz-radio"></span><span>I'm fully committed</span></label>
+                <label class="quiz-option"><input type="radio" name="seriousness" value="Hobby" /><span class="quiz-radio"></span><span>Music is something I enjoy on the side</span></label>
+                <label class="quiz-option"><input type="radio" name="seriousness" value="Side focus" /><span class="quiz-radio"></span><span>I'm building toward making it my career</span></label>
+                <label class="quiz-option"><input type="radio" name="seriousness" value="Fully committed" /><span class="quiz-radio"></span><span>I'm fully committed — it's the priority</span></label>
               </div>
             </div>
           </section>
@@ -283,8 +291,9 @@
             </div>
           </section>
 
-          <!-- STEP 16 — CURRENT SPEND + PRICING REVEAL -->
+          <!-- STEP 16 — CURRENT SPEND -->
           <section class="quiz-step" data-step="16" aria-hidden="true">
+            <p class="quiz-helper">Real artists invest in their resources, not just their time.</p>
             <h2 class="quiz-question" id="q-spend">On average, how much do you currently invest per release?<span class="req">*</span></h2>
             <div class="quiz-field" data-required="radio" data-auto-advance>
               <div class="quiz-options" role="radiogroup" aria-labelledby="q-spend">
@@ -298,24 +307,24 @@
 
           <!-- STEP 17 — PRICING REVEAL + READY TO INVEST -->
           <section class="quiz-step" data-step="17" aria-hidden="true">
+            <p class="quiz-pricing-anchor">Most artists ready for major-label distribution invest $3K–$8K per release alone. Our structured 3-month phase covers strategy, sequencing, AND execution oversight.</p>
             <div class="quiz-pricing">
               <p class="quiz-pricing-tag">3-month development phase</p>
-              <p class="quiz-pricing-amount">$1,500<span class="unit">upfront</span></p>
-              <p class="quiz-pricing-divider">— or —</p>
-              <p class="quiz-pricing-amount">$690<span class="unit">/month</span></p>
+              <p class="quiz-pricing-with">with <strong>Hayden</strong> — Artist Development Manager</p>
+              <p class="quiz-pricing-amount">Starting from $500<span class="unit">/month</span></p>
               <div class="quiz-pricing-note">
                 <strong>This is not an expense. It is infrastructure.</strong>
-                Includes strategic positioning, release sequencing, execution oversight, and ongoing directional support throughout the entire phase.
+                Includes positioning strategy, release sequencing, execution oversight, and ongoing directional support throughout the entire phase.
               </div>
             </div>
             <div style="height:22px"></div>
-            <p class="quiz-helper">Serious growth requires serious commitment.</p>
-            <h2 class="quiz-question" id="q-invest">If we determine strong alignment, are you prepared to invest at this level to operate at a label-ready standard?<span class="req">*</span></h2>
+            <p class="quiz-helper">Serious growth requires a serious situation.</p>
+            <h2 class="quiz-question" id="q-invest">Would you be comfortable investing at this level if we're a strong fit for your project?<span class="req">*</span></h2>
             <div class="quiz-field" data-required="radio" data-auto-advance>
               <div class="quiz-options" role="radiogroup" aria-labelledby="q-invest">
                 <label class="quiz-option"><input type="radio" name="ready_to_invest" value="Yes" /><span class="quiz-radio"></span><span>Yes</span></label>
                 <label class="quiz-option"><input type="radio" name="ready_to_invest" value="Possibly" /><span class="quiz-radio"></span><span>Possibly</span></label>
-                <label class="quiz-option"><input type="radio" name="ready_to_invest" value="No" /><span class="quiz-radio"></span><span>No</span></label>
+                <label class="quiz-option"><input type="radio" name="ready_to_invest" value="Not in a position right now" /><span class="quiz-radio"></span><span>Not in a position right now</span></label>
               </div>
             </div>
           </section>
@@ -340,6 +349,7 @@
                 <input class="quiz-input" type="tel" id="q-phone" name="phone" value="+1 " placeholder="+1 555 123 4567" autocomplete="tel" required />
                 <p class="quiz-error" role="alert" aria-live="polite">Please enter a valid phone number with country code.</p>
               </div>
+              <p class="quiz-optional-divider">Optional — helps us review you faster</p>
               <div class="quiz-field">
                 <label class="quiz-label" for="q-ig">Instagram handle</label>
                 <input class="quiz-input" type="text" id="q-ig" name="instagram" placeholder="@yourhandle" />
@@ -369,14 +379,14 @@
         <div class="quiz-footer">
           <button type="button" class="quiz-btn quiz-btn-back" data-quiz-back disabled>← Back</button>
           <button type="button" class="quiz-btn quiz-btn-next" data-quiz-next>Next →</button>
-          <button type="button" class="quiz-btn quiz-btn-submit" data-quiz-submit style="display:none">Submit Application</button>
+          <button type="button" class="quiz-btn quiz-btn-submit" data-quiz-submit style="display:none">See If I Qualify →</button>
         </div>
       </div><!-- /quiz-shell -->
 
-      <p class="quiz-trust">Reviewed manually by our team. <strong>Limited intake.</strong></p>
+      <p class="quiz-trust">Limited number of projects accepted. <strong>90% of applications are rejected.</strong></p>
     </div>
   </main>
 
-  <script src="/assets/js/quiz-application.js?v=20260522d" defer></script>
+  <script src="/assets/js/quiz-application.js?v=20260522e" defer></script>
 </body>
 </html>
