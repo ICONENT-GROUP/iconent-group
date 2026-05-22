@@ -28,6 +28,10 @@
     const totalSteps = steps.length;
     if (totalSteps === 0) return;
 
+    // The card wraps both the intro (H1/descriptor) and the quiz shell.
+    // We toggle a class on the card once user moves past step 1 so CSS can
+    // hide the intro on mobile — keeps the viewport focused on the question.
+    const card = document.querySelector('.quiz-card');
     const counterCurrent = root.querySelector('[data-step-current]');
     const counterTotal = root.querySelector('[data-step-total]');
     const progressBar = root.querySelector('[data-progress-bar]');
@@ -62,6 +66,10 @@
 
       // back btn state
       if (backBtn) backBtn.disabled = i === 0;
+
+      // After the user moves past step 1, mark the card so mobile CSS can
+      // collapse the H1/descriptor — saves vertical space while answering.
+      if (card) card.classList.toggle('is-past-first', i > 0);
 
       // last step → swap next for submit. Footer Next is the single, always-
       // present forward CTA — narrative/case-study steps used to have an

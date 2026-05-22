@@ -430,6 +430,9 @@
   background: #0F0F0F;
   border: 1px solid var(--ic-rule);
   position: relative;
+  /* No padding — box hugs the rectangular EXXIA cards (1080×428) so it
+     doesn't stretch vertically with empty space above/below. */
+  line-height: 0;
 }
 .quiz-case-split-item img {
   width: 100%;
@@ -701,6 +704,10 @@
      stay on one line — they were wrapping to 2 lines on ~390px iPhones. */
   .quiz-brand { font-size: 11px; letter-spacing: 0.12em; }
   .quiz-step-counter { font-size: 11px; letter-spacing: 0.10em; }
+  /* From step 2 onward on mobile, hide the H1+descriptor so only the quiz
+     card and the step navigation remain visible — fewer pixels wasted on
+     header copy the user has already read. */
+  .quiz-card.is-past-first .quiz-intro { display: none; }
 }
 
 /* ---- Reduce motion ---- */
