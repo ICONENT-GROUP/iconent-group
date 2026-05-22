@@ -518,8 +518,8 @@ body.strategy-call-page { padding-top: 0; }
 }
 .sc-btn-primary {
   background: var(--ic-green);
-  color: #FFFFFF;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  /* Black on green = 11.95:1 (passes WCAG AAA). White was 1.74:1 (fail). */
+  color: #000000;
   box-shadow:
     0 0 0 1px rgba(0, 255, 136, 0.3),
     0 0 40px -10px rgba(0, 255, 136, 0.5);
