@@ -5,6 +5,10 @@
   padding: 24px 28px 12px;
   position: relative;
   z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 .about-internal-link a {
   display: inline-block;
