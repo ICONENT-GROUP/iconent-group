@@ -63,12 +63,12 @@
       // back btn state
       if (backBtn) backBtn.disabled = i === 0;
 
-      // last step → swap next for submit. Narrative/case-study steps carry an
-      // inline [data-quiz-continue] CTA, so the footer Next would be a duplicate.
+      // last step → swap next for submit. Footer Next is the single, always-
+      // present forward CTA — narrative/case-study steps used to have an
+      // inline Continue button, removed for consistency (one button, one place).
       const isLast = i === totalSteps - 1;
-      const hasInlineContinue = !!steps[i].querySelector('[data-quiz-continue]');
       if (nextBtn && submitBtn) {
-        nextBtn.style.display = (isLast || hasInlineContinue) ? 'none' : '';
+        nextBtn.style.display = isLast ? 'none' : '';
         submitBtn.style.display = isLast ? '' : 'none';
         if (submitNote) submitNote.style.display = isLast ? '' : 'none';
       }
@@ -105,11 +105,6 @@
 
     if (nextBtn) nextBtn.addEventListener('click', goNext);
     if (backBtn) backBtn.addEventListener('click', goBack);
-
-    // "Continue" buttons inside narrative/case-study steps
-    root.querySelectorAll('[data-quiz-continue]').forEach(btn => {
-      btn.addEventListener('click', goNext);
-    });
 
     // Enter key advances
     root.addEventListener('keydown', e => {
