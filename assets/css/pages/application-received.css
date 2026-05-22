@@ -63,14 +63,16 @@
   width: 100%;
   max-width: 460px;
 }
-/* Dashed connector behind bubbles. The base track is muted; the green
-   progress overlay covers step 1 → step 2 and uses a mask to fade as it
-   approaches bubble 2 ("dies" into it). */
+/* Dashed connector behind bubbles. Anchored at the VERTICAL CENTER of the
+   bubbles so the line crosses through them, not below. Computed from:
+     step-num height (~18px) + half of bubble (40/2 = 20px) = 38px center.
+   The base track is muted; the green progress overlay covers step 1→2 and
+   masks to transparent as it approaches bubble 2 ("dies" into it). */
 .ar-steps::before,
 .ar-steps::after {
   content: '';
   position: absolute;
-  top: 48px;
+  top: 38px;
   height: 0;
   border-top: 1.5px dashed;
   pointer-events: none;
@@ -190,8 +192,14 @@
   letter-spacing: -0.01em;
   line-height: 1.2;
   color: var(--ic-text);
+  margin: 0 0 3px;
 }
 .ar-step--upcoming .ar-step-title { color: var(--ic-muted); }
+.ar-step-detail {
+  font-size: 10.5px;
+  line-height: 1.35;
+  color: var(--ic-muted);
+}
 
 /* ---- CTA ---- */
 .ar-cta {
@@ -244,29 +252,34 @@
   margin: 10px 0 0;
 }
 
-/* ---- Mobile — squeeze further to fit one viewport (no scroll) ---- */
+/* ---- Mobile ---- */
 @media (max-width: 640px) {
-  .ar-main { padding: 24px 18px 22px; }
+  .ar-main { padding: 26px 18px 24px; }
   .ar-title { font-size: clamp(30px, 9vw, 42px); margin-bottom: 8px; }
-  .ar-sub { font-size: 13px; margin-bottom: 22px; }
+  .ar-sub { font-size: 13px; line-height: 1.45; margin-bottom: 22px; }
   .ar-steps { gap: 4px; margin-bottom: 22px; }
   .ar-step-num { font-size: 9px; margin-bottom: 6px; }
   .ar-step-bubble { width: 36px; height: 36px; font-size: 14px; margin-bottom: 8px; }
   .ar-step-bubble svg { width: 18px; height: 18px; }
   .ar-step-status { font-size: 8.5px; padding: 2.5px 7px; margin-bottom: 4px; }
-  .ar-step-title { font-size: 11.5px; }
-  .ar-steps::before, .ar-steps::after { top: 43px; }
+  .ar-step-title { font-size: 11.5px; margin-bottom: 2px; }
+  .ar-step-detail { font-size: 10px; }
+  /* Connector at vertical center of mobile bubbles:
+     step-num (~15px) + half-bubble (18px) = 33px. */
+  .ar-steps::before, .ar-steps::after { top: 33px; }
   .ar-cta { padding: 13px 22px; font-size: 13px; }
   .ar-cta svg { width: 17px; height: 17px; }
   .ar-footnote { font-size: 11px; margin-top: 8px; }
 }
 
-/* iPhone SE / very short screens — drop status pills entirely */
-@media (max-width: 640px) and (max-height: 700px) {
+/* Very short screens (iPhone SE etc) — drop the status pills + step
+   detail subtitles so everything still fits without scroll. */
+@media (max-width: 640px) and (max-height: 720px) {
   .ar-main { padding: 18px 18px 18px; }
   .ar-title { font-size: clamp(26px, 8vw, 36px); margin-bottom: 6px; }
   .ar-sub { margin-bottom: 18px; }
-  .ar-step-status { display: none; }
+  .ar-step-status,
+  .ar-step-detail { display: none; }
   .ar-step-bubble { margin-bottom: 6px; }
   .ar-steps { margin-bottom: 18px; }
 }
