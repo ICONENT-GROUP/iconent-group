@@ -30,7 +30,7 @@
   <meta name="ICBM" content="40.7058, -74.0080" />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=20260522e" />
   <link rel="stylesheet" href="/assets/css/base.css?v=20260522e" />
-  <link rel="stylesheet" href="/assets/css/components.css?v=20260523a" />
+  <link rel="stylesheet" href="/assets/css/components.css?v=20260523b" />
   <link rel="stylesheet" href="/assets/css/pages/home.css?v=20260523a" />
 </head>
 <body>
@@ -45,13 +45,11 @@
       <div class="hero-content">
         <h1>ICONENT GROUP</h1>
         <p class="hero-tagline">
-          <span class="tag-primary">Artist Development</span>
-          <span class="pipe pipe-between">·</span>
-          <span class="tag-secondary">
-            Distribution
-            <span class="pipe">·</span>
-            Release Strategy
-          </span>
+          <span class="tag-item tag-primary">Artist Development</span>
+          <span class="pipe pipe-before">—</span>
+          <span class="tag-item">Music Marketing</span>
+          <span class="pipe">—</span>
+          <span class="tag-item">Distribution</span>
         </p>
       </div>
       <div class="hero-scroll-hint">Scroll</div>
@@ -503,5 +501,87 @@
   <script src="/assets/js/components.js?v=20260522e" defer></script>
   <script src="/assets/js/shared.js?v=20260522e" defer></script>
   <script src="/assets/js/calendly.js?v=20260522e" defer></script>
+
+  <!-- =========================================================
+       COOKIE CONSENT BANNER (homepage only — 2026 US compliance)
+       Notice + Choice, equal-prominence buttons (no dark patterns),
+       honors Global Privacy Control (GPC) auto-opt-out.
+       Choice persisted 12 months; re-prompts after expiry.
+       ========================================================= -->
+  <aside class="ic-cookie-banner" id="ic-cookie-banner" role="dialog"
+         aria-labelledby="ic-cookie-title" aria-describedby="ic-cookie-desc" hidden>
+    <div class="ic-cookie-banner-inner">
+      <p class="ic-cookie-text" id="ic-cookie-desc">
+        <strong id="ic-cookie-title">We value your privacy.</strong>
+        We use cookies for site functionality, analytics, and embedded third-party
+        services (Calendly, Vimeo). You can accept all or reject non-essential.
+        <span class="ic-cookie-links">
+          <a href="/privacy-policy.html#cookies" rel="nofollow">Cookie Policy</a>
+          <a href="/privacy-policy.html#do-not-sell" rel="nofollow">Do Not Sell or Share My Personal Information</a>
+        </span>
+      </p>
+      <div class="ic-cookie-actions">
+        <button type="button" class="ic-cookie-btn ic-cookie-btn-reject" data-cookie-reject>Reject Non-Essential</button>
+        <button type="button" class="ic-cookie-btn ic-cookie-btn-accept" data-cookie-accept>Accept All</button>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+  // Cookie consent — runs early. Stores choice for 12 months. If the browser
+  // sends Global Privacy Control (CPRA/CPA/CTDPA universal opt-out), we record
+  // a rejected state silently and never show the banner.
+  (function () {
+    var KEY = 'iconent_cookie_consent_v1';
+    var ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000;
+    var banner = document.getElementById('ic-cookie-banner');
+    if (!banner) return;
+
+    function read() {
+      try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; }
+    }
+    function write(status) {
+      try {
+        localStorage.setItem(KEY, JSON.stringify({
+          status: status,
+          ts: Date.now(),
+          gpc: navigator.globalPrivacyControl === true
+        }));
+      } catch (e) { /* storage disabled — ignore */ }
+      try {
+        document.dispatchEvent(new CustomEvent('iconent:consent', { detail: { status: status } }));
+      } catch (e) {}
+    }
+    function hide() {
+      banner.hidden = true;
+      banner.style.display = 'none';
+    }
+    function show() {
+      banner.hidden = false;
+      banner.style.display = 'flex';
+    }
+
+    var stored = read();
+    var fresh = stored && stored.ts && (Date.now() - stored.ts) < ONE_YEAR_MS;
+
+    // GPC: universal opt-out signal — must be honored without further UI per CPRA & multiple state laws.
+    if (navigator.globalPrivacyControl === true && !fresh) {
+      write('rejected');
+      hide();
+      return;
+    }
+    if (fresh) { hide(); return; }
+
+    // First visit (or expired): show banner.
+    show();
+
+    banner.querySelector('[data-cookie-accept]').addEventListener('click', function () {
+      write('accepted'); hide();
+    });
+    banner.querySelector('[data-cookie-reject]').addEventListener('click', function () {
+      write('rejected'); hide();
+    });
+  })();
+  </script>
 </body>
 </html>

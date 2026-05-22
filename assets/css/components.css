@@ -498,26 +498,31 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   white-space: nowrap;
   text-shadow: 0 0 20px rgba(0,0,0,0.8);
   line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0 10px;
 }
 .hero-tagline .pipe {
-  margin: 0 10px;
   color: var(--ic-green);
   opacity: 0.8;
 }
-/* When viewport narrows (mobile + narrow desktop), stack the tagline:
-   line 1 = "Artist Development", line 2 = "Music Distribution · Release Strategy" */
-@media (max-width: 900px) {
+/* Mobile (≤700px): "Artist Development" on its own line; "Music Marketing — Distribution"
+   below, centered, with one dash between. Desktop keeps all three on one line. */
+@media (max-width: 700px) {
   .hero-tagline {
     white-space: normal;
+    gap: 4px 8px;
   }
+  /* Force the primary item to its own row */
   .hero-tagline .tag-primary {
-    display: block;
+    flex-basis: 100%;
+    text-align: center;
   }
-  .hero-tagline .pipe-between {
+  /* Hide the dash that came BEFORE Music Marketing — it'd dangle at the start of row 2 */
+  .hero-tagline .pipe-before {
     display: none;
-  }
-  .hero-tagline .tag-secondary {
-    display: block;
   }
 }
 .hero-scroll-hint {
@@ -656,6 +661,8 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   color: var(--ic-grey);
   margin: 0 14px;
   opacity: 0.6;
+  /* -20% vs inherited marquee font-size */
+  font-size: 0.8em;
 }
 @keyframes ic-marquee-slide {
   from { transform: translateX(0); }
@@ -1023,7 +1030,8 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
 }
 .partner-divider {
   color: var(--ic-grey);
-  font-size: 11px;
+  /* -20% (was 11px) */
+  font-size: 9px;
   opacity: 0.5;
 }
 @media (max-width: 900px) {
@@ -1034,7 +1042,7 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   .partner-logo--ingrooves { height: 74px; max-width: 115px; }
   .partner-logo--ada { height: 90px; max-width: 90px; }
   .partner-text { font-size: 20px; }
-  .partner-divider { font-size: 7px; }
+  .partner-divider { font-size: 6px; }
 }
 @media (max-width: 640px) {
   .partner-logo { height: 50px; max-width: 80px; }
@@ -1444,4 +1452,126 @@ body.pm-page                    .ic-fx-scene { --fx-color-rgb: 255, 106, 0; }
     --fx-grid-size: 42px;
     --fx-edge-mask: 70%;
   }
+}
+
+/* ============ COOKIE CONSENT BANNER (US 2026) ============
+   Used by: home page only (rendered in index.html). Compliant with
+   CCPA/CPRA + the post-2024 multi-state US privacy laws (VCDPA, CPA,
+   CTDPA, TDPSA, FDBR, etc.):
+   - Equal-prominence Accept / Reject (no dark patterns)
+   - Honors Global Privacy Control (GPC) — auto-applies opt-out
+   - Persistent choice (12-month expiry, then re-prompt)
+   - Surfaces Cookie Policy + "Do Not Sell or Share" link
+   The banner is hidden by default and revealed by the inline script
+   once it confirms there's no stored consent and no GPC signal. */
+.ic-cookie-banner {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 9999;
+  display: none; /* JS sets to flex when shown */
+  flex-direction: column;
+  gap: 14px;
+  background: rgba(10, 10, 10, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(0, 255, 136, 0.25);
+  box-shadow: 0 -16px 36px rgba(0, 0, 0, 0.6);
+  padding: 18px 24px 20px;
+  font-family: var(--font-sans);
+  color: var(--ic-text);
+  animation: ic-cookie-slide-up 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes ic-cookie-slide-up {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.ic-cookie-banner-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 22px;
+  align-items: center;
+}
+.ic-cookie-text {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ic-muted);
+  margin: 0;
+}
+.ic-cookie-text strong {
+  color: var(--ic-text);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+.ic-cookie-links {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+}
+.ic-cookie-links a {
+  color: var(--ic-muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.18s ease;
+}
+.ic-cookie-links a:hover { color: var(--ic-green); }
+.ic-cookie-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+/* Equal-prominence buttons — required by CPRA and most newer state laws.
+   No "Accept" highlighted with color and "Reject" greyed out (dark pattern). */
+.ic-cookie-btn {
+  appearance: none;
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 11px 22px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  min-height: 44px;
+  white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.ic-cookie-btn-accept {
+  background: var(--ic-green);
+  color: #000;
+  border-color: var(--ic-green);
+}
+.ic-cookie-btn-accept:hover { background: #00E07A; border-color: #00E07A; }
+.ic-cookie-btn-reject {
+  background: transparent;
+  color: var(--ic-text);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.ic-cookie-btn-reject:hover { border-color: var(--ic-text); }
+.ic-cookie-btn:focus-visible { outline: 2px solid var(--ic-green); outline-offset: 2px; }
+
+@media (max-width: 720px) {
+  .ic-cookie-banner { padding: 16px 16px 20px; }
+  .ic-cookie-banner-inner {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .ic-cookie-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .ic-cookie-btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ic-cookie-banner { animation: none; }
 }
