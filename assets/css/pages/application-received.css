@@ -1,0 +1,317 @@
+/* ============================================================
+   APPLICATION RECEIVED — quiz post-submit thank-you page
+   Orange theme (mirrors PM page accent). 3-step indicator + CTA.
+   ============================================================ */
+
+.ar-page {
+  /* No fixed header on this page → kill the body padding-top from base.css */
+  padding-top: 0;
+  --ar-orange: #FF6A00;
+  --ar-orange-rgb: 255, 106, 0;
+}
+
+.ar-main {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Warm halo behind the card */
+.ar-main::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 720px; height: 720px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(var(--ar-orange-rgb), 0.18) 0%,
+    rgba(var(--ar-orange-rgb), 0.05) 35%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+.ar-main > * { position: relative; z-index: 1; }
+
+.ar-card {
+  width: 100%;
+  max-width: 560px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--ic-rule);
+  border-radius: 16px;
+  padding: 44px 32px 36px;
+  text-align: center;
+  box-shadow:
+    0 0 0 1px rgba(var(--ar-orange-rgb), 0.08),
+    0 30px 80px -20px rgba(var(--ar-orange-rgb), 0.18),
+    0 30px 80px -30px rgba(0, 0, 0, 0.6);
+}
+
+.ar-eyebrow {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ar-orange);
+  margin: 0 0 18px;
+}
+
+.ar-title {
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  margin: 0 0 18px;
+  color: var(--ic-text);
+}
+
+.ar-lead {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ic-muted);
+  max-width: 440px;
+  margin: 0 auto 24px;
+}
+
+/* ---- Orange callout box ---- */
+.ar-callout {
+  background: rgba(var(--ar-orange-rgb), 0.06);
+  border: 1px solid rgba(var(--ar-orange-rgb), 0.25);
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ic-text);
+  margin: 0 0 32px;
+  text-align: center;
+}
+.ar-callout strong {
+  color: var(--ar-orange);
+  font-weight: 800;
+}
+
+/* ---- 3-step indicator ---- */
+.ar-steps {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  position: relative;
+}
+/* Connector line between bubbles */
+.ar-steps::before {
+  content: '';
+  position: absolute;
+  top: 64px; /* aligns with bubble center */
+  left: 16.67%;
+  right: 16.67%;
+  height: 2px;
+  background: var(--ic-rule);
+  z-index: 0;
+}
+/* Active connector (between done step 1 and active step 2) */
+.ar-steps::after {
+  content: '';
+  position: absolute;
+  top: 64px;
+  left: 16.67%;
+  width: 33.33%;
+  height: 2px;
+  background: var(--ic-green);
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.ar-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 4px;
+  position: relative;
+  z-index: 2;
+}
+.ar-step-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ic-muted);
+  margin: 0 0 12px;
+}
+.ar-step--done .ar-step-num { color: var(--ic-green); }
+.ar-step--active .ar-step-num { color: var(--ar-orange); }
+
+.ar-step-bubble {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ic-muted);
+  background: var(--ic-bg-soft);
+  border: 2px solid var(--ic-rule);
+  margin: 0 0 14px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.ar-step-bubble svg {
+  width: 22px;
+  height: 22px;
+}
+/* Step 1 — done (green) */
+.ar-step--done .ar-step-bubble {
+  background: var(--ic-green);
+  border-color: var(--ic-green);
+  color: #000;
+  box-shadow: 0 0 24px rgba(0, 255, 136, 0.45);
+}
+/* Step 2 — active (orange, animated ring) */
+.ar-step--active .ar-step-bubble {
+  background: rgba(var(--ar-orange-rgb), 0.12);
+  border-color: var(--ar-orange);
+  color: var(--ar-orange);
+  box-shadow:
+    0 0 0 4px rgba(var(--ar-orange-rgb), 0.18),
+    0 0 24px rgba(var(--ar-orange-rgb), 0.4);
+  animation: ar-pulse 2.2s ease-in-out infinite;
+}
+@keyframes ar-pulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 4px rgba(var(--ar-orange-rgb), 0.18),
+      0 0 24px rgba(var(--ar-orange-rgb), 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 0 7px rgba(var(--ar-orange-rgb), 0.22),
+      0 0 32px rgba(var(--ar-orange-rgb), 0.55);
+  }
+}
+/* Step 3 — upcoming (muted) */
+.ar-step--upcoming .ar-step-bubble {
+  background: var(--ic-bg-soft);
+  border-color: var(--ic-rule);
+  color: var(--ic-muted);
+}
+
+.ar-step-status {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin: 0 0 10px;
+}
+.ar-step--done .ar-step-status {
+  background: rgba(0, 255, 136, 0.14);
+  color: var(--ic-green);
+}
+.ar-step--active .ar-step-status {
+  background: rgba(var(--ar-orange-rgb), 0.18);
+  color: var(--ar-orange);
+}
+.ar-step--upcoming .ar-step-status {
+  background: rgba(138, 138, 138, 0.12);
+  color: var(--ic-muted);
+}
+
+.ar-step-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--ic-text);
+  margin: 0 0 4px;
+}
+.ar-step--upcoming .ar-step-title { color: var(--ic-muted); }
+
+.ar-step-detail {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ic-muted);
+}
+
+/* ---- CTA button (orange) ---- */
+.ar-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 380px;
+  padding: 16px 28px;
+  background: var(--ar-orange);
+  color: #000;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  text-decoration: none;
+  box-shadow:
+    0 0 0 1px rgba(var(--ar-orange-rgb), 0.4),
+    0 0 40px -8px rgba(var(--ar-orange-rgb), 0.7);
+}
+.ar-cta svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.2s ease;
+}
+@media (hover: hover) {
+  .ar-cta:hover {
+    transform: translateY(-1px);
+    box-shadow:
+      0 0 0 1px rgba(var(--ar-orange-rgb), 0.6),
+      0 0 60px -8px rgba(var(--ar-orange-rgb), 0.9);
+  }
+  .ar-cta:hover svg { transform: translateX(4px); }
+}
+.ar-cta:focus-visible {
+  outline: 2px solid var(--ic-text);
+  outline-offset: 4px;
+}
+
+.ar-footnote {
+  font-size: 12px;
+  color: var(--ic-muted);
+  letter-spacing: 0.04em;
+  margin: 16px 0 0;
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 640px) {
+  .ar-main { padding: 40px 16px; }
+  .ar-card { padding: 32px 22px 28px; border-radius: 14px; }
+  .ar-title { font-size: clamp(24px, 7vw, 32px); }
+  .ar-lead { font-size: 14.5px; }
+  .ar-callout { font-size: 14px; padding: 14px 16px; }
+  .ar-steps { gap: 4px; }
+  .ar-step-num { font-size: 9px; }
+  .ar-step-bubble { width: 38px; height: 38px; font-size: 14px; }
+  .ar-step-bubble svg { width: 18px; height: 18px; }
+  .ar-step-status { font-size: 8.5px; padding: 3px 8px; }
+  .ar-step-title { font-size: 12px; }
+  .ar-step-detail { font-size: 10.5px; }
+  .ar-steps::before, .ar-steps::after { top: 58px; }
+  .ar-cta { padding: 14px 22px; font-size: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ar-step--active .ar-step-bubble { animation: none !important; }
+}

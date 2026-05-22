@@ -13,7 +13,8 @@
   // ---------- CONFIG ----------
   const FORM_ENDPOINT = ''; // set to '<crm-endpoint-url>' to enable submit
   const STORAGE_KEY = 'iconent_quiz_draft_v1';
-  const POST_SUBMIT_REDIRECT = '/strategy-call/';
+  const POST_SUBMIT_REDIRECT = '/application-received/';
+  const AUTO_ADVANCE_DELAY_MS = 450; // visual feedback before next step
 
   // ---------- BOOT ----------
   document.addEventListener('DOMContentLoaded', init);
@@ -121,6 +122,24 @@
     // Live update next-button state as user fills
     root.addEventListener('input', updateNextState);
     root.addEventListener('change', updateNextState);
+
+    // ---------- AUTO-ADVANCE on radio click ----------
+    // Steps with [data-auto-advance] on their .quiz-field auto-advance to
+    // the next step after the user picks a radio option. Gives the typeform-
+    // style "tap → next" UX while keeping the explicit Back/Next buttons
+    // in the footer for users who want to review/correct answers.
+    root.addEventListener('change', (e) => {
+      const input = e.target;
+      if (!input || input.type !== 'radio') return;
+      const field = input.closest('[data-required="radio"]');
+      if (!field || !field.hasAttribute('data-auto-advance')) return;
+      // Already validated by virtue of being checked. Brief delay to let the
+      // user SEE their selection animate (the green pip + border) before the
+      // step transitions.
+      setTimeout(() => {
+        if (currentIndex < totalSteps - 1) goNext();
+      }, AUTO_ADVANCE_DELAY_MS);
+    });
 
     // ---------- VALIDATION ----------
     function validateStep(i) {
