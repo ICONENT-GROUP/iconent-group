@@ -175,8 +175,9 @@
 }
 .ic-hdr-burger::before { transform: translateY(-5px); }
 .ic-hdr-burger::after  { transform: translateY(5px); }
-.ic-hdr.is-open .ic-hdr-burger::before { transform: rotate(45deg); }
-.ic-hdr.is-open .ic-hdr-burger::after  { transform: rotate(-45deg); }
+/* Open state: collapse both lines to center (Y=0) then rotate → true X. */
+.ic-hdr.is-open .ic-hdr-burger::before { transform: translateY(0) rotate(45deg); }
+.ic-hdr.is-open .ic-hdr-burger::after  { transform: translateY(0) rotate(-45deg); }
 
 .ic-hdr-mobile {
   display: none;
@@ -218,6 +219,10 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   margin: 16px 0 4px;
 }
 .ic-hdr-mobile a {
+  /* min-height 44px = Apple HIG / WCAG 2.5.5 touch target. */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
   padding: 14px 18px;
   font-size: 14px;
   font-weight: 700;
@@ -229,6 +234,10 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   color: var(--ic-text);
   transition: color 0.25s ease, text-shadow 0.25s ease;
   -webkit-tap-highlight-color: transparent;
+}
+.ic-hdr-mobile a:focus-visible {
+  outline: 2px solid var(--ic-green);
+  outline-offset: 2px;
 }
 .ic-hdr-mobile a.featured {
   color: var(--ic-orange);
@@ -362,7 +371,7 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
 
 /* Footer mobile tuning: bigger social icons, tighter bottom padding,
    visually centered ICONENT GROUP between social row and tagline */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .ic-ftr-block {
     padding: 48px 24px 20px;
   }
@@ -472,7 +481,9 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
     0 0 40px rgba(0,0,0,0.55),
     0 4px 16px rgba(0,0,0,0.5),
     0 0 80px rgba(100,220,255,0.18);
-  white-space: nowrap;
+  /* Allow wrap on ultra-narrow viewports (≤320px) to prevent overflow.
+     Above that, clamp() keeps it on one line for most devices. */
+  white-space: normal;
 }
 .hero-tagline {
   font-size: clamp(12px, 1.4vw, 16px);
@@ -779,7 +790,7 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
 @media (max-width: 900px) {
   .method-grid { grid-template-columns: 1fr; }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .method-step h3 { font-size: 26px; }
 }
 
@@ -936,7 +947,7 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
     line-height: 1.7;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .services-grid { grid-template-columns: 1fr; gap: 10px; }
   .service-card { padding: 16px 10px; font-size: 11px; }
 }
@@ -1017,7 +1028,7 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   .partner-text { font-size: 20px; }
   .partner-divider { font-size: 7px; }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .partner-logo { height: 50px; max-width: 80px; }
   .partner-logo--warner { height: 80px; max-width: 110px; }
   .partner-logo--ingrooves { height: 58px; max-width: 90px; }
@@ -1029,15 +1040,30 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
 .faq-item {
   border-bottom: 1px solid var(--ic-rule);
   padding: 24px 0;
-  cursor: pointer;
 }
+/* .faq-q is a real <button> — reset native defaults so it looks like
+   the previous <p> while keeping keyboard/screen-reader semantics. */
 .faq-q {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  font-family: inherit;
   font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.01em;
+  color: inherit;
+  cursor: pointer;
+}
+.faq-q:focus-visible {
+  outline: 2px solid var(--ic-green);
+  outline-offset: 4px;
+  border-radius: 2px;
 }
 .faq-q::after {
   content: '+';
@@ -1070,7 +1096,7 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
 @media (max-width: 900px) {
   .faq-q { font-size: 16px; }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .faq-q { font-size: 15px; padding-right: 12px; }
 }
 
@@ -1404,7 +1430,7 @@ body.pm-page                    .ic-fx-scene { --fx-color-rgb: 255, 106, 0; }
   75%  { transform: translateX(-2px) skewX(0deg);   filter: hue-rotate(20deg); }
   100% { transform: translateX(0)    skewX(0deg);   filter: hue-rotate(0deg); }
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .ic-fx-scene {
     --fx-grid-size: 42px;
     --fx-edge-mask: 70%;

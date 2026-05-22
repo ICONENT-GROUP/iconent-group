@@ -384,7 +384,7 @@ body[data-platform="tiktok"] .platform-proof .proof-card-img img {
     opacity: 0.7;
   }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .platform-proof .proof-card::before {
     inset: -12px;
     filter: blur(14px);

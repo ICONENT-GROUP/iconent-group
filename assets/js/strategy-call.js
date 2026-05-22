@@ -83,10 +83,66 @@
     });
   }
 
+  /* Vimeo facade — defers Vimeo player JS until user clicks Play.
+     Cuts ~20s LCP on mobile (Vimeo iframe + its embedded player.js are
+     a heavy third-party payload). */
+  function setupVimeoFacade() {
+    document.querySelectorAll('[data-vimeo-facade]').forEach((wrap) => {
+      const playBtn = wrap.querySelector('.sc-video-play');
+      const vimeoId = wrap.getAttribute('data-vimeo-id');
+      if (!playBtn || !vimeoId) return;
+
+      const swap = () => {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0`;
+        iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+        iframe.allowFullscreen = true;
+        iframe.title = 'ICONENT — Major Label Distribution';
+        // Replace poster + play button with the real iframe in one DOM op
+        wrap.replaceChildren(iframe);
+      };
+
+      playBtn.addEventListener('click', swap);
+      // Also swap on click anywhere over the poster (matches user intent
+      // on touch devices where tapping the image feels like "play").
+      const poster = wrap.querySelector('.sc-video-poster');
+      if (poster) poster.addEventListener('click', swap);
+    });
+  }
+
+  /* Calendly lazy-load — defers widget.js until the booking section
+     scrolls into view. Avoids ~150KB of third-party JS on first paint. */
+  function setupCalendlyLazy() {
+    const widget = document.querySelector('.calendly-inline-widget');
+    if (!widget) return;
+    if (document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) return;
+    if (!('IntersectionObserver' in window)) {
+      // Old browser fallback: load immediately
+      injectCalendly();
+      return;
+    }
+    const obs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        obs.disconnect();
+        injectCalendly();
+      }
+    }, { rootMargin: '300px' });
+    obs.observe(widget);
+  }
+  function injectCalendly() {
+    if (document.querySelector('script[src*="calendly.com/assets/external/widget.js"]')) return;
+    const s = document.createElement('script');
+    s.src = 'https://assets.calendly.com/assets/external/widget.js';
+    s.async = true;
+    document.head.appendChild(s);
+  }
+
   function init() {
     setupLock();
     setupCountUps();
     setupSmoothScroll();
+    setupVimeoFacade();
+    setupCalendlyLazy();
   }
 
   if (document.readyState === 'loading') {

@@ -270,14 +270,22 @@
 }
 
 /* ---- Inline error ---- */
+/* Use visibility + height instead of display:none so the element stays in
+   the DOM — required for role="alert" + aria-live="polite" to announce
+   updates correctly across screen readers. */
 .quiz-error {
-  display: none;
+  display: inline-flex;
   align-items: center;
   gap: 6px;
+  visibility: hidden;
+  height: 0;
+  overflow: hidden;
   color: #FF5050;
   font-size: 13px;
-  margin-top: 6px;
+  margin-top: 0;
   line-height: 1.4;
+  transition: opacity 0.18s ease;
+  opacity: 0;
 }
 .quiz-error::before {
   /* Multi-modal error indicator (not color-only) — readable by daltonics
@@ -292,7 +300,10 @@
   background: rgba(255, 80, 80, 0.05);
 }
 .quiz-field.has-error .quiz-error {
-  display: inline-flex;
+  visibility: visible;
+  height: auto;
+  margin-top: 6px;
+  opacity: 1;
 }
 
 /* ---- Narrative intermezzo / case study ---- */

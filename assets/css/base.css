@@ -141,7 +141,7 @@ main,
   .section-label { font-size: 12px; margin-bottom: 14px; gap: 8px; }
   .section-label::before { width: 7px; height: 7px; }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .section { padding: 50px 16px; }
   .section h2 { font-size: clamp(28px, 9vw, 42px); }
 }

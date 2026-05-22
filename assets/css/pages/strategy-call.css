@@ -115,6 +115,54 @@ body.strategy-call-page { padding-top: 0; }
   height: 100%;
   border: 0;
 }
+/* Vimeo facade: poster image + center play button overlay.
+   Removed via JS once user clicks (replaced by real iframe with autoplay).
+   This pattern saves ~20s of LCP on mobile by deferring Vimeo's heavy JS. */
+.sc-video-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}
+.sc-video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 88px;
+  height: 88px;
+  background: rgba(0, 0, 0, 0.55);
+  border: 0;
+  border-radius: 50%;
+  color: var(--ic-green);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 0 0 1px rgba(0, 255, 136, 0.3), 0 0 40px rgba(0, 255, 136, 0.25);
+}
+.sc-video-play svg { width: 56px; height: 56px; }
+@media (hover: hover) {
+  .sc-video-play:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 0 0 1px rgba(0, 255, 136, 0.5), 0 0 60px rgba(0, 255, 136, 0.45);
+  }
+}
+.sc-video-play:focus-visible {
+  outline: 2px solid var(--ic-green);
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  .sc-video-play { width: 64px; height: 64px; }
+  .sc-video-play svg { width: 40px; height: 40px; }
+}
 
 /* =================================================================
    SECTION 2 — STATS BAND (animated counters)
@@ -601,7 +649,7 @@ body.strategy-call-page { padding-top: 0; }
 @media (max-width: 900px) {
   .sc-disclaimer { padding: 32px 20px 20px; }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .sc-stat-value { font-size: clamp(40px, 16vw, 64px); }
   .sc-calendar-lock h3 { font-size: 20px; }
   .sc-calendar-lock p { font-size: 13px; }

@@ -163,7 +163,7 @@
   .case-iicy-name { font-size: 36px; }
   .case-metric-value { font-size: 26px; }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .case-metrics { grid-template-columns: 1fr; }
   .case-iicy-name { font-size: 30px; }
   .case-metric-value { font-size: 24px; }
@@ -238,7 +238,7 @@
   .proof-grid { grid-template-columns: repeat(2, 1fr); }
   .proof-card.mobile-only { display: block; }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .proof-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 }
 

@@ -313,7 +313,7 @@
   .testimonials { grid-template-columns: 1fr; gap: 20px; }
   .testimonial { padding-left: 18px; }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .case-exxia-mini .case-exxia-metrics { grid-template-columns: 1fr; }
   .pillars-note { padding: 20px; font-size: 14px; }
 }

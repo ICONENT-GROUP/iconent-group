@@ -32,8 +32,28 @@
   --sp-9: 80px;
   --sp-10: 110px;
 
-  /* Type */
+  /* Type — family */
   --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", system-ui, sans-serif;
+
+  /* Type — modular scale.
+     Granular enough for current variety but bounded: pages should reach
+     for these tokens before introducing new hardcoded sizes. */
+  --fs-xs:   12px;                       /* meta, labels, microcopy */
+  --fs-sm:   14px;                       /* secondary body, captions */
+  --fs-base: 16px;                       /* body default (also = min for iOS no-zoom) */
+  --fs-md:   18px;                       /* lead paragraphs */
+  --fs-lg:   clamp(20px, 2vw, 24px);     /* H4 / small section heads */
+  --fs-xl:   clamp(24px, 3vw, 32px);     /* H3 */
+  --fs-2xl:  clamp(32px, 5vw, 48px);     /* H2 desktop default */
+  --fs-3xl:  clamp(40px, 8vw, 72px);     /* H2 hero / large section */
+  --fs-4xl:  clamp(48px, 11vw, 180px);   /* H1 mega (home hero) */
+
+  /* Type — line-height + tracking helpers */
+  --lh-tight: 1.05;
+  --lh-snug:  1.25;
+  --lh-base:  1.55;
+  --tracking-tight: -0.03em;
+  --tracking-uppercase: 0.16em;
 
   /* Z-index scale */
   --z-base: 1;

@@ -38,13 +38,20 @@
         <h1>How Major-Label Distribution<br />Actually Works</h1>
         <p class="lead">Watch this before making any decision about your music career.</p>
 
-        <div class="sc-video-wrapper">
-          <iframe
-            src="https://player.vimeo.com/video/1150082063?title=0&amp;byline=0&amp;portrait=0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowfullscreen
-            loading="lazy"
-            title="ICONENT — Major Label Distribution"></iframe>
+        <!-- Vimeo facade: poster + play button. Click swaps in the real
+             iframe with autoplay. Cuts LCP by ~20s on mobile (no third-party
+             JS until user opts in). -->
+        <div class="sc-video-wrapper" data-vimeo-facade data-vimeo-id="1150082063">
+          <picture>
+            <source type="image/webp" srcset="/assets/img/vsl4-400.webp 400w, /assets/img/vsl4-800.webp 800w" sizes="(max-width: 640px) 100vw, 960px">
+            <img class="sc-video-poster" src="/assets/img/vsl4.jpeg" width="1920" height="1080" alt="ICONENT — Major Label Distribution video poster" />
+          </picture>
+          <button class="sc-video-play" type="button" aria-label="Play video">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="32" cy="32" r="30" />
+              <polygon points="26,20 26,44 46,32" fill="currentColor" stroke="none" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -340,7 +347,8 @@
 
   <ic-footer></ic-footer>
 
-  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <!-- Calendly widget.js is now lazy-loaded by strategy-call.js when the
+       booking section scrolls into view (saves ~150KB on first paint). -->
   <script src="/assets/js/components.js?v=20260522" defer></script>
   <script src="/assets/js/strategy-call.js?v=20260522" defer></script>
 </body>

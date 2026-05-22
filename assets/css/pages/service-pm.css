@@ -485,7 +485,7 @@ body.pm-page .service-card.featured {
   .case-exxia-name { font-size: 36px; }
   .case-exxia-metric-value { font-size: 24px; }
 }
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .case-exxia { padding: 24px; gap: 28px; }
   .case-exxia-metrics { grid-template-columns: 1fr; }
   .case-exxia-name { font-size: 30px; }

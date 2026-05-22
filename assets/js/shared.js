@@ -45,22 +45,14 @@
 
   /* FAQ accordion */
   function setupFaq() {
+    /* .faq-q is now a real <button> in HTML — keyboard (Enter / Space)
+       and ARIA semantics are native. We only sync aria-expanded on click. */
     document.querySelectorAll('.faq-item').forEach((item) => {
       const q = item.querySelector('.faq-q');
       if (!q) return;
-      q.setAttribute('role', 'button');
-      q.setAttribute('tabindex', '0');
-      q.setAttribute('aria-expanded', 'false');
-      const toggle = () => {
+      q.addEventListener('click', () => {
         const open = item.classList.toggle('open');
         q.setAttribute('aria-expanded', String(open));
-      };
-      item.addEventListener('click', toggle);
-      item.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggle();
-        }
       });
     });
   }

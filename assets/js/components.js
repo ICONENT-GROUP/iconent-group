@@ -315,9 +315,13 @@
       timers.clear();
     };
 
+    // Batched style writes via cssText — single reflow per element per cycle
+    // (vs 3 reflows when assigning .style.X individually). Visual output is
+    // identical; only the layout invalidation cost drops.
     function triggerChroma() {
       if (active()) {
         chroma.classList.remove('glitching');
+        // Force reflow so the animation re-triggers from the start
         void chroma.offsetWidth;
         chroma.classList.add('glitching');
       }
@@ -325,16 +329,19 @@
     }
     function spawnBars() {
       if (active()) {
-        bars.innerHTML = '';
+        // Build bars off-DOM in a fragment, then attach in one shot
+        const frag = document.createDocumentFragment();
         const count = 1 + Math.floor(Math.random() * 3);
         for (let i = 0; i < count; i++) {
           const bar = document.createElement('div');
           bar.className = 'ic-fx-bar';
-          bar.style.top = (Math.random() * 100) + '%';
-          bar.style.height = (1 + Math.random() * 3) + 'px';
-          bar.style.opacity = String(0.4 + Math.random() * 0.5);
-          bars.appendChild(bar);
+          bar.style.cssText =
+            `top:${Math.random() * 100}%;` +
+            `height:${1 + Math.random() * 3}px;` +
+            `opacity:${0.4 + Math.random() * 0.5};`;
+          frag.appendChild(bar);
         }
+        bars.replaceChildren(frag);
         bars.style.opacity = '1';
         schedule(() => { bars.style.opacity = '0'; }, 90 + Math.random() * 120);
       }
@@ -342,9 +349,11 @@
     }
     function tearFlash() {
       if (active()) {
-        tear.style.top = (10 + Math.random() * 80) + '%';
-        tear.style.height = (10 + Math.random() * 45) + 'px';
-        tear.style.opacity = String(0.55 + Math.random() * 0.4);
+        // Single cssText assignment = one reflow instead of three
+        tear.style.cssText =
+          `top:${10 + Math.random() * 80}%;` +
+          `height:${10 + Math.random() * 45}px;` +
+          `opacity:${0.55 + Math.random() * 0.4};`;
         schedule(() => { tear.style.opacity = '0'; }, 70);
       }
       if (tabVisible) schedule(tearFlash, 5500 + Math.random() * 9000);
