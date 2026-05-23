@@ -476,12 +476,13 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
   max-width: 1400px;
 }
 .hero h1 {
-  /* The vw component is kept at 14vw (the IT spec) so the text never
-     exceeds the viewport at common widths (1280–1800px) — anything higher
-     made "ICONENT GROUP" wider than the viewport with white-space: nowrap.
-     The +10% bump lives on the `max` clamp value (253 vs IT's 230), so
-     ultra-wide screens (≥1807px) still get the larger title. */
-  font-size: clamp(40px, 14vw, 253px);
+  /* "ICONENT GROUP" at font-weight 900 + -0.05em tracking renders ~7.5×
+     the font-size wide. With white-space: nowrap the H1 can't wrap, so
+     the vw value × 7.5 must stay below 100vw or the text clips at the
+     right edge. 14vw failed (110%); 13vw was borderline; 12vw gives a
+     safe ~10vw margin on every common laptop width (1280–2100px). The
+     +10% bump still lives on the max (253px) — hits on wide displays. */
+  font-size: clamp(40px, 12vw, 253px);
   line-height: 1;
   letter-spacing: -0.05em;
   text-transform: uppercase;
