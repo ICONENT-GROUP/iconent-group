@@ -198,6 +198,29 @@
     // The form ALWAYS redirects to /strategy-call/ at the end of the quiz.
     // If FORM_ENDPOINT is set, we also fire-and-forget a POST to the CRM
     // before redirecting (data is not blocked on POST success).
+
+    async function postWithRetry(url, payload, attempts = 3) {
+      for (let i = 0; i < attempts; i++) {
+        try {
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            keepalive: true,
+          });
+          if (res.ok || res.status === 409) return res; // 409 = duplicate, ok
+          console.warn('[quiz] CRM non-ok status', res.status, 'attempt', i + 1);
+        } catch (err) {
+          console.warn('[quiz] CRM fetch error, attempt', i + 1, err);
+        }
+        if (i < attempts - 1) {
+          await new Promise(r => setTimeout(r, (i + 1) * 1000)); // 1s, 2s
+        }
+      }
+      console.error('[quiz] CRM submission failed after', attempts, 'attempts. Payload:', JSON.stringify(payload));
+      return null;
+    }
+
     if (submitBtn) {
       submitBtn.addEventListener('click', async e => {
         e.preventDefault();
@@ -207,19 +230,8 @@
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting…';
 
-        // Try POST to CRM if endpoint is configured. Don't block on failure —
-        // we still want to redirect the user to the VSL.
         if (FORM_ENDPOINT) {
-          try {
-            await fetch(FORM_ENDPOINT, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload),
-              keepalive: true
-            });
-          } catch (err) {
-            console.warn('[quiz] CRM submission failed, redirecting anyway', err);
-          }
+          await postWithRetry(FORM_ENDPOINT, payload);
         }
 
         window.location.href = POST_SUBMIT_REDIRECT;
