@@ -293,3 +293,15 @@
   .team-brief { grid-template-columns: 1fr; }
 }
 
+/* Service pages: tighter hero — less vertical air above/below the title.
+   (home.css loads only on service pages + index; index has no .hero-compact,
+   so this scopes to the service pages without touching about/contact.) */
+.hero-compact {
+  padding: 92px 24px 48px;
+}
+@media (max-width: 640px) {
+  .hero-compact {
+    padding: 84px 20px 40px;
+  }
+}
+
