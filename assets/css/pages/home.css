@@ -313,3 +313,14 @@
   }
 }
 
+/* Home hero: ~25% shorter (100vh → 75vh) so the copy below the fold
+   already peeks into the first screen, on mobile and desktop.
+   Only index.html has .hero, so this is homepage-only. */
+.hero {
+  height: 75vh;
+}
+@media (max-width: 768px) {
+  .hero-content { transform: translateY(-8vh); }
+  .hero-scroll-hint { bottom: 40px; }
+}
+
