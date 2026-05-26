@@ -293,3 +293,23 @@
   .team-brief { grid-template-columns: 1fr; }
 }
 
+/* Service pages: tighter hero — less vertical air above/below the title.
+   (home.css loads only on service pages + index; index has no .hero-compact,
+   so this scopes to the service pages without touching about/contact.)
+   The gap UNDER the sub-text is mostly the first .section's padding-top,
+   so we tighten .hero-compact + .section too. */
+.hero-compact {
+  padding: 80px 24px 24px;
+}
+.hero-compact + .section {
+  padding-top: 28px;
+}
+@media (max-width: 640px) {
+  .hero-compact {
+    padding: 72px 20px 18px;
+  }
+  .hero-compact + .section {
+    padding-top: 24px;
+  }
+}
+
