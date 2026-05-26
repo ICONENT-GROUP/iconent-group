@@ -8,7 +8,7 @@
   'use strict';
 
   // ---------- CONFIG ----------
-  const FORM_ENDPOINT = 'https://iconent-core.vercel.app/api/leads/intake';
+  const FORM_ENDPOINT = 'https://app.iconent-group.com/api/leads/intake';
   const POST_SUBMIT_REDIRECT = '/strategy-call/';
   const AUTO_ADVANCE_DELAY_MS = 450; // longer = more time to see selection / change mind before advance fires
 
