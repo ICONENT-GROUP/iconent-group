@@ -2,19 +2,14 @@
    QUIZ APPLICATION — multi-step wizard logic
    Used by /major-label-application/. The /artist-management-application/
    URL still exists as a 301 redirect for legacy ad links.
-
-   Submission is currently disabled while the custom CRM is being built.
-   When the CRM endpoint is ready, set FORM_ENDPOINT below and the submit
-   button will become active.
    ============================================================ */
 
 (function () {
   'use strict';
 
   // ---------- CONFIG ----------
-  const FORM_ENDPOINT = ''; // set to '<crm-endpoint-url>' to enable submit
-  const STORAGE_KEY = 'iconent_quiz_draft_v1';
-  const POST_SUBMIT_REDIRECT = '/application-received/';
+  const FORM_ENDPOINT = 'https://app.iconent-group.com/api/leads/intake';
+  const POST_SUBMIT_REDIRECT = '/strategy-call/';
   const AUTO_ADVANCE_DELAY_MS = 450; // longer = more time to see selection / change mind before advance fires
 
   // ---------- BOOT ----------
@@ -43,13 +38,6 @@
     if (counterTotal) counterTotal.textContent = totalSteps;
 
     let currentIndex = 0;
-
-    // ---------- DRAFT PERSISTENCE ----------
-    restoreDraft();
-
-    // Save on every input/change
-    root.addEventListener('input', saveDraft);
-    root.addEventListener('change', saveDraft);
 
     // ---------- NAV ----------
     function showStep(i, opts = {}) {
@@ -215,7 +203,7 @@
         e.preventDefault();
         if (!validateStep(currentIndex)) return;
 
-        const data = collectAnswers();
+        const payload = buildPayload();
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting…';
 
@@ -226,7 +214,7 @@
             await fetch(FORM_ENDPOINT, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(data),
+              body: JSON.stringify(payload),
               keepalive: true
             });
           } catch (err) {
@@ -234,58 +222,53 @@
           }
         }
 
-        clearDraft();
-        const params = new URLSearchParams({ source: data.source || '', applied: '1' });
-        window.location.href = POST_SUBMIT_REDIRECT + '?' + params.toString();
+        window.location.href = POST_SUBMIT_REDIRECT;
       });
     }
 
     // ---------- COLLECT ANSWERS ----------
-    function collectAnswers() {
-      const out = {};
-      root.querySelectorAll('input[name], textarea[name]').forEach(el => {
-        if (el.type === 'radio') {
-          if (el.checked) out[el.name] = el.value;
-        } else if (el.type === 'checkbox') {
-          out[el.name] = el.checked;
-        } else {
-          out[el.name] = (el.value || '').trim();
-        }
-      });
-      out.source = root.getAttribute('data-source') || '';
-      out.submitted_at = new Date().toISOString();
-      return out;
+    function getValue(name) {
+      const radio = root.querySelector(`input[name="${name}"]:checked`);
+      if (radio) return radio.value;
+      const el = root.querySelector(`[name="${name}"]`);
+      return el ? (el.value || '').trim() || null : null;
     }
 
-    // ---------- DRAFT ----------
-    function saveDraft() {
-      try {
-        const data = collectAnswers();
-        delete data.submitted_at;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } catch (_) { /* quota or privacy mode — ignore */ }
-    }
-    function restoreDraft() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
-        const data = JSON.parse(raw);
-        Object.entries(data).forEach(([name, value]) => {
-          // Never restore `source` — bound to URL (team vs distribution).
-          if (name === 'source') return;
-          const el = root.querySelector(`[name="${name}"]`);
-          if (!el) return;
-          // Don't restore radio selections: restoring made the option look
-          // "pre-selected" on revisit (green ring on the first checked radio
-          // before the user actually picks). Text/textarea values are still
-          // restored so identity fields don't get lost on accidental refresh.
-          if (el.type === 'radio') return;
-          el.value = value;
-        });
-      } catch (_) { /* corrupt — ignore */ }
-    }
-    function clearDraft() {
-      try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+    function buildPayload() {
+      const quiz = {
+        genre:             getValue('genre'),
+        monthly_listeners: getValue('monthly_listeners'),
+        growth_challenge:  getValue('growth_challenge'),
+        team:              getValue('team'),
+        invested_before:   getValue('invested_before'),
+        vision_12m:        getValue('vision_12m'),
+        vision_12m_detail: getValue('vision_12m_detail'),
+        working_toward:    getValue('working_toward'),
+        seriousness:       getValue('seriousness'),
+        open_to_direction: getValue('open_to_direction'),
+        release_strategy:  getValue('release_strategy'),
+        track_ready:       getValue('track_ready'),
+        why_us:            getValue('why_us'),
+        ready_to_invest:   getValue('ready_to_invest'),
+        start_timing:      getValue('start_timing'),
+      };
+      Object.keys(quiz).forEach(k => { if (quiz[k] === null) delete quiz[k]; });
+
+      const payload = {
+        source:        'quiz_iconent_group',
+        full_name:     getValue('artist_name'),
+        email:         getValue('email'),
+        custom_fields: { quiz },
+      };
+      const phone            = getValue('phone');
+      const instagram_handle = getValue('instagram');
+      const spotify_url      = getValue('spotify_url');
+      const budget_band      = getValue('current_spend');
+      if (phone)             payload.phone = phone;
+      if (instagram_handle)  payload.instagram_handle = instagram_handle;
+      if (spotify_url)       payload.spotify_url = spotify_url;
+      if (budget_band)       payload.budget_band = budget_band;
+      return payload;
     }
 
     // ---------- INITIAL RENDER ----------
