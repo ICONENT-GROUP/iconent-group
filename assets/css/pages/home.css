@@ -370,14 +370,13 @@
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  /* Bigger, brighter backlight — this is the actual "retroilluminazione".
-     Was 240px / center 0.24 → now 300px / center 0.45 + intermediate
-     stop so the glow stays denser before fading to transparent. */
-  width: 300px; height: 300px;
+  /* White backlight (was green), -15% on size and alpha values:
+     size 300 → 255, center alpha 0.45 → 0.38, mid alpha 0.18 → 0.15. */
+  width: 255px; height: 255px;
   background: radial-gradient(
     circle,
-    rgba(0,255,136,0.45) 0%,
-    rgba(0,255,136,0.18) 35%,
+    rgba(255,255,255,0.38) 0%,
+    rgba(255,255,255,0.15) 35%,
     transparent 65%
   );
   border-radius: 50%;
