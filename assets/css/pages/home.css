@@ -59,10 +59,14 @@
   }
 }
 
-/* Tagline — plain opacity fade-in, no glitch, no lights. Same duration
-   and curve as the H1 entry so title + subtitle complete in unison. */
+/* Tagline — plain opacity fade-in, no glitch, no lights.
+   Delayed start so it enters AFTER the H1 has fully formed:
+     0–1000ms : tagline invisible (H1 is doing its scale+blur+glitch)
+     1000ms   : tagline begins fading in (H1 has reached final scale)
+     1000–2200ms : tagline crossfades to full opacity
+   Total chain ~600ms longer than before. */
 .hero-tagline {
-  animation: home-hero-tagline-in 1600ms cubic-bezier(0.33, 1, 0.68, 1) both;
+  animation: home-hero-tagline-in 1200ms cubic-bezier(0.33, 1, 0.68, 1) 1000ms both;
 }
 @keyframes home-hero-tagline-in {
   from { opacity: 0; }
