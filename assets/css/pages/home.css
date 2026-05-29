@@ -6,7 +6,13 @@
    Loaded after components.css → these rules win on ties.
    ============================================================ */
 
-.hero { --hero-exit: 0; }
+.hero {
+  --hero-exit: 0;
+  /* Separate, softer scroll-driven value for the blur (pow 1.5 curve set
+     in the inline script). Lets the wordmark stay sharp at the start of
+     scroll while opacity/chromatic still fade on the faster sqrt curve. */
+  --hero-blur-exit: 0;
+}
 
 .hero h1 {
   /* 1600ms easeOutCubic — gentle zoom, no Y/Z translation. */
@@ -78,7 +84,10 @@
    entry glitch peak, so the "exit animation" is the mirror of the entry. */
 .hero h1.is-loaded {
   animation: none;
-  filter: blur(calc(var(--hero-exit, 0) * 24px));
+  /* Blur reads from --hero-blur-exit (softer pow 1.5 curve) and tops out
+     at 20px (was 24px) so the dissolve doesn't punch immediately on the
+     first pixels of scroll. */
+  filter: blur(calc(var(--hero-blur-exit, 0) * 20px));
   transform: scale(calc(1 - var(--hero-exit, 0) * 0.12));
   opacity: calc(1 - var(--hero-exit, 0) * 1.35);
   text-shadow:
