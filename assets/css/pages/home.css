@@ -133,17 +133,18 @@
     0 0 80px rgba(0, 0, 0, 0.65);
   animation: home-hero-wordmark-in 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-/* Z-depth approach into final position, with a chromatic glitch peak at
-   the last 15% of the animation — exactly one cycle, never repeats. */
+/* Zoom-in load-in (no Y/Z translation — stays on the same axis the whole
+   time). Scale from 0.7 to 1 + blur dissolve + chromatic glitch peak at
+   the last 30% of the animation. Exactly one cycle, never repeats. */
 @keyframes home-hero-wordmark-in {
   0% {
     opacity: 0;
-    transform: translateZ(-540px) translateY(40px);
+    transform: scale(0.7);
     filter: blur(28px);
   }
   55% {
     opacity: 1;
-    transform: translateZ(0) translateY(0);
+    transform: scale(1);
     filter: blur(0);
     text-shadow:
       0 1px 0 rgba(255, 255, 255, 0.04),
@@ -152,6 +153,7 @@
       0 0 80px rgba(0, 0, 0, 0.65);
   }
   72% {
+    transform: scale(1);
     text-shadow:
       -5px 0 0 #00E6FF,
       5px 0 0 var(--ic-green),
@@ -159,6 +161,7 @@
       0 6px 32px rgba(0, 255, 136, 0.10);
   }
   82% {
+    transform: scale(1);
     text-shadow:
       3px 0 0 #00E6FF,
       -3px 0 0 var(--ic-green),
@@ -166,7 +169,7 @@
   }
   100% {
     opacity: 1;
-    transform: translateZ(0) translateY(0);
+    transform: scale(1);
     filter: blur(0);
     text-shadow:
       0 1px 0 rgba(255, 255, 255, 0.04),
