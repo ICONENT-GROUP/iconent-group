@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="/assets/css/tokens.css?v=20260522e" />
   <link rel="stylesheet" href="/assets/css/base.css?v=20260523c" />
   <link rel="stylesheet" href="/assets/css/components.css?v=20260523g" />
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20260526d" />
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20260529e" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -497,6 +497,52 @@
   <script src="/assets/js/components.js?v=20260522e" defer></script>
   <script src="/assets/js/shared.js?v=20260522e" defer></script>
   <script src="/assets/js/calendly.js?v=20260522e" defer></script>
+
+  <!-- Hero H1 animation driver — entry plays via CSS keyframe; this script
+       (a) marks .is-loaded on animationend so CSS swaps to the scroll-
+       driven exit rule, and (b) updates --hero-exit (0 → 1) as the user
+       scrolls past the hero. rAF-throttled, passive listener. -->
+  <script>
+  (function () {
+    const reducedMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const heroEl = document.querySelector('.hero');
+    const h1 = heroEl && heroEl.querySelector('h1');
+    if (!heroEl || !h1) return;
+
+    function attachScroll() {
+      let ticking = false;
+      function update() {
+        const heroH = heroEl.offsetHeight;
+        // Exit reaches 1 at 70% of hero height — wordmark is mostly gone
+        // before the user has fully scrolled past the section.
+        const span = Math.max(1, heroH * 0.7);
+        const progress = Math.min(1, Math.max(0, window.scrollY / span));
+        heroEl.style.setProperty('--hero-exit', progress.toFixed(3));
+        ticking = false;
+      }
+      function onScroll() {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      update();
+    }
+
+    if (reducedMotion) {
+      // No entry animation runs → animationend never fires. Mark loaded
+      // immediately so layout stays consistent; --hero-exit stays at 0.
+      h1.classList.add('is-loaded');
+      return;
+    }
+    h1.addEventListener('animationend', (e) => {
+      if (e.animationName === 'home-hero-h1-in') {
+        h1.classList.add('is-loaded');
+        attachScroll();
+      }
+    }, { once: true });
+  })();
+  </script>
 
   <!-- =========================================================
        COOKIE CONSENT BANNER (homepage only — 2026 US compliance)

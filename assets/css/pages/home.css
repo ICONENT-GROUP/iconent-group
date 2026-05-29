@@ -1,3 +1,95 @@
+/* ============================================================
+   HOME — HERO H1 ANIMATION
+   Surgical addition: entry zoom-in + blur + chromatic glitch peak,
+   then scroll-driven dematerialization on exit. Only touches .hero h1.
+   Everything else on the home page is unchanged.
+   Loaded after components.css → these rules win on ties.
+   ============================================================ */
+
+.hero { --hero-exit: 0; }
+
+.hero h1 {
+  /* 1600ms easeOutCubic — gentle zoom, no Y/Z translation. */
+  animation: home-hero-h1-in 1600ms cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+
+@keyframes home-hero-h1-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.86);
+    filter: blur(18px);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+    /* Preserve the original .hero h1 text-shadow stack from components.css */
+    text-shadow:
+      0 0 40px rgba(0,0,0,0.55),
+      0 4px 16px rgba(0,0,0,0.5),
+      0 0 80px rgba(100,220,255,0.18);
+  }
+  75% {
+    /* Chromatic peak — cyan + brand-green channel split */
+    transform: scale(1);
+    text-shadow:
+      -5px 0 0 #00E6FF,
+       5px 0 0 var(--ic-green),
+      0 0 40px rgba(0,0,0,0.55),
+      0 4px 16px rgba(0,0,0,0.5),
+      0 0 80px rgba(100,220,255,0.18);
+  }
+  85% {
+    transform: scale(1);
+    text-shadow:
+      3px 0 0 #00E6FF,
+      -3px 0 0 var(--ic-green),
+      0 0 40px rgba(0,0,0,0.55),
+      0 4px 16px rgba(0,0,0,0.5),
+      0 0 80px rgba(100,220,255,0.18);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+    text-shadow:
+      0 0 40px rgba(0,0,0,0.55),
+      0 4px 16px rgba(0,0,0,0.5),
+      0 0 80px rgba(100,220,255,0.18);
+  }
+}
+
+/* Once JS adds .is-loaded (on animationend), swap to scroll-driven exit.
+   --hero-exit (0 → 1) ramps every property — same color palette as the
+   entry glitch peak, so the "exit animation" is the mirror of the entry. */
+.hero h1.is-loaded {
+  animation: none;
+  filter: blur(calc(var(--hero-exit, 0) * 24px));
+  transform: scale(calc(1 - var(--hero-exit, 0) * 0.12));
+  opacity: calc(1 - var(--hero-exit, 0) * 1.35);
+  text-shadow:
+    calc(var(--hero-exit, 0) * -6px) 0 0 #00E6FF,
+    calc(var(--hero-exit, 0) *  6px) 0 0 var(--ic-green),
+    0 0 40px rgba(0,0,0,0.55),
+    0 4px 16px rgba(0,0,0,0.5),
+    0 0 80px rgba(100,220,255,0.18);
+  will-change: filter, transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero h1,
+  .hero h1.is-loaded {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    text-shadow:
+      0 0 40px rgba(0,0,0,0.55),
+      0 4px 16px rgba(0,0,0,0.5),
+      0 0 80px rgba(100,220,255,0.18) !important;
+  }
+}
+
 /* Who We Are */
 .who { border-top: 1px solid var(--ic-rule); max-width: 1200px; }
 .who-grid {
