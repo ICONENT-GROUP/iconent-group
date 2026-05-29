@@ -370,17 +370,29 @@
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 240px; height: 240px;
-  background: radial-gradient(circle, rgba(0,255,136,0.24) 0%, transparent 60%);
+  /* Bigger, brighter backlight — this is the actual "retroilluminazione".
+     Was 240px / center 0.24 → now 300px / center 0.45 + intermediate
+     stop so the glow stays denser before fading to transparent. */
+  width: 300px; height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(0,255,136,0.45) 0%,
+    rgba(0,255,136,0.18) 35%,
+    transparent 65%
+  );
   border-radius: 50%;
   z-index: -1;
+  filter: blur(2px);
 }
 .team-photo img {
   width: 100%; height: 100%;
   object-fit: contain;
-  /* +30% over the previous 1.15 → 1.50 (cumulative).
-     Lights up Hayden / Jack / Joe under the "Who you'll work with" grid. */
-  filter: brightness(1.5);
+  /* Mask each photo to a circle so the white square backgrounds on
+     Jack / Joe don't cover the backlight halo — the glow now wraps
+     the actual face, not a white box. Hayden's transparent PNG isn't
+     affected. No brightness filter on the image itself (that washed
+     out the faces). */
+  border-radius: 50%;
 }
 .team-name {
   font-size: 20px;
