@@ -36,6 +36,9 @@
   perspective: 1400px;
   overflow: hidden;
   isolation: isolate;
+  /* Scroll-driven exit progress (0 = at rest, 1 = fully dematerialized).
+     Updated by home-hero.js once .is-loaded is set on the wordmark. */
+  --hero-exit: 0;
 }
 
 /* ---- Subtle scan-line overlay on top of the FX scene ---- */
@@ -182,6 +185,44 @@
       0 0 80px rgba(0, 0, 0, 0.65);
   }
 }
+/* ---- Exit (scroll-driven dematerialization) ----
+   Once the entry animation completes, JS marks .is-loaded on the wordmark
+   and starts updating --hero-exit (0 → 1) based on scroll progress past
+   the hero. The chromatic split offsets, blur, scale, and opacity all
+   ride on the same variable so the disappearance reads as one continuous
+   motion — the "exit animation" lives entirely in the var. */
+.home-hero__wordmark-main.is-loaded {
+  animation: none;
+  filter: blur(calc(var(--hero-exit, 0) * 24px));
+  transform: scale(calc(1 - var(--hero-exit, 0) * 0.12));
+  opacity: calc(1 - var(--hero-exit, 0) * 1.35);
+  /* Chromatic split widens as exit progresses (was 0 at rest → ±6px at
+     full exit). Mirror of the entrance glitch peak, but tied to scroll
+     position instead of time. */
+  text-shadow:
+    calc(var(--hero-exit, 0) * -6px) 0 0 #00E6FF,
+    calc(var(--hero-exit, 0) *  6px) 0 0 var(--ic-green),
+    0 1px 0 rgba(255, 255, 255, 0.04),
+    0 2px 0 rgba(0, 255, 136, 0.06),
+    0 6px 32px rgba(0, 255, 136, 0.10),
+    0 0 80px rgba(0, 0, 0, 0.65);
+  /* will-change kept narrow so we don't promote the element when it's
+     not exiting — toggled via the same .is-loaded gate. */
+  will-change: filter, transform, opacity;
+}
+
+/* Companion fade on the rest of the hero — softer than the wordmark
+   treatment, so the main element keeps the dramatic exit moment. */
+.home-hero.is-loaded .home-hero__wordmark-sub,
+.home-hero.is-loaded .home-hero__tagline,
+.home-hero.is-loaded .home-hero__metrics,
+.home-hero.is-loaded .home-hero__cta-wrap,
+.home-hero.is-loaded .home-hero__scroll,
+.home-hero.is-loaded .home-hero__top {
+  opacity: calc(1 - var(--hero-exit, 0) * 1.6);
+  transform: translateY(calc(var(--hero-exit, 0) * -14px));
+}
+
 .home-hero__wordmark-sub {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
   font-size: clamp(11px, 1.2vw, 16px);

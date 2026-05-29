@@ -166,11 +166,63 @@
     });
   }
 
+  // ---------- Scroll-driven exit dematerialization ----------
+  // Once the wordmark finishes its load-in animation, we mark .is-loaded
+  // on the wordmark (CSS swaps to the var-driven rule) and on the hero
+  // container (CSS fades the other elements). Then a passive scroll
+  // listener updates --hero-exit (0 → 1) as the user scrolls past the
+  // hero. rAF-throttled to keep it ≤1 layout read per frame.
+  function initExitOnScroll() {
+    const heroEl = document.querySelector('.home-hero');
+    const wordmark = document.querySelector('.home-hero__wordmark-main');
+    if (!heroEl || !wordmark) return;
+
+    function markLoaded() {
+      wordmark.classList.add('is-loaded');
+      heroEl.classList.add('is-loaded');
+      attachScroll();
+    }
+
+    if (reducedMotion) {
+      // No entry animation runs → animationend never fires. Mark loaded
+      // immediately so the rest of the layout behaves consistently.
+      markLoaded();
+      return;
+    }
+
+    wordmark.addEventListener('animationend', (e) => {
+      if (e.animationName === 'home-hero-wordmark-in') markLoaded();
+    }, { once: true });
+
+    let ticking = false;
+    function update() {
+      const heroH = heroEl.offsetHeight;
+      // Exit reaches 1 at 70% of hero height — the wordmark is mostly
+      // gone before the user has fully scrolled past the section.
+      const span = Math.max(1, heroH * 0.7);
+      const progress = Math.min(1, Math.max(0, window.scrollY / span));
+      heroEl.style.setProperty('--hero-exit', progress.toFixed(3));
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }
+    function attachScroll() {
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
+      update(); // initial sync (handles refresh mid-scroll)
+    }
+  }
+
   // ---------- Init ----------
   function init() {
     initScanlines();
     initCountUp();
     initCtaGlitch();
+    initExitOnScroll();
   }
 
   if (document.readyState === 'loading') {
