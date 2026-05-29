@@ -28,10 +28,15 @@
   <meta name="geo.placename" content="New York" />
   <meta name="geo.position" content="40.7058;-74.0080" />
   <meta name="ICBM" content="40.7058, -74.0080" />
+  <!-- Preload the display font for the new hero. Critical path because the
+       wordmark uses JetBrains Mono Bold and FOIT would break the load-in
+       animation timing. -->
+  <link rel="preload" href="/assets/fonts/JetBrainsMono-Bold.woff2" as="font" type="font/woff2" crossorigin>
+
   <link rel="stylesheet" href="/assets/css/tokens.css?v=20260522e" />
   <link rel="stylesheet" href="/assets/css/base.css?v=20260523c" />
   <link rel="stylesheet" href="/assets/css/components.css?v=20260523g" />
-  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20260526d" />
+  <link rel="stylesheet" href="/assets/css/pages/home.css?v=20260529a" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -40,15 +45,73 @@
   <div class="blur-overlay" id="ic-blur-overlay"></div>
 
   <main id="main">
-    <!-- HERO — holographic fx scene injected by components.js -->
-    <section class="hero" id="hero">
-      <div class="hero-content">
-        <h1>ICONENT GROUP</h1>
-        <p class="hero-tagline">
+    <!-- HERO — REDESIGN (feat/home-redesign-3d)
+         Keeps class="hero" so injectFxScene() in components.js still
+         attaches the global holographic FX background. Adds .home-hero
+         for the new visual layer (3D wordmark, scan lines, glitch CTA).
+         Placeholders in [BRACKETS] are content Kenzo will pass. -->
+    <section class="hero home-hero" id="hero" data-home-hero>
+      <canvas class="home-hero__scanlines" aria-hidden="true"></canvas>
+
+      <header class="home-hero__top">
+        <span class="home-hero__status">
+          <span class="home-hero__status-dot" aria-hidden="true"></span>
+          Status · Open for applications
+        </span>
+        <span class="home-hero__index" aria-hidden="true">Index // 01 — Home</span>
+      </header>
+
+      <div class="home-hero__stage">
+        <h1 class="home-hero__wordmark">
+          <span class="home-hero__wordmark-main" data-wordmark>ICONENT</span>
+          <span class="home-hero__wordmark-sub">/ Group</span>
+        </h1>
+        <p class="home-hero__tagline">
           <span class="ht-item">Artist Development</span><span class="ht-sep pipe">·</span><span class="ht-item">Music Marketing</span><span class="ht-sep pipe">·</span><span class="ht-item">Distribution</span>
         </p>
       </div>
-      <div class="hero-scroll-hint">Scroll</div>
+
+      <div class="home-hero__metrics" data-metric-ticker>
+        <div class="home-hero__metric">
+          <span class="home-hero__metric-num" data-count-to="730" data-prefix="+">0</span>
+          <span class="home-hero__metric-label">[METRIC-1 LABEL]</span>
+        </div>
+        <div class="home-hero__metric">
+          <span class="home-hero__metric-num" data-count-to="647" data-prefix="+">0</span>
+          <span class="home-hero__metric-label">[METRIC-2 LABEL]</span>
+        </div>
+        <div class="home-hero__metric">
+          <span class="home-hero__metric-num" data-count-to="165" data-prefix="+" data-suffix="%">0</span>
+          <span class="home-hero__metric-label">[METRIC-3 LABEL]</span>
+        </div>
+      </div>
+
+      <div class="home-hero__cta-wrap">
+        <a class="home-hero__cta" href="/strategy-call/" data-cta-glitch>
+          <span class="home-hero__cta-text">[ Book a project review ]</span>
+          <svg class="home-hero__cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="13 6 19 12 13 18"></polyline>
+          </svg>
+        </a>
+        <p class="home-hero__cta-note">[CTA-NOTE — secondary line]</p>
+      </div>
+
+      <div class="home-hero__scroll" aria-hidden="true">
+        <span class="home-hero__scroll-label">scroll</span>
+        <span class="home-hero__scroll-line"></span>
+      </div>
+
+      <!-- Inline SVG filter for the CTA hover glitch (feDisplacementMap).
+           scale is driven from JS on hover, ramps 0 → 3 → 0 over ~220ms. -->
+      <svg class="home-hero__filters" aria-hidden="true" width="0" height="0">
+        <defs>
+          <filter id="home-hero-glitch">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs>
+      </svg>
     </section>
 
     <!-- MARQUEE -->
@@ -497,6 +560,7 @@
   <script src="/assets/js/components.js?v=20260522e" defer></script>
   <script src="/assets/js/shared.js?v=20260522e" defer></script>
   <script src="/assets/js/calendly.js?v=20260522e" defer></script>
+  <script src="/assets/js/home-hero.js?v=20260529a" defer></script>
 
   <!-- =========================================================
        COOKIE CONSENT BANNER (homepage only — 2026 US compliance)

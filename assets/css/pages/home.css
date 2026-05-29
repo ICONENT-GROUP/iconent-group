@@ -1,3 +1,414 @@
+/* ============================================================
+   HOME — HERO REDESIGN (feat/home-redesign-3d)
+   New visual layer for the hero section. The legacy .hero rules in
+   components.css still apply (.hero class is kept to preserve the
+   FX scene injection); .home-hero overrides where they conflict via
+   source order (this file loads after components.css).
+   ============================================================ */
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/assets/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/assets/fonts/JetBrainsMono-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.home-hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto auto;
+  align-items: center;
+  justify-items: center;
+  padding: clamp(22px, 3vw, 44px) clamp(20px, 4vw, 56px) clamp(28px, 3vw, 56px);
+  gap: clamp(28px, 4vh, 56px);
+  text-align: center;
+  /* Perspective for the depth load-in on the wordmark */
+  perspective: 1400px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* ---- Subtle scan-line overlay on top of the FX scene ---- */
+.home-hero__scanlines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.55;
+  mix-blend-mode: screen;
+}
+
+/* ---- Top bar — status + index identifier (mono editorial) ---- */
+.home-hero__top {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: clamp(10px, 1vw, 11.5px);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ic-muted);
+  opacity: 0;
+  animation: home-hero-top-in 600ms ease-out 300ms forwards;
+}
+@keyframes home-hero-top-in {
+  to { opacity: 1; }
+}
+.home-hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ic-text);
+}
+.home-hero__status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ic-green);
+  box-shadow: 0 0 12px var(--ic-green);
+  animation: home-hero-pulse 1.8s ease-in-out infinite;
+}
+@keyframes home-hero-pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.25); }
+}
+.home-hero__index {
+  font-family: inherit;
+  color: var(--ic-muted);
+}
+
+/* ---- Stage: wordmark + tagline (visual focal point) ---- */
+.home-hero__stage {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 2vh, 24px);
+  transform-style: preserve-3d;
+}
+
+.home-hero__wordmark {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 700;
+  font-size: clamp(64px, 17vw, 280px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--ic-text);
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2px, 0.5vw, 6px);
+  white-space: nowrap;
+}
+.home-hero__wordmark-main {
+  display: block;
+  position: relative;
+  transform-style: preserve-3d;
+  /* Always-on subtle depth via layered shadows (no chromatic split in
+     the resting state — that's reserved for the load-in glitch peak). */
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.04),
+    0 2px 0 rgba(0, 255, 136, 0.06),
+    0 6px 32px rgba(0, 255, 136, 0.10),
+    0 0 80px rgba(0, 0, 0, 0.65);
+  animation: home-hero-wordmark-in 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+/* Z-depth approach into final position, with a chromatic glitch peak at
+   the last 15% of the animation — exactly one cycle, never repeats. */
+@keyframes home-hero-wordmark-in {
+  0% {
+    opacity: 0;
+    transform: translateZ(-540px) translateY(40px);
+    filter: blur(28px);
+  }
+  55% {
+    opacity: 1;
+    transform: translateZ(0) translateY(0);
+    filter: blur(0);
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04),
+      0 2px 0 rgba(0, 255, 136, 0.06),
+      0 6px 32px rgba(0, 255, 136, 0.10),
+      0 0 80px rgba(0, 0, 0, 0.65);
+  }
+  72% {
+    text-shadow:
+      -5px 0 0 #00E6FF,
+      5px 0 0 var(--ic-green),
+      0 2px 0 rgba(0, 255, 136, 0.06),
+      0 6px 32px rgba(0, 255, 136, 0.10);
+  }
+  82% {
+    text-shadow:
+      3px 0 0 #00E6FF,
+      -3px 0 0 var(--ic-green),
+      0 2px 0 rgba(0, 255, 136, 0.06);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) translateY(0);
+    filter: blur(0);
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04),
+      0 2px 0 rgba(0, 255, 136, 0.06),
+      0 6px 32px rgba(0, 255, 136, 0.10),
+      0 0 80px rgba(0, 0, 0, 0.65);
+  }
+}
+.home-hero__wordmark-sub {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(11px, 1.2vw, 16px);
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ic-muted);
+  opacity: 0;
+  animation: home-hero-fade-up 600ms ease-out 950ms forwards;
+}
+@keyframes home-hero-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 0.7; transform: translateY(0); }
+}
+
+/* Tagline — mono uppercase, fades in after wordmark settles */
+.home-hero__tagline {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(11px, 1.3vw, 14px);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ic-muted);
+  margin: 0;
+  opacity: 0;
+  animation: home-hero-tagline-in 700ms ease-out 1300ms forwards;
+}
+@keyframes home-hero-tagline-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.home-hero__tagline .pipe,
+.home-hero__tagline .ht-sep {
+  margin: 0 12px;
+  color: var(--ic-green);
+  opacity: 0.7;
+}
+
+/* ---- Metrics ticker — 3 cells with mono numerals + label ---- */
+.home-hero__metrics {
+  position: relative;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--ic-rule);
+  border: 1px solid var(--ic-rule);
+  opacity: 0;
+  animation: home-hero-fade-up 700ms ease-out 1700ms forwards;
+}
+.home-hero__metric {
+  background: rgba(10, 10, 10, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: clamp(16px, 2.4vw, 24px) clamp(12px, 2vw, 20px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.home-hero__metric-num {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-weight: 700;
+  font-size: clamp(26px, 3.4vw, 44px);
+  color: var(--ic-text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.home-hero__metric-label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(9px, 0.95vw, 10.5px);
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ic-muted);
+}
+
+/* ---- CTA — outlined pill with sliding green fill + SVG glitch on hover ---- */
+.home-hero__cta-wrap {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  opacity: 0;
+  animation: home-hero-fade-up 700ms ease-out 2100ms forwards;
+}
+.home-hero__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: clamp(14px, 2vw, 18px) clamp(24px, 3vw, 34px);
+  border: 1px solid var(--ic-green);
+  background: transparent;
+  color: var(--ic-text);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(11.5px, 1.2vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  cursor: pointer;
+  transition: color 0.25s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+/* Sliding green fill from left on hover (under the text via z-index). */
+.home-hero__cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--ic-green);
+  transform: translateX(-101%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+@media (hover: hover) {
+  .home-hero__cta:hover {
+    color: #000;
+  }
+  .home-hero__cta:hover::before {
+    transform: translateX(0);
+  }
+  .home-hero__cta:hover .home-hero__cta-arrow {
+    transform: translateX(4px);
+  }
+}
+.home-hero__cta:focus-visible {
+  outline: 2px solid var(--ic-green);
+  outline-offset: 4px;
+}
+/* JS toggles this class on hover-enter to apply the SVG displacement
+   filter for ~220ms (one shot per hover). */
+.home-hero__cta.is-glitching {
+  filter: url(#home-hero-glitch);
+}
+.home-hero__cta-arrow {
+  width: 17px;
+  height: 17px;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+.home-hero__cta-note {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: clamp(10.5px, 1vw, 11.5px);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ic-muted);
+  margin: 0;
+}
+
+/* ---- Scroll hint (bottom) ---- */
+.home-hero__scroll {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--ic-muted);
+  opacity: 0;
+  animation: home-hero-fade-up 600ms ease-out 2600ms forwards;
+}
+.home-hero__scroll-label { opacity: 0.6; }
+.home-hero__scroll-line {
+  width: 1px;
+  height: 28px;
+  background: var(--ic-muted);
+  opacity: 0.35;
+  animation: home-hero-scroll-pulse 2.2s ease-in-out infinite;
+}
+@keyframes home-hero-scroll-pulse {
+  0%, 100% { opacity: 0.25; transform: scaleY(0.7); }
+  50%      { opacity: 0.85; transform: scaleY(1); }
+}
+
+/* ---- Mobile (≤900px) ---- */
+@media (max-width: 900px) {
+  .home-hero {
+    grid-template-rows: auto auto auto auto auto;
+    padding: 18px 18px 28px;
+    gap: 22px;
+    min-height: 100svh;
+  }
+  .home-hero__top { font-size: 9.5px; letter-spacing: 0.12em; }
+  .home-hero__status { gap: 8px; }
+  .home-hero__index { display: none; } /* save space on small screens */
+  .home-hero__wordmark { font-size: clamp(56px, 19vw, 110px); }
+  .home-hero__wordmark-sub { font-size: 10px; letter-spacing: 0.24em; }
+  .home-hero__tagline { font-size: 11px; letter-spacing: 0.14em; }
+  .home-hero__metrics { grid-template-columns: 1fr; max-width: 280px; }
+  .home-hero__metric { padding: 14px 14px; }
+  .home-hero__metric-num { font-size: 28px; }
+  .home-hero__cta { padding: 14px 24px; font-size: 12px; gap: 10px; }
+  .home-hero__cta-arrow { width: 16px; height: 16px; }
+}
+
+/* ---- Reduced motion — honor user preference ---- */
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__top,
+  .home-hero__wordmark-main,
+  .home-hero__wordmark-sub,
+  .home-hero__tagline,
+  .home-hero__metrics,
+  .home-hero__cta-wrap,
+  .home-hero__scroll,
+  .home-hero__status-dot,
+  .home-hero__scroll-line {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+  .home-hero__wordmark-main {
+    text-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04),
+      0 2px 0 rgba(0, 255, 136, 0.06),
+      0 6px 32px rgba(0, 255, 136, 0.10);
+  }
+}
+
 /* Who We Are */
 .who { border-top: 1px solid var(--ic-rule); max-width: 1200px; }
 .who-grid {
