@@ -374,7 +374,9 @@
 .team-photo img {
   width: 100%; height: 100%;
   object-fit: contain;
-  filter: brightness(1.15);
+  /* +30% over the previous 1.15 → 1.50 (cumulative).
+     Lights up Hayden / Jack / Joe under the "Who you'll work with" grid. */
+  filter: brightness(1.5);
 }
 .team-name {
   font-size: 20px;
