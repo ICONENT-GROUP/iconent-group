@@ -10,6 +10,8 @@
      - ViewContent : auto-fired on strategy-call and services-* pages
      - Lead        : fired manually from quiz-application.js, only after
                      the CRM POST succeeds (see window.metaPixel.trackLead)
+     - Schedule    : fired when a Calendly inline/popup booking completes
+                     (calendly.event_scheduled postMessage)
    ============================================================ */
 (function () {
   // --- Official Meta Pixel base code ---
@@ -32,6 +34,9 @@
     },
     trackLead: function () {
       if (window.fbq) fbq('track', 'Lead');
+    },
+    trackSchedule: function () {
+      if (window.fbq) fbq('track', 'Schedule');
     }
   };
 
@@ -40,4 +45,16 @@
   if (path.indexOf('strategy-call') !== -1 || path.indexOf('services-') !== -1) {
     window.metaPixel.trackViewContent();
   }
+
+  // --- Calendly Schedule ---
+  // Calendly inline/popup widgets postMessage their lifecycle events to the
+  // parent window. We fire Schedule ONLY on a completed booking, never on
+  // open/date-select/profile-view. Covers every page that has a Calendly
+  // (strategy-call inline, contact-us inline, and the modal popup).
+  window.addEventListener('message', function (e) {
+    var d = e && e.data;
+    if (d && typeof d === 'object' && d.event === 'calendly.event_scheduled') {
+      window.metaPixel.trackSchedule();
+    }
+  });
 })();
