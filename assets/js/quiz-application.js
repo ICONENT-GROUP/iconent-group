@@ -230,8 +230,16 @@
         submitBtn.disabled = true;
         submitBtn.textContent = 'Submitting…';
 
+        let crmRes = null;
         if (FORM_ENDPOINT) {
-          await postWithRetry(FORM_ENDPOINT, payload);
+          crmRes = await postWithRetry(FORM_ENDPOINT, payload);
+        }
+
+        // Meta Pixel Lead — fire ONLY when the CRM POST succeeded (res.ok / 409).
+        // postWithRetry returns the response on success, or null on failure.
+        // Never fires on the click itself, and never if the submission failed.
+        if (crmRes && window.metaPixel) {
+          window.metaPixel.trackLead();
         }
 
         window.location.href = POST_SUBMIT_REDIRECT;
