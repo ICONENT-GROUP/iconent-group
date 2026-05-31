@@ -7,6 +7,11 @@ Disallow: /artist-management-application
 Disallow: /major-label-application
 Disallow: /application-received
 
+# Private presentations (link-only, noindex via <meta>)
+Disallow: /artist-light
+Disallow: /artist-long
+Disallow: /partners
+
 # Block WordPress vestigial paths defensively (vercel.json also redirects them)
 Disallow: /wp-admin/
 Disallow: /wp-login.php

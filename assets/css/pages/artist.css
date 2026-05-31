@@ -1,0 +1,757 @@
+/* ============================================================
+   ARTIST PAGES (private, noindex) — /artist-light, /artist-long
+   Green ICONENT theme. Self-contained styles: reuses the global
+   section / hero / cta / faq / method primitives, and carries the
+   case-study blocks (IICY + EXXIA) so the pages don't depend on
+   home.css / service-pm.css being loaded.
+   ============================================================ */
+
+/* These are private presentations sent as a link — no site header. Drop the
+   64px top padding that base.css reserves for the fixed header. */
+body.artist-page { padding-top: 0; }
+
+/* --- Intro lead block under the hero --- */
+.artist-intro { border-top: 1px solid var(--ic-rule); }
+
+/* Tighten the gap between the fixed header and the hero title — the default
+   144px top felt too empty on these pages. */
+.hero-compact { padding-top: 92px; padding-bottom: 64px; }
+@media (max-width: 900px) {
+  .hero-compact { padding-top: 64px; padding-bottom: 48px; }
+}
+
+/* The global .hero-compact h1 never drops below 40px; the longer artist
+   headlines ("behind the project") clip on narrow phones. Scale down so
+   they wrap cleanly instead. */
+@media (max-width: 600px) {
+  .hero-compact h1 { font-size: clamp(30px, 8.5vw, 40px); }
+}
+
+/* =================================================================
+   FEATURE ROW — text + framed decorative image, side by side
+   ================================================================= */
+.artist-feature {
+  display: grid;
+  grid-template-columns: 1fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+.artist-feature .artist-feature-copy { min-width: 0; }
+.artist-feature-media {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 255, 136, 0.22);
+  box-shadow: 0 0 50px -12px rgba(0, 255, 136, 0.25);
+  aspect-ratio: 1 / 1;
+}
+.artist-feature-media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.artist-feature-media::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(10,10,10,0.45) 100%);
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .artist-feature { grid-template-columns: 1fr; gap: 32px; }
+  .artist-feature-media { aspect-ratio: 16 / 10; max-height: 320px; }
+}
+
+/* --- Compact "step tags" under each method step (light version) --- */
+.step-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0 0;
+}
+.step-tags li {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ic-text);
+  background: rgba(0, 255, 136, 0.06);
+  border: 1px solid rgba(0, 255, 136, 0.22);
+  border-radius: 999px;
+  padding: 6px 12px;
+}
+
+/* ============================================================
+   CASE STUDY — IICY (portrait + metric grid)
+   ============================================================ */
+.case-iicy {
+  margin: 43px 0 0;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 50px;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+  border: 1px solid var(--ic-rule);
+  padding: 43px;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.case-iicy::before {
+  content: '';
+  position: absolute;
+  top: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,255,136,0.2) 0%, transparent 60%);
+  z-index: 0; pointer-events: none;
+}
+.case-iicy::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; right: -100px;
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(61,139,255,0.15) 0%, transparent 60%);
+  z-index: 0; pointer-events: none;
+}
+.case-iicy-photo {
+  position: relative; z-index: 1;
+  width: 240px; height: 240px;
+  margin: 0 auto;
+}
+.case-iicy-photo::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(0,255,136,0.35) 0%, transparent 50%);
+  border-radius: 50%;
+  z-index: -1;
+}
+.case-iicy-photo img {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(0,255,136,0.3);
+  box-shadow: 0 0 40px rgba(0,255,136,0.2);
+}
+.case-iicy-content { position: relative; z-index: 1; }
+.case-iicy-label {
+  font-size: 11px;
+  color: var(--ic-green);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.case-iicy-name {
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+.case-iicy-period {
+  font-size: 13px;
+  color: var(--ic-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 0 32px;
+}
+.case-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.case-metric { border-top: 1px solid var(--ic-rule); padding-top: 14px; }
+.case-metric-value {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--ic-green);
+  letter-spacing: -0.03em;
+  margin: 0 0 6px;
+  text-shadow: 0 0 24px rgba(0,255,136,0.3);
+}
+.case-metric-label {
+  font-size: 11px;
+  color: var(--ic-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.case-outcome {
+  margin: 32px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--ic-rule);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.case-outcome .text-highlight { font-weight: 700; }
+
+/* ============================================================
+   CASE STUDY — EXXIA (before / after + metric grid)
+   ============================================================ */
+.case-exxia {
+  margin: 43px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+  border: 1px solid var(--ic-rule);
+  padding: 50px;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+.case-exxia::before {
+  content: '';
+  position: absolute;
+  top: -160px; right: -160px;
+  width: 520px; height: 520px;
+  background: radial-gradient(circle, rgba(29,185,84,0.2) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+.case-exxia::after {
+  content: '';
+  position: absolute;
+  bottom: -140px; left: -140px;
+  width: 460px; height: 460px;
+  background: radial-gradient(circle, rgba(0,255,136,0.16) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+.case-exxia-photos {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+}
+/* Each before/after column = badge ABOVE + photo card below, so the
+   BEFORE/AFTER label never sits on top of the artist name in the shot. */
+.case-exxia-ba {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.case-exxia-shot {
+  position: relative;
+  display: block;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--ic-rule);
+  background: var(--ic-bg-soft);
+  /* Match the source screenshot ratio (1080×428) so object-fit:cover never
+     crops the left edge where the listener count lives. */
+  aspect-ratio: 1080 / 428;
+  box-shadow: 0 12px 60px -20px rgba(0,0,0,0.7);
+}
+.case-exxia-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ba-label {
+  align-self: flex-start;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0 13px;
+  border-radius: 4px;
+  background: var(--ic-bg-soft);
+  border: 1px solid var(--ic-rule);
+  color: var(--ic-muted);
+}
+.case-exxia-ba--after .ba-label {
+  color: var(--ic-bg);
+  background: var(--ic-green);
+  border-color: transparent;
+  box-shadow: 0 0 22px rgba(0,255,136,0.5);
+}
+.case-exxia-ba--after .case-exxia-shot::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0,255,136,0.08) 100%);
+  pointer-events: none; z-index: 1;
+}
+.case-exxia-arrow {
+  position: absolute;
+  /* +19px = half the badge block height (26px badge + 12px gap) so the
+     arrow lines up with the photo centers, not the column centers. */
+  top: calc(50% + 19px); left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ic-bg);
+  border: 2px solid var(--ic-green);
+  border-radius: 50%;
+  color: var(--ic-green);
+  font-size: 24px;
+  font-weight: 800;
+  box-shadow: 0 0 36px rgba(0,255,136,0.55);
+  z-index: 3;
+}
+.case-exxia-header,
+.case-exxia-content {
+  position: relative; z-index: 1;
+  max-width: 980px; width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+.case-exxia-header .case-exxia-period { margin-bottom: 0; }
+.case-exxia-content .case-exxia-metrics { text-align: left; }
+.case-exxia-label {
+  font-size: 11px;
+  color: var(--ic-green);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 8px;
+}
+.case-exxia-name {
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+.case-exxia-period {
+  font-size: 13px;
+  color: var(--ic-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0 0 28px;
+}
+.case-exxia-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.case-exxia-metric { border-top: 1px solid var(--ic-rule); padding-top: 14px; }
+.case-exxia-metric-value {
+  font-size: 30px;
+  font-weight: 900;
+  line-height: 1;
+  color: var(--ic-green);
+  letter-spacing: -0.03em;
+  margin: 0 0 6px;
+  text-shadow: 0 0 24px rgba(0,255,136,0.3);
+}
+.case-exxia-metric-label {
+  font-size: 11px;
+  color: var(--ic-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.case-exxia-outcome {
+  margin: 28px 0 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--ic-rule);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+@media (max-width: 900px) {
+  .case-iicy { grid-template-columns: 1fr; gap: 32px; padding: 32px; }
+  .case-iicy::before, .case-iicy::after { display: none; }
+  .case-iicy-photo { width: 180px; height: 180px; }
+  .case-iicy-name { font-size: 36px; }
+  .case-metric-value { font-size: 26px; }
+
+  .case-exxia { gap: 36px; padding: 32px; }
+  .case-exxia::before, .case-exxia::after { display: none; }
+  .case-exxia-photos { grid-template-columns: 1fr; gap: 28px; }
+  .case-exxia-arrow {
+    width: 42px; height: 42px;
+    font-size: 18px;
+    top: 50%; /* stacked column: arrow centers between the two identical items */
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  .case-exxia-name { font-size: 36px; }
+  .case-exxia-metric-value { font-size: 24px; }
+}
+@media (max-width: 640px) {
+  .case-metrics { grid-template-columns: 1fr; }
+  .case-iicy-name { font-size: 30px; }
+  .case-metric-value { font-size: 24px; }
+  .case-exxia { padding: 24px; gap: 28px; }
+  .case-exxia-metrics { grid-template-columns: 1fr; }
+  .case-exxia-name { font-size: 30px; }
+}
+
+/* ============================================================
+   ARTIST-LONG ONLY — 360 plan, management detail, goals
+   ============================================================ */
+
+/* 360° plan — three pillars */
+.plan360-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 50px 0 0;
+}
+.plan360-card {
+  background: linear-gradient(180deg, rgba(0,255,136,0.04), rgba(0,255,136,0.01));
+  border: 1px solid rgba(0,255,136,0.2);
+  border-radius: 8px;
+  padding: 32px 28px;
+}
+.plan360-card .plan360-num {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ic-green);
+  font-weight: 700;
+  margin: 0 0 14px;
+}
+.plan360-card h3 {
+  font-size: 26px;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  margin: 0 0 14px;
+}
+.plan360-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ic-muted);
+}
+
+/* Management detail — two-column feature list */
+.mgmt-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 32px;
+  margin: 43px 0 0;
+}
+.mgmt-item {
+  padding: 18px 0 18px 30px;
+  border-bottom: 1px solid var(--ic-rule);
+  position: relative;
+}
+.mgmt-item::before {
+  content: '◆';
+  position: absolute;
+  left: 0; top: 20px;
+  color: var(--ic-green);
+  font-size: 10px;
+}
+.mgmt-item h4 {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 5px;
+  color: var(--ic-text);
+}
+.mgmt-item p {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ic-muted);
+  margin: 0;
+}
+
+/* Pull-quote band */
+.artist-quote {
+  text-align: center;
+  border-top: 1px solid var(--ic-rule);
+  border-bottom: 1px solid var(--ic-rule);
+  background: var(--ic-bg);
+  padding: 80px 28px;
+  position: relative; z-index: 2;
+  overflow: hidden;
+}
+.artist-quote::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,255,136,0.06) 0%, transparent 60%);
+  pointer-events: none; z-index: 0;
+}
+.artist-quote blockquote {
+  position: relative; z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: clamp(24px, 3.4vw, 40px);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+.artist-quote blockquote .accent { color: var(--ic-green); }
+
+/* What's included — checklist */
+.included-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 32px;
+  margin: 43px 0 0;
+}
+.included-grid li {
+  padding: 16px 0 16px 30px;
+  border-bottom: 1px solid var(--ic-rule);
+  position: relative;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.included-grid li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--ic-green);
+  font-weight: 700;
+}
+
+/* Long-term goals */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 43px 0 0;
+}
+.goal-card {
+  border-top: 1px solid var(--ic-green);
+  padding-top: 20px;
+}
+.goal-card h3 {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+  color: var(--ic-text);
+}
+.goal-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ic-muted);
+}
+.goals-disclaimer {
+  margin-top: 32px;
+  padding: 20px 24px;
+  background: var(--ic-bg-soft);
+  border: 1px solid var(--ic-rule);
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ic-muted);
+}
+.goals-disclaimer strong { color: var(--ic-text); }
+
+@media (max-width: 900px) {
+  .plan360-grid { grid-template-columns: 1fr; }
+  .mgmt-grid { grid-template-columns: 1fr; gap: 0; }
+  .included-grid { grid-template-columns: 1fr; gap: 0; }
+  .goals-grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+/* ============================================================
+   CYAN GLOW THEME (artist pages)
+   "Bagliori" / lights + numbers → cyan, the same light-blue used
+   behind the images on /strategy-call (the VSL page): rgba(0,200,255).
+   Text/fonts (labels, heading accents, highlights) stay green.
+   ============================================================ */
+body.artist-page {
+  --ic-glow: #00C8FF;
+  --ic-glow-rgb: 0, 200, 255;
+  --ic-glow2-rgb: 61, 139, 255; /* soft blue counter-glow */
+}
+
+/* --- Hero holographic FX scene → cyan tint --- */
+body.artist-page .ic-fx-scene { --fx-color-rgb: 0, 200, 255; }
+
+/* --- Hero ambient glows --- */
+body.artist-page .hero-compact::before {
+  background: radial-gradient(circle, rgba(var(--ic-glow-rgb), 0.10) 0%, transparent 60%);
+}
+body.artist-page .hero-compact::after {
+  background: radial-gradient(circle,
+    rgba(var(--ic-glow-rgb), 0.55) 0%,
+    rgba(var(--ic-glow-rgb), 0.18) 30%,
+    transparent 70%);
+}
+body.artist-page .hero-compact h1 {
+  text-shadow: 0 0 80px rgba(var(--ic-glow-rgb), 0.25);
+}
+
+/* --- Feature image frame glow --- */
+body.artist-page .artist-feature-media {
+  border-color: rgba(var(--ic-glow-rgb), 0.32);
+  box-shadow: 0 0 50px -10px rgba(var(--ic-glow-rgb), 0.38), 0 0 120px -30px rgba(var(--ic-glow2-rgb), 0.25);
+}
+
+/* --- Step tags (pills) → cyan-tinted light, green text stays as-is --- */
+body.artist-page .step-tags li {
+  background: rgba(var(--ic-glow-rgb), 0.06);
+  border-color: rgba(var(--ic-glow-rgb), 0.28);
+}
+
+/* --- In-card "Case Study" labels → same cyan as the numbers --- */
+body.artist-page .case-iicy-label,
+body.artist-page .case-exxia-label { color: var(--ic-glow); }
+
+/* --- Case IICY glows + numbers --- */
+body.artist-page .case-iicy::before {
+  background: radial-gradient(circle, rgba(var(--ic-glow-rgb), 0.22) 0%, transparent 60%);
+}
+body.artist-page .case-iicy::after {
+  background: radial-gradient(circle, rgba(var(--ic-glow2-rgb), 0.16) 0%, transparent 60%);
+}
+body.artist-page .case-iicy-photo::before {
+  background: radial-gradient(circle, rgba(var(--ic-glow-rgb), 0.38) 0%, transparent 50%);
+}
+body.artist-page .case-iicy-photo img {
+  border-color: rgba(var(--ic-glow-rgb), 0.45);
+  box-shadow: 0 0 40px rgba(var(--ic-glow-rgb), 0.28);
+}
+body.artist-page .case-metric-value {
+  color: var(--ic-glow);
+  text-shadow: 0 0 24px rgba(var(--ic-glow-rgb), 0.35);
+}
+
+/* --- Case EXXIA glows + numbers --- */
+body.artist-page .case-exxia::before {
+  background: radial-gradient(circle, rgba(var(--ic-glow-rgb), 0.24) 0%, transparent 60%);
+}
+body.artist-page .case-exxia::after {
+  background: radial-gradient(circle, rgba(var(--ic-glow2-rgb), 0.16) 0%, transparent 60%);
+}
+body.artist-page .case-exxia-ba--after .ba-label {
+  color: var(--ic-bg);
+  background: var(--ic-glow);
+  border-color: transparent;
+  box-shadow: 0 0 22px rgba(var(--ic-glow-rgb), 0.55);
+}
+body.artist-page .case-exxia-ba--after .case-exxia-shot::before {
+  background: linear-gradient(180deg, transparent 40%, rgba(var(--ic-glow-rgb), 0.12) 100%);
+}
+body.artist-page .case-exxia-arrow {
+  border-color: var(--ic-glow);
+  color: var(--ic-glow);
+  box-shadow: 0 0 36px rgba(var(--ic-glow-rgb), 0.6);
+}
+body.artist-page .case-exxia-metric-value {
+  color: var(--ic-glow);
+  text-shadow: 0 0 24px rgba(var(--ic-glow-rgb), 0.35);
+}
+
+/* --- CTA ambient glow --- */
+body.artist-page .cta-block::before {
+  background: radial-gradient(circle, rgba(var(--ic-glow-rgb), 0.08) 0%, transparent 60%);
+}
+
+/* ----- artist-long extras ----- */
+body.artist-page .plan360-card {
+  background: linear-gradient(180deg, rgba(var(--ic-glow-rgb), 0.05), rgba(var(--ic-glow-rgb), 0.01));
+  border-color: rgba(var(--ic-glow-rgb), 0.22);
+}
+body.artist-page .artist-quote::before {
+  background: radial-gradient(circle, rgba(var(--ic-glow-rgb), 0.08) 0%, transparent 60%);
+}
+
+/* ============================================================
+   PARTNERS PAGE (/partners) — institutional B2B, cyan only.
+   Inherits body.artist-page cyan theme. Distinct layout from
+   artist pages (no method steps). Glitch FX dampened to a hint.
+   ============================================================ */
+
+/* Dampen the hero FX to a faint hint on the institutional page */
+body.partners-page .ic-fx-scene { opacity: 0.35; }
+body.partners-page .ic-fx-chroma { display: none; } /* no chromatic glitch flash */
+
+/* Hero: a touch more restrained than artist pages */
+body.partners-page .hero-compact { padding-top: 100px; padding-bottom: 56px; }
+
+/* Trust intro — single lead column, institutional tone */
+.partners-intro { border-top: 1px solid var(--ic-rule); }
+.partners-intro .lead { max-width: 760px; }
+
+/* Credibility pillars — reuse pillars-grid look, cyan-tuned */
+.partners-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin: 50px 0 0;
+}
+.partners-pillar {
+  background: linear-gradient(180deg, rgba(0,200,255,0.05), rgba(0,200,255,0.01));
+  border: 1px solid rgba(0,200,255,0.20);
+  border-radius: 8px;
+  padding: 30px 28px;
+}
+.partners-pillar .pp-num {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ic-glow);
+  font-weight: 700;
+  margin: 0 0 14px;
+}
+.partners-pillar h3 {
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  margin: 0 0 12px;
+}
+.partners-pillar p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ic-muted);
+  margin: 0;
+}
+
+/* Track-record band — horizontal stat row, no listener vanity numbers */
+.partners-record {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 43px 0 0;
+  text-align: center;
+}
+.pr-stat { border-top: 1px solid var(--ic-glow); padding-top: 22px; }
+.pr-stat .pr-value {
+  font-size: clamp(32px, 4.5vw, 50px);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ic-glow);
+  text-shadow: 0 0 28px rgba(0,200,255,0.30);
+  margin: 0 0 10px;
+}
+.pr-stat .pr-label {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ic-muted);
+  letter-spacing: 0.04em;
+}
+
+/* How we operate — two-column institutional copy */
+.partners-operate {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin: 43px 0 0;
+}
+.partners-operate .po-col h3 {
+  font-size: 20px;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+}
+.partners-operate .po-col p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ic-muted);
+}
+
+/* Bigger partner marquee label spacing on this page */
+body.partners-page .partners { padding-top: 8px; }
+
+@media (max-width: 900px) {
+  .partners-pillars { grid-template-columns: 1fr; }
+  .partners-record { grid-template-columns: 1fr; gap: 28px; }
+  .partners-operate { grid-template-columns: 1fr; gap: 28px; }
+}

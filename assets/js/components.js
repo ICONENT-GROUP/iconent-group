@@ -214,7 +214,8 @@
     const hero = document.querySelector('.hero');
     const isStrategyCall = document.body.classList.contains('strategy-call-page');
     const isServicePage = document.body.classList.contains('platform-page')
-                       || document.body.classList.contains('pm-page');
+                       || document.body.classList.contains('pm-page')
+                       || document.body.classList.contains('artist-page');
 
     let target = null;
     let globalMode = false;
