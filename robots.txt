@@ -2,10 +2,10 @@ User-agent: *
 Allow: /
 
 # Private flows — ads landings + post-submit. Already noindex via <meta>.
-Disallow: /strategy-call/
-Disallow: /artist-management-application/
-Disallow: /major-label-application/
-Disallow: /application-received/
+Disallow: /strategy-call
+Disallow: /artist-management-application
+Disallow: /major-label-application
+Disallow: /application-received
 
 # Block WordPress vestigial paths defensively (vercel.json also redirects them)
 Disallow: /wp-admin/

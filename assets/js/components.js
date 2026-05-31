@@ -4,17 +4,17 @@
       <a class="ic-hdr-logo" href="/">ICONENT GROUP</a>
       <nav class="ic-hdr-nav" aria-label="Primary">
         <div class="ic-hdr-services">
-          <a href="/services-project-management.html" data-path="/services-project-management">Services</a>
+          <a href="/services-project-management" data-path="/services-project-management">Services</a>
           <div class="ic-hdr-services-menu" role="menu">
-            <a class="featured" href="/services-project-management.html" data-path="/services-project-management" role="menuitem">Project Management</a>
-            <a href="/services-spotify.html"    data-path="/services-spotify"    role="menuitem">Spotify Promotion</a>
-            <a href="/services-youtube.html"    data-path="/services-youtube"    role="menuitem">YouTube Promotion</a>
-            <a href="/services-instagram.html"  data-path="/services-instagram"  role="menuitem">Instagram Promotion</a>
-            <a href="/services-tiktok.html"     data-path="/services-tiktok"     role="menuitem">TikTok Promotion</a>
+            <a class="featured" href="/services-project-management" data-path="/services-project-management" role="menuitem">Project Management</a>
+            <a href="/services-spotify"    data-path="/services-spotify"    role="menuitem">Spotify Promotion</a>
+            <a href="/services-youtube"    data-path="/services-youtube"    role="menuitem">YouTube Promotion</a>
+            <a href="/services-instagram"  data-path="/services-instagram"  role="menuitem">Instagram Promotion</a>
+            <a href="/services-tiktok"     data-path="/services-tiktok"     role="menuitem">TikTok Promotion</a>
           </div>
         </div>
         <a href="/" data-path="/">Home</a>
-        <a class="ic-hdr-cta" href="/contact-us.html" data-path="/contact-us">Contact Us</a>
+        <a class="ic-hdr-cta" href="/contact-us" data-path="/contact-us">Contact Us</a>
       </nav>
       <button class="ic-hdr-burger" type="button" aria-label="Open menu" aria-expanded="false"></button>
     </header>
@@ -25,12 +25,12 @@
     <div class="ic-hdr-mobile" role="menu">
       <a href="/" data-path="/" class="ic-hdr-mobile-home">Home</a>
       <p class="ic-hdr-mobile-label">Services</p>
-      <a class="featured" href="/services-project-management.html" data-path="/services-project-management">Project Management</a>
-      <a href="/services-spotify.html"    data-path="/services-spotify">Spotify</a>
-      <a href="/services-youtube.html"    data-path="/services-youtube">YouTube</a>
-      <a href="/services-instagram.html"  data-path="/services-instagram">Instagram</a>
-      <a href="/services-tiktok.html"     data-path="/services-tiktok">TikTok</a>
-      <a class="ic-hdr-cta ic-hdr-mobile-contact" href="/contact-us.html" data-path="/contact-us">Contact Us</a>
+      <a class="featured" href="/services-project-management" data-path="/services-project-management">Project Management</a>
+      <a href="/services-spotify"    data-path="/services-spotify">Spotify</a>
+      <a href="/services-youtube"    data-path="/services-youtube">YouTube</a>
+      <a href="/services-instagram"  data-path="/services-instagram">Instagram</a>
+      <a href="/services-tiktok"     data-path="/services-tiktok">TikTok</a>
+      <a class="ic-hdr-cta ic-hdr-mobile-contact" href="/contact-us" data-path="/contact-us">Contact Us</a>
     </div>`;
 
   const FOOTER_HTML = `
@@ -55,9 +55,9 @@
           <p class="ic-ftr-block-tagline">Next-Generation Music Industry System</p>
           <p class="ic-ftr-block-address">99 Wall Street, New York, NY, United States, 10005</p>
           <p class="ic-ftr-block-legal">
-            <a href="/privacy-policy.html">Privacy Policy</a>
+            <a href="/privacy-policy">Privacy Policy</a>
             <span class="ic-ftr-block-legal-sep">·</span>
-            <a href="/terms.html">Terms of Service</a>
+            <a href="/terms">Terms of Service</a>
           </p>
           <p class="ic-ftr-block-copyright">© 2026 ICONENT GROUP. All rights reserved.</p>
         </div>
