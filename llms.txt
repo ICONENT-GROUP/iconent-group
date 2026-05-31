@@ -30,15 +30,16 @@ Three-step framework applied to every project:
 ## Case Studies
 
 ### IICY OTW (Bandlab Muzic, 6 months)
-- Listeners: 19,730 (+165%)
+- Monthly Listeners: 19,730 (+165%)
 - Streams: 153,366 (+66%)
 - Saves: 6,034 (+133%)
 - Playlist Adds: 7,280
 - Outcome: signed a major label deal after 6 months of structured work.
 
 ### EXXIA (Spotify, 12 months)
-- Monthly Listeners: 305 → 50,244 (+2,597%)
-- Streams: +1,851%
+- Monthly Listeners: 305 → 10,700 (+3,408%)
+- Total Listeners (last 12 months): 50,244
+- Streams: 198,219 (+1,851%)
 - Spotify Editorial Placements: 20+
 - Saves: 8,631 (+1,192%)
 - Method: structured release sequencing, paid amplification, influencer activation, organic TikTok positioning, editorial targeting.
