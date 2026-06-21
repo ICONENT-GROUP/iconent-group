@@ -528,6 +528,7 @@
   <script src="/assets/js/components.js?v=20260522e" defer></script>
   <script src="/assets/js/shared.js?v=20260522e" defer></script>
   <script src="/assets/js/calendly.js?v=20260522e" defer></script>
+  <script src="/assets/js/hero-scan.js?v=20260621a" defer></script>
 
   <!-- Hero H1 animation driver — entry plays via CSS keyframe; this script
        (a) marks .is-loaded on animationend so CSS swaps to the scroll-
@@ -577,6 +578,8 @@
       if (e.animationName === 'home-hero-h1-in') {
         h1.classList.add('is-loaded');
         attachScroll();
+        /* glitch finished -> one-shot 3D depth-scan up the wordmark */
+        if (window.runHeroScan) window.runHeroScan(h1);
       }
     }, { once: true });
   })();
