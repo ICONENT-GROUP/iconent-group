@@ -259,6 +259,26 @@
     }
 
     initFxGlitch();
+    bindFxResizeSuspend();
+  }
+
+  /* During an active window resize the browser must re-rasterize and
+     re-composite every screen-blend fx layer at each intermediate width,
+     which on weaker GPUs shows up as a full-screen colour flicker. We hide
+     the fx scene while the user is dragging the edge and restore it ~180ms
+     after they stop (debounce). Zero visual change once settled. */
+  function bindFxResizeSuspend() {
+    if (window.__fxResizeBound) return;
+    window.__fxResizeBound = true;
+    let t = null;
+    window.addEventListener('resize', function () {
+      document.documentElement.classList.add('ic-fx-resizing');
+      if (t) clearTimeout(t);
+      t = setTimeout(function () {
+        document.documentElement.classList.remove('ic-fx-resizing');
+        t = null;
+      }, 180);
+    }, { passive: true });
   }
 
   function setupScrollDarken(darken) {

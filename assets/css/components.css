@@ -1303,6 +1303,13 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
 .ic-fx-scene--global {
   position: fixed;
 }
+/* While the user is actively resizing the window we hide the screen-blend
+   fx layers so the browser doesn't re-composite all of them at every
+   intermediate width (the source of the full-screen flicker on weaker GPUs).
+   The class is removed ~180ms after resize stops — no lasting visual change. */
+.ic-fx-resizing .ic-fx-scene {
+  visibility: hidden;
+}
 /* Scroll-driven darkening overlay (home page only) */
 .ic-fx-darken {
   position: fixed;
