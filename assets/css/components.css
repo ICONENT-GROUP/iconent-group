@@ -478,11 +478,12 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
 .hero h1 {
   /* "ICONENT GROUP" at font-weight 900 + -0.05em tracking renders ~7.5×
      the font-size wide. With white-space: nowrap the H1 can't wrap, so
-     the vw value × 7.5 must stay below 100vw or the text clips at the
-     right edge. 14vw failed (110%); 13vw was borderline; 12vw gives a
-     safe ~10vw margin on every common laptop width (1280–2100px). The
-     +10% bump still lives on the max (253px) — hits on wide displays. */
-  font-size: clamp(40px, 12vw, 253px);
+     vw × 7.5 must stay below 100vw or the text clips on resize. 13vw was
+     borderline (~110%); 12vw still "hit" on wide displays. Aligned to the
+     IT site's proven 9.5vw fluid strategy → ~80vw width, a comfortable
+     margin at every width so it scales smoothly and never overflows. The
+     210px cap freezes growth above ~2210px (still ~71vw, safe). */
+  font-size: clamp(40px, 9.5vw, 210px);
   line-height: 1;
   letter-spacing: -0.05em;
   text-transform: uppercase;
