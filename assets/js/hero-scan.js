@@ -111,6 +111,7 @@
     var cv = document.createElement('canvas');
     cv.width = W; cv.height = H;
     cv.setAttribute('aria-hidden', 'true');
+    cv.setAttribute('data-hero-scan', '1');
     cv.style.cssText = 'position:fixed;left:' + rect.left + 'px;top:' + rect.top +
       'px;width:' + rect.width + 'px;height:' + rect.height +
       'px;pointer-events:none;z-index:9;mix-blend-mode:screen;';
@@ -167,6 +168,17 @@
   window.runHeroScan = function (h1) {
     if (!h1) return;
     runHeroScan(h1);
+    // On resize the wordmark reflows (clamp/vw) but the fixed overlay canvas
+    // stays pinned to its old rect, smearing the screen-blend band across the
+    // page. Drop any in-flight overlay on resize; the 7s loop re-pins a fresh
+    // one cleanly. Bound once per page.
+    if (!window.__heroScanResizeBound) {
+      window.__heroScanResizeBound = true;
+      window.addEventListener('resize', function () {
+        var olds = document.querySelectorAll('canvas[data-hero-scan]');
+        for (var i = 0; i < olds.length; i++) olds[i].remove();
+      }, { passive: true });
+    }
     setInterval(function () {
       var r = h1.getBoundingClientRect();
       var vh = window.innerHeight || document.documentElement.clientHeight;
