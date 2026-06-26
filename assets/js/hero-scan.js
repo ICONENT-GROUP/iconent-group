@@ -56,7 +56,7 @@
     var o = off.getContext('2d');
     o.scale(dpr, dpr);
     o.fillStyle = '#fff';
-    o.textBaseline = 'middle';
+    o.textBaseline = 'alphabetic';
     var align = cs.textAlign;
     o.textAlign = (align === 'start' || align === 'left') ? 'left'
                 : (align === 'end' || align === 'right') ? 'right' : 'center';
@@ -67,7 +67,15 @@
     var text = (h1.textContent || '').trim();
     if (cs.textTransform === 'uppercase') text = text.toUpperCase();
     var tx = (o.textAlign === 'left') ? 0 : (o.textAlign === 'right') ? rect.width : rect.width / 2;
-    o.fillText(text, tx, rect.height / 2);
+    // Place the raster baseline exactly where the browser paints it for a
+    // line-height:1 box, so the mask sits pixel-on-pixel over the on-screen
+    // letters. 'middle' left the mask a few px low, so the scan band fell on the
+    // VISIBLE counters (the hollow of an O/P/D) and lit them up. This is a pure
+    // mapping-precision fix — band size/thickness/colour/speed are unchanged.
+    var fm = o.measureText(text);
+    var asc = fm.fontBoundingBoxAscent, desc = fm.fontBoundingBoxDescent;
+    var baseY = (asc && desc) ? (rect.height - (asc + desc)) / 2 + asc : rect.height / 2;
+    o.fillText(text, tx, baseY);
 
     // ---- distance transform = real 3D depth of every glyph stroke ----
     var W = off.width, H = off.height;
