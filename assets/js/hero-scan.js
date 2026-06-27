@@ -40,6 +40,34 @@
     return dist;
   }
 
+  // Measure where the browser actually paints the text baseline inside the
+  // wordmark's line box. Font-metric guesses (fontBoundingBox / 'middle') drift
+  // a few px between engines because each one positions glyphs differently in a
+  // line-height:1 box, which left the scan mask misaligned (band bleeding into
+  // the hollow of an O on Firefox/Safari). A hidden clone with a baseline-
+  // aligned strut gives the real, engine-correct baseline in CSS px.
+  function measureBaselineY(h1, cs, text) {
+    var wrap = document.createElement('div');
+    wrap.setAttribute('aria-hidden', 'true');
+    wrap.style.cssText = 'position:absolute;left:-99999px;top:0;visibility:hidden;' +
+      'white-space:nowrap;margin:0;padding:0;border:0;' +
+      'font-family:' + cs.fontFamily + ';font-size:' + cs.fontSize +
+      ';font-weight:' + cs.fontWeight + ';font-style:' + cs.fontStyle +
+      ';letter-spacing:' + cs.letterSpacing + ';line-height:' + cs.lineHeight +
+      ';text-transform:' + cs.textTransform + ';';
+    var span = document.createElement('span');
+    span.textContent = text;
+    var strut = document.createElement('span');
+    strut.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline;';
+    wrap.appendChild(span);
+    wrap.appendChild(strut);
+    document.body.appendChild(wrap);
+    var wrapTop = wrap.getBoundingClientRect().top;
+    var baseline = strut.getBoundingClientRect().top - wrapTop;
+    document.body.removeChild(wrap);
+    return baseline;
+  }
+
   function runHeroScan(h1) {
     if (!h1 || h1.dataset.scanDone === '1') return;
     h1.dataset.scanDone = '1';
@@ -67,14 +95,11 @@
     var text = (h1.textContent || '').trim();
     if (cs.textTransform === 'uppercase') text = text.toUpperCase();
     var tx = (o.textAlign === 'left') ? 0 : (o.textAlign === 'right') ? rect.width : rect.width / 2;
-    // Place the raster baseline exactly where the browser paints it for a
-    // line-height:1 box, so the mask sits pixel-on-pixel over the on-screen
-    // letters. 'middle' left the mask a few px low, so the scan band fell on the
-    // VISIBLE counters (the hollow of an O/P/D) and lit them up. This is a pure
-    // mapping-precision fix — band size/thickness/colour/speed are unchanged.
-    var fm = o.measureText(text);
-    var asc = fm.fontBoundingBoxAscent, desc = fm.fontBoundingBoxDescent;
-    var baseY = (asc && desc) ? (rect.height - (asc + desc)) / 2 + asc : rect.height / 2;
+    // Draw the mask on the MEASURED baseline so it sits pixel-on-pixel over the
+    // on-screen letters in every engine. This is a pure mapping-precision fix —
+    // band size/thickness/colour/speed are unchanged.
+    var baseY = measureBaselineY(h1, cs, text);
+    if (!(baseY > 0 && baseY < rect.height + 2)) baseY = rect.height / 2; // safety fallback
     o.fillText(text, tx, baseY);
 
     // ---- distance transform = real 3D depth of every glyph stroke ----
