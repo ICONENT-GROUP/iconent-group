@@ -1,0 +1,267 @@
+/* =================================================================
+   START — payment landing (disqualified self-serve).
+   Reuses tokens.css + base.css + components.css + strategy-call.css
+   (for .sc-btn, .partners marquee, .section, .accent, .lead,
+   .sc-disclaimer). This file only adds the pricing banner / the two
+   payment cards that replace the Calendly booking block.
+   ================================================================= */
+
+.start-page {
+  background: var(--ic-bg);
+  color: var(--ic-text);
+}
+
+/* ---- PRICING BANNER -------------------------------------------- */
+.st-pricing {
+  position: relative;
+  isolation: isolate;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: clamp(48px, 8vw, 90px) 24px clamp(48px, 8vw, 80px);
+  text-align: center;
+}
+/* Ambient green atmosphere behind the cards — echoes the .sc-cta-block
+   radial glow so the pricing block feels native to the page, never a
+   bolted-on box. Fades to transparent = no hard section seam. */
+.st-pricing-atmo {
+  position: absolute;
+  inset: -10% -20% 0;
+  z-index: -1;
+  background:
+    radial-gradient(60% 55% at 50% 42%, rgba(0, 255, 136, 0.10), transparent 70%);
+  pointer-events: none;
+}
+.st-pricing .section-label { margin-bottom: 12px; }
+.st-pricing h2 {
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-tight);
+  margin: 0 0 20px;
+}
+.st-pricing .lead {
+  color: var(--ic-muted);
+  font-size: var(--fs-md);
+  line-height: var(--lh-base);
+  max-width: 660px;
+  margin: 0 auto clamp(32px, 5vw, 48px);
+}
+.st-pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  text-align: left;
+  align-items: stretch;
+}
+@media (max-width: 720px) {
+  .st-pricing-grid { grid-template-columns: 1fr; }
+}
+
+.st-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 40%),
+    var(--ic-bg-soft);
+  border: 1px solid var(--ic-rule);
+  border-radius: 14px;
+  padding: 36px 30px 32px;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+@media (hover: hover) {
+  .st-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 255, 136, 0.35);
+    box-shadow: 0 24px 60px -30px rgba(0, 0, 0, 0.9);
+  }
+}
+.st-card--best {
+  border-color: var(--ic-green);
+  box-shadow:
+    0 0 0 1px rgba(0, 255, 136, 0.25),
+    0 0 60px -20px rgba(0, 255, 136, 0.45);
+}
+@media (hover: hover) {
+  .st-card--best:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 0 0 1px rgba(0, 255, 136, 0.45),
+      0 0 80px -18px rgba(0, 255, 136, 0.6);
+  }
+}
+.st-card-ribbon {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ic-green);
+  color: #000;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/* Slow light sweep across the ribbon — premium, not flashy. */
+.st-card-ribbon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 80%
+  );
+  transform: translateX(-120%);
+  animation: st-sheen 4.5s ease-in-out infinite;
+}
+@keyframes st-sheen {
+  0%, 60% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+.st-card-plan {
+  font-size: var(--fs-xs);
+  letter-spacing: var(--tracking-uppercase);
+  text-transform: uppercase;
+  color: var(--ic-muted);
+  margin: 0 0 14px;
+}
+.st-card--best .st-card-plan { color: var(--ic-green); }
+
+.st-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 6px;
+}
+.st-price {
+  font-size: clamp(40px, 7vw, 60px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.st-price-unit {
+  font-size: var(--fs-md);
+  color: var(--ic-muted);
+  font-weight: 600;
+}
+.st-price-was {
+  font-size: var(--fs-md);
+  color: var(--ic-muted);
+  text-decoration: line-through;
+  margin: 0 0 4px;
+}
+.st-save {
+  display: inline-block;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--ic-green);
+  background: rgba(0, 255, 136, 0.08);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 6px;
+  padding: 4px 10px;
+  margin: 10px 0 0;
+}
+.st-card-desc {
+  color: var(--ic-muted);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-base);
+  margin: 18px 0 22px;
+}
+
+/* ---- included-features list ------------------------------------ */
+.st-features {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--ic-rule);
+  display: grid;
+  gap: 11px;
+}
+.st-feat {
+  position: relative;
+  padding-left: 28px;
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  color: var(--ic-text);
+}
+.st-feat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 18px;
+  height: 18px;
+  background: var(--ic-green);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M9.55 17.6 4.4 12.45l1.4-1.4 3.75 3.75 8.25-8.25 1.4 1.4z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='black' d='M9.55 17.6 4.4 12.45l1.4-1.4 3.75 3.75 8.25-8.25 1.4 1.4z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.st-feat--muted { color: var(--ic-muted); }
+.st-feat--muted::before { background: var(--ic-muted); }
+
+.st-card .sc-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: auto;
+}
+.st-btn-ghost {
+  background: transparent;
+  color: var(--ic-text);
+  border: 1px solid var(--ic-rule);
+  box-shadow: none;
+}
+@media (hover: hover) {
+  .st-btn-ghost:hover {
+    border-color: var(--ic-text);
+    transform: translateY(-1px);
+    box-shadow: none;
+  }
+}
+
+/* ---- Stripe trust row ------------------------------------------- */
+.st-trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 26px auto 0;
+  font-size: var(--fs-sm);
+  color: var(--ic-muted);
+}
+.st-trust svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  stroke: var(--ic-green);
+}
+.st-guarantee {
+  text-align: center;
+  color: var(--ic-muted);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-base);
+  margin: 12px auto 0;
+  max-width: 620px;
+}
+
+/* ---- closing note under final CTA ------------------------------ */
+.st-closing-note {
+  color: var(--ic-muted);
+  font-size: var(--fs-sm);
+  line-height: var(--lh-base);
+  max-width: 520px;
+  margin: 24px auto 0;
+}
+
+/* ---- motion safety --------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .st-card,
+  .st-btn-ghost { transition: none; }
+  .st-card-ribbon::after { animation: none; display: none; }
+}
