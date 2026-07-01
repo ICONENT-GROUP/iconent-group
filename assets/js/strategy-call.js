@@ -137,12 +137,25 @@
     document.head.appendChild(s);
   }
 
+  /* FAQ accordion — .faq-q is a real <button>; sync aria-expanded + .open */
+  function setupFaq() {
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const q = item.querySelector('.faq-q');
+      if (!q) return;
+      q.addEventListener('click', () => {
+        const open = item.classList.toggle('open');
+        q.setAttribute('aria-expanded', String(open));
+      });
+    });
+  }
+
   function init() {
     setupLock();
     setupCountUps();
     setupSmoothScroll();
     setupVimeoFacade();
     setupCalendlyLazy();
+    setupFaq();
   }
 
   if (document.readyState === 'loading') {

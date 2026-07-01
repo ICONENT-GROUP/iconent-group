@@ -132,68 +132,13 @@
     </div>
 
     <!-- ==========================================================
-         SECTION 3 — PRICING BANNER (replaces the Calendly booking)
-         The challenge frame + two Stripe payment options.
+         FAST-PATH CTA — decided buyers jump straight to pricing
          ========================================================== -->
-    <section class="st-pricing" id="pricing">
-      <div class="st-pricing-atmo" aria-hidden="true"></div>
-      <p class="section-label">Get Started</p>
-      <h2>You didn't make the call list. <span class="accent">Prove me wrong.</span></h2>
-      <p class="lead">We didn't put you on the call schedule — that's the honest version. But sometimes the artist who doesn't look ready on paper is the one who's been quietly grinding. If that's you, you don't need to convince a setter. You just start.</p>
-
-      <div class="st-pricing-grid">
-
-        <!-- Card 1 — Month one -->
-        <div class="st-card">
-          <p class="st-card-plan">Month One</p>
-          <div class="st-price-row">
-            <span class="st-price">$690</span>
-            <span class="st-price-unit">/ month</span>
-          </div>
-          <p class="st-card-desc">Start now, month to month. Same program, same team building your plan — you skip the queue.</p>
-          <ul class="st-features">
-            <li class="st-feat">A&amp;R guidance &amp; project positioning</li>
-            <li class="st-feat">Release &amp; marketing strategy on real industry rhythms</li>
-            <li class="st-feat">Direct major-label relationships</li>
-            <li class="st-feat">Catalog audit, sequencing &amp; rollout planning</li>
-            <li class="st-feat">Month-to-month — stop whenever you want</li>
-          </ul>
-          <a class="sc-btn sc-btn-primary st-btn-ghost" href="https://buy.stripe.com/aFaaEQ1rUgZt8qledA04803">
-            Start month one →
-          </a>
-        </div>
-
-        <!-- Card 2 — 3 months upfront (best value) -->
-        <div class="st-card st-card--best">
-          <span class="st-card-ribbon">Best value · Save $570</span>
-          <p class="st-card-plan">Three Months — All In</p>
-          <p class="st-price-was">$2,070</p>
-          <div class="st-price-row">
-            <span class="st-price">$1,500</span>
-            <span class="st-price-unit">upfront</span>
-          </div>
-          <span class="st-save">You save $570 · $500/mo</span>
-          <p class="st-card-desc">Three months paid upfront. For the ones who don't need convincing — go all in and we move faster.</p>
-          <ul class="st-features">
-            <li class="st-feat">Everything in Month One</li>
-            <li class="st-feat">Three months locked in — no month-to-month gaps</li>
-            <li class="st-feat">Save $570 versus paying monthly</li>
-            <li class="st-feat">We move faster from day one</li>
-          </ul>
-          <a class="sc-btn sc-btn-primary" href="https://buy.stripe.com/00w5kwb2u7oTbCx9Xk04800">
-            Go all in →
-          </a>
-        </div>
-
-      </div>
-      <p class="st-trust">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="4" y="11" width="16" height="9" rx="2" />
-          <path d="M8 11V8a4 4 0 0 1 8 0v3" />
-        </svg>
-        Secure checkout powered by Stripe
-      </p>
-      <p class="st-guarantee">The only difference between you and the call list is that you decided instead of waiting to be picked.</p>
+    <section class="sc-cta-block">
+      <h2>Already decided? <span class="accent">Start now.</span></h2>
+      <a href="#pricing" class="sc-btn sc-btn-primary" data-scroll-to="pricing">
+        See your options →
+      </a>
     </section>
 
     <!-- ==========================================================
@@ -323,6 +268,71 @@
     </section>
 
     <!-- ==========================================================
+         PRICING BANNER — the offer reveal, after the value copy.
+         The challenge frame + two Stripe payment options.
+         ========================================================== -->
+    <section class="st-pricing" id="pricing">
+      <div class="st-pricing-atmo" aria-hidden="true"></div>
+      <p class="section-label">Get Started</p>
+      <h2>You didn't make the call list. <span class="accent">Prove me wrong.</span></h2>
+      <p class="lead">We didn't put you on the call schedule — that's the honest version. But sometimes the artist who doesn't look ready on paper is the one who's been quietly grinding. If that's you, you don't need to convince a setter. You just start.</p>
+
+      <div class="st-pricing-grid">
+
+        <!-- Card 1 — Month one -->
+        <div class="st-card">
+          <p class="st-card-plan">Month One</p>
+          <div class="st-price-row">
+            <span class="st-price">$690</span>
+            <span class="st-price-unit">/ month</span>
+          </div>
+          <p class="st-card-desc">Start now, month to month. Same program, same team building your plan — you skip the queue.</p>
+          <ul class="st-features">
+            <li class="st-feat">A&amp;R guidance &amp; project positioning</li>
+            <li class="st-feat">Release &amp; marketing strategy on real industry rhythms</li>
+            <li class="st-feat">Direct major-label relationships</li>
+            <li class="st-feat">Catalog audit, sequencing &amp; rollout planning</li>
+            <li class="st-feat">Month-to-month — stop whenever you want</li>
+          </ul>
+          <a class="sc-btn sc-btn-primary st-btn-ghost" href="https://buy.stripe.com/aFaaEQ1rUgZt8qledA04803">
+            Start month one →
+          </a>
+        </div>
+
+        <!-- Card 2 — 3 months upfront (best value) -->
+        <div class="st-card st-card--best">
+          <span class="st-card-ribbon">Best value · Save $570</span>
+          <p class="st-card-plan">Three Months — All In</p>
+          <p class="st-price-was">$2,070</p>
+          <div class="st-price-row">
+            <span class="st-price">$1,500</span>
+            <span class="st-price-unit">upfront</span>
+          </div>
+          <span class="st-save">You save $570 · $500/mo</span>
+          <p class="st-card-desc">Three months paid upfront. For the ones who don't need convincing — go all in and we move faster.</p>
+          <ul class="st-features">
+            <li class="st-feat">Everything in Month One</li>
+            <li class="st-feat">Three months locked in — no month-to-month gaps</li>
+            <li class="st-feat">Save $570 versus paying monthly</li>
+            <li class="st-feat">We move faster from day one</li>
+          </ul>
+          <a class="sc-btn sc-btn-primary" href="https://buy.stripe.com/00w5kwb2u7oTbCx9Xk04800">
+            Go all in →
+          </a>
+        </div>
+
+      </div>
+      <p class="st-trust">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="11" width="16" height="9" rx="2" />
+          <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+        </svg>
+        Secure checkout powered by Stripe
+      </p>
+      <p class="st-guarantee">The only difference between you and the call list is that you decided instead of waiting to be picked.</p>
+    </section>
+
+    <!-- ==========================================================
          TEAM — who you'll work with
          ========================================================== -->
     <section class="section">
@@ -358,6 +368,44 @@
         </div>
       </div>
     </section>
+
+    <!-- ==========================================================
+         FAQ — common questions
+         ========================================================== -->
+    <section class="section">
+      <p class="section-label">FAQ</p>
+      <h2>Common <span class="accent">questions</span></h2>
+      <div class="faq">
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">What is ICONENT GROUP?</button>
+          <p class="faq-a">A US-based artist project management agency for urban artists. The company runs a structured 90-day program covering A&amp;R direction, artist development, music distribution, release strategy, and marketing.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">What do I get when I start?</button>
+          <p class="faq-a">The same 90-day program the call list gets: a dedicated A&amp;R Lead and Project Manager working directly on your project — release rollout strategy, ad funnel design, content structure, feature strategy, playlist pitching, catalog audits, visual branding, and direct-to-fan monetization. Paying just skips the qualification call.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">What's the difference between the two options?</button>
+          <p class="faq-a">Same program either way. Month One is month-to-month — start now, stop whenever you want. Three Months — All In is paid upfront: you lock in three months, save $570 versus paying monthly, and the team moves faster from day one.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">How long is the program?</button>
+          <p class="faq-a">90 days, with the option to renew into a continued engagement at the end of the term. Month One lets you run it one month at a time; the three-month option covers the full term upfront.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">Is the payment secure?</button>
+          <p class="faq-a">Yes. Checkout is handled entirely by Stripe — we never see or store your card details. You'll get a receipt by email and the team reaches out to start onboarding.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">Is ICONENT GROUP legit?</button>
+          <p class="faq-a">Yes. Legally registered entity in the USA, running a structured 90-day artist development program with signed client agreements and a defined team — a Head of Artist Management, dedicated Project Managers, and A&amp;R support.</p>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button" aria-expanded="false">What happens right after I pay?</button>
+          <p class="faq-a">You get a confirmation, and the team contacts you to kick off onboarding — the intake, the catalog review, and building your plan. From there you work directly with your A&amp;R Lead and Project Manager.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ==========================================================
@@ -372,6 +420,6 @@
   <ic-footer></ic-footer>
 
   <script src="/assets/js/components.js?v=20260626b" defer></script>
-  <script src="/assets/js/strategy-call.js?v=20260522e" defer></script>
+  <script src="/assets/js/strategy-call.js?v=20260701d" defer></script>
 </body>
 </html>
