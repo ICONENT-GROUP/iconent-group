@@ -265,3 +265,11 @@ L'host (Cloudflare/Netlify/Vercel) ricostruisce e pubblica automaticamente in 30
 Se trovi qualcosa di strano nel codice o vuoi confermare un'assunzione, scrivi a Kenzo. La documentazione di questo file è completa: se serve dettaglio in più, è nei commenti CSS/JS dentro al repo.
 
 Buon deploy.
+
+---
+
+## Pending
+
+Fix noti non ancora applicati (in attesa di lavoro dedicato):
+
+- **pending: re-capture Spotify screenshots (spotify-listeners, spotify-saves-adds + webp -400/-800 derivati) with EN number-locale (122,413 not 122.413) and MM/DD dates — user-visible language defect on US site.** Le etichette dashboard sono già in inglese, ma i **numeri** usano il separatore migliaia europeo (punto) e le date sono in formato DD/M/YY. Un lettore US legge `122.413` come "122,413". Richiede ri-cattura degli screenshot con locale numerico EN, poi rigenerazione dei webp responsive `-400/-800`. Non è un fix testuale.
