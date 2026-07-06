@@ -1647,3 +1647,21 @@ body.pm-page                    .ic-fx-scene { --fx-color-rgb: 255, 106, 0; }
 @media (prefers-reduced-motion: reduce) {
   .ic-cookie-banner { animation: none; }
 }
+
+/* ============ a11y mobile (perf/tier1, additivo, reflow-verificato) ============
+   Tap-target >=44px (faq toggle, icone social) + micro-label a min 12px.
+   Solo classi globali di components.css -> cascade-safe. Elementi a rischio
+   reflow (proof-card-label, service-card, logo header, link contatti) esclusi. */
+@media (max-width: 768px) {
+  .ic-hdr-mobile-label,
+  .hero-scroll-hint,
+  .compare-label,
+  .partners-label,
+  .ic-ftr-block-tagline,
+  .ic-ftr-block-address,
+  .ic-ftr-block-copyright { font-size: 12px; }
+
+  .faq-q { min-height: 44px; }
+
+  .ic-ftr-block-social a { width: 44px; height: 44px; }
+}
