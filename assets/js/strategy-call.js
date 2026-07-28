@@ -83,23 +83,29 @@
     });
   }
 
-  /* Vimeo facade — defers Vimeo player JS until user clicks Play.
-     Cuts ~20s LCP on mobile (Vimeo iframe + its embedded player.js are
-     a heavy third-party payload). */
-  function setupVimeoFacade() {
-    document.querySelectorAll('[data-vimeo-facade]').forEach((wrap) => {
+  /* Video facade — nothing is fetched until the user clicks Play, so the
+     poster is the only cost on first paint. Same trick as the old Vimeo
+     facade (which saved ~20s LCP on mobile), except the file is now ours:
+     self-hosted on the Vercel CDN, no third-party player, no cookies.
+     The mp4 is 1080p/faststart: nothing downloads until Play, and the moov
+     atom is up front so playback starts while the rest still streams. */
+  function setupVideoFacade() {
+    document.querySelectorAll('[data-video-facade]').forEach((wrap) => {
       const playBtn = wrap.querySelector('.sc-video-play');
-      const vimeoId = wrap.getAttribute('data-vimeo-id');
-      if (!playBtn || !vimeoId) return;
+      const src = wrap.getAttribute('data-video-src');
+      if (!playBtn || !src) return;
 
       const swap = () => {
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0`;
-        iframe.allow = 'autoplay; fullscreen; picture-in-picture';
-        iframe.allowFullscreen = true;
-        iframe.title = 'ICONENT — Major Label Distribution';
-        // Replace poster + play button with the real iframe in one DOM op
-        wrap.replaceChildren(iframe);
+        const video = document.createElement('video');
+        video.src = src;
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true; // iOS: play inline instead of going fullscreen
+        video.preload = 'auto';
+        video.setAttribute('title', 'ICONENT — Major Label Distribution');
+        trackProgress(video);
+        // Replace poster + play button with the real player in one DOM op
+        wrap.replaceChildren(video);
       };
 
       playBtn.addEventListener('click', swap);
@@ -107,6 +113,32 @@
       // on touch devices where tapping the image feels like "play").
       const poster = wrap.querySelector('.sc-video-poster');
       if (poster) poster.addEventListener('click', swap);
+    });
+  }
+
+  /* Retention milestones — the one thing a hosted player gave us for free.
+     Fires each quarter once, so we still know where viewers drop off. */
+  function trackProgress(video) {
+    const marks = [25, 50, 75, 100];
+    const fired = new Set();
+    const send = (pct) => {
+      if (typeof window.fbq === 'function') {
+        window.fbq('trackCustom', 'VSLProgress', { percent: pct });
+      }
+    };
+    video.addEventListener('play', function onFirst() {
+      send(0);
+      video.removeEventListener('play', onFirst);
+    });
+    video.addEventListener('timeupdate', () => {
+      if (!video.duration) return;
+      const pct = (video.currentTime / video.duration) * 100;
+      marks.forEach((m) => {
+        if (pct >= m && !fired.has(m)) {
+          fired.add(m);
+          send(m);
+        }
+      });
     });
   }
 
@@ -153,7 +185,7 @@
     setupLock();
     setupCountUps();
     setupSmoothScroll();
-    setupVimeoFacade();
+    setupVideoFacade();
     setupCalendlyLazy();
     setupFaq();
   }
