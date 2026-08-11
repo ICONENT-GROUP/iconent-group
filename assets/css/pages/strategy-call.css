@@ -748,6 +748,29 @@ body.strategy-call-page { padding-top: 0; }
   display: flex;
   flex-direction: column;
 }
+/* The nurture-email banner, full-bleed to the card edges (negative margins
+   cancel the card padding) and dissolved into the card background by the
+   gradient, so nothing sits on a hard image edge. */
+.sc-month-banner {
+  margin: -32px -28px 22px;
+  border-radius: 7px 7px 0 0;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 1200 / 380;
+}
+/* Masked rather than covered by an opaque gradient: the image dissolves into
+   whatever the card background actually is, so there is no seam where a
+   hardcoded end colour fails to match the card's own tint. */
+.sc-month-banner img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-mask-image: linear-gradient(180deg,
+    #000 0%, #000 40%, rgba(0, 0, 0, 0.55) 72%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(180deg,
+    #000 0%, #000 40%, rgba(0, 0, 0, 0.55) 72%, rgba(0, 0, 0, 0) 100%);
+}
 .sc-month-num {
   font-size: 11px;
   color: var(--ic-green);
@@ -806,18 +829,20 @@ body.strategy-call-page { padding-top: 0; }
 @media (max-width: 900px) {
   .sc-months { grid-template-columns: 1fr; gap: 16px; }
   .sc-month { padding: 28px 24px; }
+  .sc-month-banner { margin: -28px -24px 20px; }
 }
 
-/* Rows line up across the three cards (label / title / lede / milestones) so
-   the divider rules sit at one height regardless of lede length. Falls back to
-   the flex column above where subgrid is unsupported — ragged, still correct. */
+/* Rows line up across the three cards (banner / label / title / lede /
+   milestones) so the divider rules sit at one height regardless of lede
+   length. Falls back to the flex column above where subgrid is unsupported —
+   ragged, still correct. */
 @supports (grid-template-rows: subgrid) {
   @media (min-width: 901px) {
-    .sc-months { grid-template-rows: auto auto auto auto; }
+    .sc-months { grid-template-rows: auto auto auto auto auto; }
     .sc-month {
       display: grid;
       grid-template-rows: subgrid;
-      grid-row: span 4;
+      grid-row: span 5;
     }
   }
 }
