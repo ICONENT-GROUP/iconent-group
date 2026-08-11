@@ -730,3 +730,119 @@ body.strategy-call-page { padding-top: 0; }
 @media (max-width: 900px) {
   .sc-team-grid { grid-template-columns: 1fr; gap: 20px; }
 }
+
+/* =================================================================
+   90-DAY BREAKDOWN — three month cards, milestones in tracker order
+   ================================================================= */
+.sc-months {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 40px 0 0;
+}
+.sc-month {
+  border: 1px solid var(--ic-rule);
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+}
+/* The nurture-email banner, full-bleed to the card edges (negative margins
+   cancel the card padding) and dissolved into the card background by the
+   gradient, so nothing sits on a hard image edge. */
+.sc-month-banner {
+  margin: -32px -28px 22px;
+  border-radius: 7px 7px 0 0;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 1200 / 380;
+}
+/* Masked rather than covered by an opaque gradient: the image dissolves into
+   whatever the card background actually is, so there is no seam where a
+   hardcoded end colour fails to match the card's own tint. */
+.sc-month-banner img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-mask-image: linear-gradient(180deg,
+    #000 0%, #000 40%, rgba(0, 0, 0, 0.55) 72%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(180deg,
+    #000 0%, #000 40%, rgba(0, 0, 0, 0.55) 72%, rgba(0, 0, 0, 0) 100%);
+}
+.sc-month-num {
+  font-size: 11px;
+  color: var(--ic-green);
+  letter-spacing: var(--tracking-uppercase);
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.sc-month-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin: 0 0 14px;
+}
+.sc-month-lede {
+  font-size: 14px;
+  color: var(--ic-muted);
+  line-height: 1.6;
+  margin: 0 0 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--ic-rule);
+}
+.sc-month-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: sc-milestone;
+}
+.sc-month-list li {
+  counter-increment: sc-milestone;
+  position: relative;
+  padding: 0 0 0 34px;
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ic-text);
+}
+.sc-month-list li:last-child { margin-bottom: 0; }
+.sc-month-list li::before {
+  content: counter(sc-milestone);
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 22px;
+  height: 22px;
+  border: 1px solid rgba(0, 255, 136, 0.35);
+  border-radius: 50%;
+  color: var(--ic-green);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 900px) {
+  .sc-months { grid-template-columns: 1fr; gap: 16px; }
+  .sc-month { padding: 28px 24px; }
+  .sc-month-banner { margin: -28px -24px 20px; }
+}
+
+/* Rows line up across the three cards (banner / label / title / lede /
+   milestones) so the divider rules sit at one height regardless of lede
+   length. Falls back to the flex column above where subgrid is unsupported —
+   ragged, still correct. */
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 901px) {
+    .sc-months { grid-template-rows: auto auto auto auto auto; }
+    .sc-month {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 5;
+    }
+  }
+}
