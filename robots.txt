@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Private flows — ads landings + post-submit. Already noindex via <meta>.
+# Private flows: ads landings + post-submit. Already noindex via <meta>.
 Disallow: /strategy-call
 Disallow: /artist-management-application
 Disallow: /major-label-application

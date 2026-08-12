@@ -1,6 +1,6 @@
 # ICONENT GROUP
 
-> US-based music industry company for urban artists. We manage the parts most artists are left figuring out on their own — positioning, planning, content, rollout, team coordination, and long-term growth.
+> US-based music industry company for urban artists. We manage the parts most artists are left figuring out on their own: positioning, planning, content, rollout, team coordination, and long-term growth.
 
 _Last updated: 2026-06-21_
 
@@ -10,24 +10,24 @@ ICONENT GROUP is a US-based music agency, registered in Wyoming. Headquartered a
 
 ## Services
 
-- **Project Management** — full execution layer for artist careers. Three-step framework: Foundation, Sound & Brand, Launch. Standard 90-day program, renewable.
-- **Spotify Promotion** — editorial pitching, Spotify and Meta ad campaigns, save-rate optimization, catalog audit and re-pitching.
-- **YouTube Promotion** — music video distribution, TrueView campaigns optimized for view-through rate, channel and topic-channel growth, Shorts integration.
-- **Instagram Promotion** — Reels strategy, Meta ad campaigns with proper funnel, audience growth on real engagement data.
-- **TikTok Promotion** — sound seeding, creator partnerships, catalog discovery campaigns.
-- **Artist Development** — A&R direction, brand positioning, sound identity, track selection and sequencing.
-- **Music Distribution** — coordination with major-tier partners (Sony, Warner, Universal, Believe, Ingrooves, TuneCore, DistroKid).
-- **Release Strategy** — release calendar, single sequencing, drop timing tied to industry cycles.
-- **Catalog Management** — rights tracking, royalty registration, catalog growth strategies.
-- **Music Business Consulting** — deal structure review, contract guidance, label-readiness audits.
+- **Project Management**: full execution layer for artist careers. Three-step framework: Foundation, Sound & Brand, Launch. Standard 90-day program, renewable.
+- **Spotify Promotion**: editorial pitching, Spotify and Meta ad campaigns, save-rate optimization, catalog audit and re-pitching.
+- **YouTube Promotion**: music video distribution, TrueView campaigns optimized for view-through rate, channel and topic-channel growth, Shorts integration.
+- **Instagram Promotion**: Reels strategy, Meta ad campaigns with proper funnel, audience growth on real engagement data.
+- **TikTok Promotion**: sound seeding, creator partnerships, catalog discovery campaigns.
+- **Artist Development**: A&R direction, brand positioning, sound identity, track selection and sequencing.
+- **Music Distribution**: coordination with major-tier partners (Sony, Warner, Universal, Believe, Ingrooves, TuneCore, DistroKid).
+- **Release Strategy**: release calendar, single sequencing, drop timing tied to industry cycles.
+- **Catalog Management**: rights tracking, royalty registration, catalog growth strategies.
+- **Music Business Consulting**: deal structure review, contract guidance, label-readiness audits.
 
 ## Method
 
 Three-step framework applied to every project:
 
-1. **Foundation** — Artist analysis, brand development, communication strategy, positioning audit. Diagnose where the career is actually stuck.
-2. **Sound & Brand** — Sound identity, track development, content strategy, creative direction. Shape the music and the visual layer around it.
-3. **Launch** — Release strategy, distribution coordination, marketing and ads, editorial pitching. Get the music in front of the right people.
+1. **Foundation**: Artist analysis, brand development, communication strategy, positioning audit. Diagnose where the career is actually stuck.
+2. **Sound & Brand**: Sound identity, track development, content strategy, creative direction. Shape the music and the visual layer around it.
+3. **Launch**: Release strategy, distribution coordination, marketing and ads, editorial pitching. Get the music in front of the right people.
 
 ## Case Studies
 
@@ -48,9 +48,9 @@ Three-step framework applied to every project:
 
 ## Team
 
-- **Hayden** — Head of Artist Management & A&R Lead (Nashville, TN). Four years across audio engineering, DJing, A&R, and project management.
-- **Jack** — Project Manager. Four years as an artist manager. Owns release rollouts, content schedules, catalog work.
-- **Joe** — Project Manager & A&R Support. Three years in artist management. Focus on content structure, release calendars, production direction.
+- **Hayden**: Head of Artist Management & A&R Lead (Nashville, TN). Four years across audio engineering, DJing, A&R, and project management.
+- **Jack**: Project Manager. Four years as an artist manager. Owns release rollouts, content schedules, catalog work.
+- **Joe**: Project Manager & A&R Support. Three years in artist management. Focus on content structure, release calendars, production direction.
 
 ## How It Works
 
@@ -90,7 +90,7 @@ A: Urban artists with an existing catalog and commitment to long-term career bui
 A: Standard 90-day program. Most artists renew into a continued engagement at the end of the term.
 
 **Q: Do you guarantee results?**
-A: No. ICONENT guarantees structure, professional execution, and an honest diagnosis of what's holding a project back — not viral hits.
+A: No. ICONENT guarantees structure, professional execution, and an honest diagnosis of what's holding a project back, not viral hits.
 
 **Q: Does ICONENT replace my existing team?**
 A: No. ICONENT integrates with existing engineers, producers, videographers, and coordinates them inside the release plan.
@@ -114,11 +114,11 @@ A: Free review call at https://calendly.com/d/cxy6-2pj-4zj/iconent-artist-discov
 
 ## Pages
 
-- / — Home
-- /about-us — About, team, mission, locations
-- /services-project-management — Project Management (featured service)
-- /services-spotify — Spotify Promotion
-- /services-youtube — YouTube Promotion
-- /services-instagram — Instagram Promotion
-- /services-tiktok — TikTok Promotion
-- /contact-us — Contact, free review call booking
+- /: Home
+- /about-us: About, team, mission, locations
+- /services-project-management: Project Management (featured service)
+- /services-spotify: Spotify Promotion
+- /services-youtube: YouTube Promotion
+- /services-instagram: Instagram Promotion
+- /services-tiktok: TikTok Promotion
+- /contact-us: Contact, free review call booking
