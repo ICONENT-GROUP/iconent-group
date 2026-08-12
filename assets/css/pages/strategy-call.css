@@ -773,14 +773,9 @@ body.strategy-call-page { padding-top: 0; }
   height: 100%;
   object-fit: cover;
 }
-/* Month two's source bleeds its subject off both the top and bottom of the
-   frame (measured: 0%-99.7% of frame height) where months one and three sit
-   clear of the edges. Scaled back and nudged down so its mass lands at ~48%,
-   between the other two, and its top clears the card edge. The backdrop above
-   is the same black as the image's own margins, so the inset leaves no band. */
-.sc-month-banner--inset img {
-  transform: scale(0.9) translateY(3px);
-}
+/* Month two's framing is corrected in the asset itself
+   (nur90-m2-sound-brand-web.jpg), not here: insetting it with a transform
+   left the backdrop showing as a black frame around the image. */
 .sc-month-num {
   font-size: 11px;
   color: var(--ic-green);
