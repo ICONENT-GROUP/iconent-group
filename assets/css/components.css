@@ -1665,3 +1665,24 @@ body.pm-page                    .ic-fx-scene { --fx-color-rgb: 255, 106, 0; }
 
   .ic-ftr-block-social a { width: 44px; height: 44px; }
 }
+
+/* ============ tap target: logo header e link del footer ============
+   Sono larghi ma alti 15-18px, quindi il bersaglio touch resta sotto la
+   soglia dei 44px. Misurato su iPhone: logo 35px, mail 36px, legali 15px.
+   Estendiamo SOLO l'area tappabile con uno pseudo-elemento trasparente
+   alto 44px centrato sul link: nessuno spostamento a video, stessa
+   estetica. Stessa soluzione gia' in uso sul sito italiano. */
+.ic-hdr-logo,
+.ic-ftr-block-legal a,
+.ic-ftr-block-address a { position: relative; }
+.ic-hdr-logo::after,
+.ic-ftr-block-legal a::after,
+.ic-ftr-block-address a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 44px;
+  transform: translateY(-50%);
+}
