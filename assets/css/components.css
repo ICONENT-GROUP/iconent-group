@@ -1330,16 +1330,22 @@ body:has(> .ic-fx-scene--global) .cta-block,
 body:has(> .ic-fx-scene--global) .proof,
 body:has(> .ic-fx-scene--global) .marquee,
 body:has(> .ic-fx-scene--global) .partners,
-body:has(> .ic-fx-scene--global) .banner-image {
+body:has(> .ic-fx-scene--global) .banner-image,
+body:has(> .ic-fx-scene--global) .ic-ftr-block {
   background: transparent;
 }
 body:has(> .ic-fx-scene--global) .cta-block,
 body:has(> .ic-fx-scene--global) .proof,
-body:has(> .ic-fx-scene--global) .marquee {
+body:has(> .ic-fx-scene--global) .marquee,
+body:has(> .ic-fx-scene--global) .ic-ftr-block {
   border-top: 1px solid;
-  border-bottom: 1px solid;
   border-image: linear-gradient(90deg,
     transparent 0%, #1C1C1C 30%, #1C1C1C 70%, transparent 100%) 1;
+}
+body:has(> .ic-fx-scene--global) .cta-block,
+body:has(> .ic-fx-scene--global) .proof,
+body:has(> .ic-fx-scene--global) .marquee {
+  border-bottom: 1px solid;
 }
 
 /* Scroll-driven darkening overlay (home page only) */
