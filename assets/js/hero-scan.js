@@ -145,8 +145,18 @@
     cv.width = W; cv.height = H;
     cv.setAttribute('aria-hidden', 'true');
     cv.setAttribute('data-hero-scan', '1');
-    cv.style.cssText = 'position:fixed;left:' + rect.left + 'px;top:' + rect.top +
-      'px;width:' + rect.width + 'px;height:' + rect.height +
+    // ABSOLUTE, in page coordinates -- not fixed. A fixed overlay is pinned to the
+    // viewport while the wordmark scrolls away with the page, so scrolling during
+    // the ~1.9s sweep tore the two apart and left the band burning (blend:screen)
+    // over whatever section had slid underneath. Absolute means the browser scrolls
+    // the canvas together with the wordmark on the compositor: they cannot drift,
+    // and there is no one-frame lag to chase in rAF. html/body are both static with
+    // no transform/filter/contain, so the containing block is the page itself.
+    var pinX = rect.left + window.pageXOffset;   // where the wordmark sits ON THE PAGE
+    var pinY = rect.top + window.pageYOffset;
+    var pinW = rect.width, pinH = rect.height;
+    cv.style.cssText = 'position:absolute;left:' + pinX + 'px;top:' + pinY +
+      'px;width:' + pinW + 'px;height:' + pinH +
       'px;pointer-events:none;z-index:9;mix-blend-mode:screen;';
     document.body.appendChild(cv);
     var ctx = cv.getContext('2d');
@@ -159,6 +169,31 @@
       var t = (now - t0) / DUR;
       ctx.clearRect(0, 0, W, H);
       if (t >= 1.25) { cv.remove(); return; }   // done -> remove, wordmark stays
+
+      // Safety net: the scan lives on the ICONENT GROUP / ICONENT AGENCY wordmark
+      // and NOWHERE else. Absolute positioning already handles scrolling, but the H1
+      // still moves and resizes under the overlay -- its entry scale() is easing
+      // from ~0.88 to 1 while the sweep runs, and a late webfont swap or a zoom can
+      // reflow it too. So each frame: re-pin if it drifted, drop it once the wordmark
+      // is off screen. Measured in PAGE coordinates, so a plain scroll (which moves
+      // both together) stays quiet and only real movement triggers a re-pin. Resizing
+      // the CSS box leaves the bitmap resolution alone and stretches the drawing with
+      // the letters, which is what a uniform scale needs.
+      var live = h1.getBoundingClientRect();
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      if (live.bottom <= 0 || live.top >= vh) { cv.remove(); return; }
+      var nowX = live.left + window.pageXOffset, nowY = live.top + window.pageYOffset;
+      if (Math.abs(nowY - pinY) > 0.5 || Math.abs(nowX - pinX) > 0.5) {
+        pinX = nowX; pinY = nowY;
+        cv.style.left = pinX + 'px';
+        cv.style.top = pinY + 'px';
+      }
+      if (Math.abs(live.width - pinW) > 0.5 || Math.abs(live.height - pinH) > 0.5) {
+        pinW = live.width; pinH = live.height;
+        cv.style.width = pinW + 'px';
+        cv.style.height = pinH + 'px';
+      }
+
       var scan = 1.12 - t * 1.24;               // sweep bottom(1.12) -> top(-0.12)
       var fade = t > 1 ? Math.max(0, 1 - (t - 1) / 0.25) : 1;
       ctx.globalCompositeOperation = 'lighter';
