@@ -1310,6 +1310,38 @@ ic-header.is-open .ic-hdr-mobile { display: flex; }
 .ic-fx-resizing .ic-fx-scene {
   visibility: hidden;
 }
+/* ------------------------------------------------------------------
+   Sezioni a filo con la scena olografica.
+
+   .cta-block, .proof, .marquee, .partners e .banner-image dipingono
+   background: var(--ic-bg), cioè #0A0A0A. Su una pagina normale è lo
+   stesso colore del body e non si vede. Ma dove la scena globale è
+   attiva il fondo reale scende a circa rgb(2,2,2) con un velo di teal,
+   quindi quel #0A0A0A diventa un rettangolo cinque volte più chiaro e
+   grigio: le sezioni si leggono come schede incollate sopra la pagina,
+   chiuse da un righello netto. Qui le rendiamo trasparenti (la scena
+   scorre continua sotto tutto) e il righello diventa una sfumatura che
+   svanisce ai lati invece di tagliare da bordo a bordo.
+
+   Limitato a :has(> .ic-fx-scene--global), cioè home e strategy-call:
+   sulle altre pagine il fondo opaco resta e non cambia niente.
+   ------------------------------------------------------------------ */
+body:has(> .ic-fx-scene--global) .cta-block,
+body:has(> .ic-fx-scene--global) .proof,
+body:has(> .ic-fx-scene--global) .marquee,
+body:has(> .ic-fx-scene--global) .partners,
+body:has(> .ic-fx-scene--global) .banner-image {
+  background: transparent;
+}
+body:has(> .ic-fx-scene--global) .cta-block,
+body:has(> .ic-fx-scene--global) .proof,
+body:has(> .ic-fx-scene--global) .marquee {
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  border-image: linear-gradient(90deg,
+    transparent 0%, #1C1C1C 30%, #1C1C1C 70%, transparent 100%) 1;
+}
+
 /* Scroll-driven darkening overlay (home page only) */
 .ic-fx-darken {
   position: fixed;
