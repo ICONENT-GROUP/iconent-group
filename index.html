@@ -36,6 +36,10 @@
   <meta name="geo.placename" content="New York" />
   <meta name="geo.position" content="40.7058;-74.0080" />
   <meta name="ICBM" content="40.7058, -74.0080" />
+  <!-- Il Meta Pixel lo carica il JS, quindi il browser scopre
+       connect.facebook.net tardi e apre DNS+TLS solo quando gli serve.
+       Lighthouse: 315 ms mobile, 345 ms desktop. -->
+  <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=20260522e" />
   <link rel="stylesheet" href="/assets/css/base.css?v=20260523c" />
   <link rel="stylesheet" href="/assets/css/components.css?v=20260813c" />
@@ -433,6 +437,7 @@
         "name": "ICONENT GROUP",
         "alternateName": "Iconent Group",
         "legalName": "ICONENT GROUP",
+        "foundingDate": "2025",
         "url": "https://iconent-group.com/",
         "logo": "https://iconent-group.com/assets/img/logo-iconent-circular.png",
         "image": "https://iconent-group.com/assets/img/banner-map.jpg",
@@ -522,8 +527,6 @@
           { "@type": "Question", "name": "How does the program work?", "acceptedAnswer": { "@type": "Answer", "text": "The first step is a free review call with our Project Manager. It's a diagnostic call where we look at current numbers, releases, content, and structure, and identify the specific gaps. From there, if there's a fit, we build a custom plan." } },
           { "@type": "Question", "name": "Do you guarantee results?", "acceptedAnswer": { "@type": "Answer", "text": "No. Honest A&R work doesn't come with guaranteed viral hits or stream counts. What we guarantee is structure, professional execution, and an honest read of what's holding your project back." } },
           { "@type": "Question", "name": "What if I can't afford it right now?", "acceptedAnswer": { "@type": "Answer", "text": "The review call is free, and the budget is set after we understand the project, not before. Programs are structured to fit different stages of an artist's career, including artists earning under $1K a month off streams." } },
-          { "@type": "Question", "name": "How much does it cost?", "acceptedAnswer": { "@type": "Answer", "text": "Pricing is custom per project, set after the free review call once we understand scope. Standard 90-day program, renewable." } },
-          { "@type": "Question", "name": "Where is ICONENT GROUP based?", "acceptedAnswer": { "@type": "Answer", "text": "Headquartered at 99 Wall Street, New York, NY 10005, with a distributed team across Nashville, Chicago, Los Angeles, and New York." } },
           { "@type": "Question", "name": "How do I start?", "acceptedAnswer": { "@type": "Answer", "text": "Book a free review call. No commitment, no obligation, just a straight conversation about where your project is and where it could go." } }
         ]
       }

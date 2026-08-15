@@ -36,6 +36,10 @@
   <meta name="geo.placename" content="New York" />
   <meta name="geo.position" content="40.7058;-74.0080" />
   <meta name="ICBM" content="40.7058, -74.0080" />
+  <!-- Il Meta Pixel lo carica il JS, quindi il browser scopre
+       connect.facebook.net tardi e apre DNS+TLS solo quando gli serve.
+       Lighthouse: 315 ms mobile, 345 ms desktop. -->
+  <link rel="preconnect" href="https://connect.facebook.net" crossorigin />
   <link rel="stylesheet" href="/assets/css/tokens.css?v=20260522e" />
   <link rel="stylesheet" href="/assets/css/base.css?v=20260523c" />
   <link rel="stylesheet" href="/assets/css/components.css?v=20260813c" />
