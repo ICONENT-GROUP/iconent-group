@@ -14,7 +14,7 @@
           </div>
         </div>
         <a href="/" data-path="/">Home</a>
-        <a class="ic-hdr-cta" href="/contact-us" data-path="/contact-us">Contact Us</a>
+        <a class="ic-hdr-cta" href="mailto:info@iconent-group.com">Contact Us</a>
       </nav>
       <button class="ic-hdr-burger" type="button" aria-label="Open menu" aria-expanded="false"></button>
     </header>
@@ -30,7 +30,7 @@
       <a href="/services-youtube"    data-path="/services-youtube">YouTube</a>
       <a href="/services-instagram"  data-path="/services-instagram">Instagram</a>
       <a href="/services-tiktok"     data-path="/services-tiktok">TikTok</a>
-      <a class="ic-hdr-cta ic-hdr-mobile-contact" href="/contact-us" data-path="/contact-us">Contact Us</a>
+      <a class="ic-hdr-cta ic-hdr-mobile-contact" href="mailto:info@iconent-group.com">Contact Us</a>
     </div>`;
 
   const FOOTER_HTML = `
